@@ -1,26 +1,26 @@
 CREATE TABLE ferramentas (
-    id_ferramentas SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(100) not null,
     marca VARCHAR(255) not null,
     custo NUMERIC not null
 );
 
 CREATE TABLE amigos (
-    id_amigos SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(100) not null,
     apelido VARCHAR(100) not null ,
     telefone VARCHAR(20) not null
 );
 
 CREATE TABLE emprestimos (
-	id_emprestimos SERIAL PRIMARY KEY,
-	id_ferramentas INT NOT NULL,
-	id_amigos INT NOT NULL,
+	id SERIAL PRIMARY KEY,
+	id_ferramenta INT NOT NULL,
+	id_amigo INT NOT NULL,
 	data_inicial DATE NOT NULL,
 	data_prazo DATE NOT NULL,
 	data_devolucao DATE,
-	FOREIGN KEY (id_ferramentas) REFERENCES ferramentas(id_ferramentas),
-	FOREIGN KEY (id_amigos) REFERENCES amigos(id_amigos)
+	FOREIGN KEY (id_ferramenta) REFERENCES ferramentas(id),
+	FOREIGN KEY (id_amigo) REFERENCES amigos(id)
 );
 
 -- Inserindo dados na tabela ferramentas
@@ -35,7 +35,7 @@ INSERT INTO amigos (nome, apelido, telefone) VALUES
 ('Maria Santos', 'Mary', '987654321'),
 ('Pedro Oliveira', 'Pedrinho', '555555555');
 
-INSERT INTO emprestimos (id_ferramentas, id_amigos, data_inicial, data_prazo, data_devolucao)
+INSERT INTO emprestimos (id_ferramenta, id_amigo, data_inicial, data_prazo, data_devolucao)
 VALUES
 (1, 1, '2024-04-28', '2024-05-05', '2024-05-05'),  -- Amigo 1 emprestou ferramenta 1
 (2, 2, '2024-05-10', '2024-05-15', NULL),           -- Amigo 2 emprestou ferramenta 2
@@ -50,36 +50,45 @@ INSERT INTO ferramentas (nome, marca, custo) VALUES
 INSERT INTO amigos (nome, apelido, telefone) VALUES
 (?, ?, ?);
 
+INSERT INTO emprestimos (id_ferramenta, id_amigo, data_inicial, data_prazo, data_devolucao) VALUES
+(?, ?, ?, ?, ?);   
+
 
 --querys
 
-SELECT id_emprestimos,ferramentas.id_ferramentas,amigos.id_amigos,data_inicial,data_devolucao,ferramentas.nome AS nome_ferramenta, 
+-- retorna os emprestimos
+SELECT emprestimos.id as id_emprestimo,ferramentas.id as id_ferramenta,amigos.id as id_amigo,data_inicial,data_devolucao,ferramentas.nome AS nome_ferramenta, 
        amigos.nome AS nome_amigo,apelido FROM emprestimos
-JOIN ferramentas ON emprestimos.id_ferramentas = ferramentas.id_ferramentas
-JOIN amigos ON emprestimos.id_amigos = amigos.id_amigos
+JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id
+JOIN amigos ON emprestimos.id_amigo = amigos.id
 ORDER BY nome_amigo ASC;
 
-SELECT amigos.id_amigos, 
+--retorna quem tem mais emprestimos
+SELECT amigos.id, 
        amigos.nome AS nome_amigo, 
-       COUNT(emprestimos.id_emprestimos) AS quantidade_emprestimos
+       COUNT(emprestimos.id) AS quantidade_emprestimos
 FROM amigos
-JOIN emprestimos ON amigos.id_amigos = emprestimos.id_amigos
-GROUP BY amigos.id_amigos, amigos.nome
+JOIN emprestimos ON amigos.id = emprestimos.id_amigo
+GROUP BY amigos.id, amigos.nome
 ORDER BY quantidade_emprestimos DESC
 LIMIT 1;
 
+--retorna ferramentas
 SELECT * FROM ferramentas
 ORDER BY nome ASC;
 
+--retorna amigos
 SELECT * FROM amigos
 ORDER BY nome ASC;
 
+--retorna amigo solicitado verificando se ele tem emprestimo em aberto
 SELECT * FROM emprestimos
-JOIN amigos ON emprestimos.id_amigos = amigos.id_amigos
-WHERE emprestimos.id_amigos=1 AND data_devolucao IS NULL;
+JOIN amigos ON emprestimos.id_amigo = amigos.id
+WHERE emprestimos.id_amigo=1 AND data_devolucao IS NULL;
 
+--retorna os emprestimos devolvidos
 SELECT * FROM emprestimos
-JOIN ferramentas ON emprestimos.id_ferramentas = ferramentas.id_ferramentas
+JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id
 WHERE data_devolucao IS NOT NULL;
 
 --updates 
@@ -107,4 +116,4 @@ WHERE id_amigos = 1;
 DELETE FROM emprestimos
 WHERE id_emprestimos = ?;
 
-DROP TABLE emprestimos;
+DROP TABLE ferramentas;
