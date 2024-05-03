@@ -69,7 +69,7 @@ SELECT amigos.id,
        COUNT(emprestimos.id) AS quantidade_emprestimos
 FROM amigos
 JOIN emprestimos ON amigos.id = emprestimos.id_amigo
-GROUP BY amigos.id, amigos.nome
+GROUP BY amigos.id
 ORDER BY quantidade_emprestimos DESC
 LIMIT 1;
 
