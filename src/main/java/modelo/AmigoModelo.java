@@ -14,7 +14,20 @@ public class AmigoModelo {
 
     private static final AmigoDAO DAO = new AmigoDAO();
 
+    //contrutor vazio
+    public AmigoModelo(){
+        this("","","");
+    }
+
     public AmigoModelo(String nome, String apelido, String telefone) {
+        this.nome = nome;
+        this.apelido = apelido;
+        this.telefone = telefone;
+    }
+
+    //contrutor para testes com id
+    public AmigoModelo(int id, String nome, String apelido, String telefone) {
+        this.id = id;
         this.nome = nome;
         this.apelido = apelido;
         this.telefone = telefone;
@@ -70,5 +83,15 @@ public class AmigoModelo {
 
     public static void excluir(Integer id) throws ExceptionDAO {
         DAO.delete(id);
+    }
+
+    //faz com que o print saia legivel
+    public String toString() {
+        return "AmigoModelo{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", apelido='" + apelido + '\'' +
+                ", telefone='" + telefone + '\'' +
+                '}';
     }
 }
