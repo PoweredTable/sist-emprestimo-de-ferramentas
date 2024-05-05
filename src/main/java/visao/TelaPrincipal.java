@@ -153,6 +153,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButtonNewAmigos.setForeground(new java.awt.Color(0, 0, 0));
         jButtonNewAmigos.setText("AMIGOS");
         jButtonNewAmigos.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
+        jButtonNewAmigos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNewAmigosActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButtonNewAmigos);
 
         jPanel6.setBackground(new java.awt.Color(64, 64, 64));
@@ -205,6 +210,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButtonEmDia.setForeground(new java.awt.Color(255, 187, 0));
         jButtonEmDia.setText("EM DIA");
         jButtonEmDia.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jButtonEmDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEmDiaActionPerformed(evt);
+            }
+        });
         jPanel7.add(jButtonEmDia);
 
         jButtonAtrasados.setBackground(new java.awt.Color(46, 46, 46));
@@ -247,13 +257,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(BGLayout.createSequentialGroup()
                                 .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(BGLayout.createSequentialGroup()
                                         .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -284,8 +294,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(BGLayout.createSequentialGroup()
                         .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jSeparator1))
+                            .addComponent(jSeparator1)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,6 +313,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jButtonLixeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLixeiraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonLixeiraActionPerformed
+
+    private void jButtonEmDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmDiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEmDiaActionPerformed
+
+    private void jButtonNewAmigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewAmigosActionPerformed
+        // TODO add your handling code here:
+        TelaAmigos amigos = new TelaAmigos();
+        amigos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonNewAmigosActionPerformed
 
     /**
      * @param args the command line arguments
