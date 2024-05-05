@@ -99,21 +99,21 @@ WHERE id_ferramentas = ?;
 
 UPDATE amigos
 SET nome = ?, apelido = ?, telefone = ?
-WHERE id_amigos = ?;
+WHERE id = ?;
 
 UPDATE emprestimo
 SET data_devolucao=?
-WHERE id_amigos = ?;
+WHERE id = ?;
 
 --deletes 
 
 DELETE FROM ferramentas
-WHERE id_ferramentas = ?;
+WHERE id = ?;
 
 DELETE FROM amigos
-WHERE id_amigos = 1;
+WHERE id = 1;
 
 DELETE FROM emprestimos
-WHERE id_emprestimos = ?;
+WHERE id = ?;
 
 DROP TABLE ferramentas;
