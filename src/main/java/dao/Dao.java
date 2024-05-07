@@ -5,13 +5,13 @@ import java.util.Optional;
 
 public interface Dao<T> {
 
-    Optional<T> get(Integer id) throws ExceptionDAO;
+    Optional<T> buscar(Integer id) throws ExceptionDAO;
 
-    ArrayList<T> getAll() throws ExceptionDAO;
+    ArrayList<T> buscarTudo() throws ExceptionDAO;
 
-    void create(T t) throws ExceptionDAO;
+    void cadastrar(T t) throws ExceptionDAO;
 
-    void update(T t) throws ExceptionDAO;
+    void alterar(T t) throws ExceptionDAO;
 
-    void delete(Integer id) throws ExceptionDAO;
+    void excluir(Integer id) throws ExceptionDAO;
 }

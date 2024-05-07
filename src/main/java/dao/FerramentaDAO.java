@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import modelo.FerramentaModelo;
+import modelo.Ferramenta;
 
-public class FerramentaDAO implements Dao<FerramentaModelo> {
+public class FerramentaDAO implements Dao<Ferramenta> {
     
     //teste de select
     // public static void main(String[] args) {
@@ -76,15 +76,15 @@ public class FerramentaDAO implements Dao<FerramentaModelo> {
     //     }
     //     }
 
-    public Optional<FerramentaModelo> get(Integer id) throws ExceptionDAO {
+    public Optional<Ferramenta> buscar(Integer id) throws ExceptionDAO {
         return Optional.empty();
     }
 
-    public ArrayList<FerramentaModelo> getAll() throws ExceptionDAO {
+    public ArrayList<Ferramenta> buscarTudo() throws ExceptionDAO {
         String sql = "SELECT * FROM ferramentas ORDER BY nome ASC;";
         PreparedStatement pStatement = null;
         Connection connection = null;
-        ArrayList<FerramentaModelo> ferramentas = null;
+        ArrayList<Ferramenta> ferramentas = null;
 
         try {
             connection = new DBConnection().getConnection();
@@ -92,9 +92,9 @@ public class FerramentaDAO implements Dao<FerramentaModelo> {
             ResultSet rs = pStatement.executeQuery();
 
             if (rs != null) {
-                ferramentas = new ArrayList<FerramentaModelo>();
+                ferramentas = new ArrayList<Ferramenta>();
                 while (rs.next()) {
-                    FerramentaModelo ferramenta = new FerramentaModelo();
+                    Ferramenta ferramenta = new Ferramenta();
                     ferramenta.setId(rs.getInt("id"));
                     ferramenta.setNome(rs.getString("nome"));
                     ferramenta.setMarca(rs.getString("marca"));
@@ -125,7 +125,7 @@ public class FerramentaDAO implements Dao<FerramentaModelo> {
         return ferramentas;
     }
 
-    public void create(FerramentaModelo ferramenta) throws ExceptionDAO {
+    public void cadastrar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "INSERT INTO ferramentas (nome,marca,custo) values (?,?,?)";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -157,7 +157,7 @@ public class FerramentaDAO implements Dao<FerramentaModelo> {
         }
     }
 
-    public void update(FerramentaModelo ferramenta) throws ExceptionDAO {
+    public void alterar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "UPDATE ferramentas SET nome = ?, marca = ?, custo = ? WHERE id = ?;";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -190,7 +190,7 @@ public class FerramentaDAO implements Dao<FerramentaModelo> {
         }
     }
 
-    public void delete(Integer ferramenta) throws ExceptionDAO {
+    public void excluir(Integer ferramenta) throws ExceptionDAO {
         String sql = "DELETE FROM ferramentas WHERE id = ?";
         PreparedStatement pStatement = null;
         Connection connection = null;
