@@ -57,22 +57,23 @@ INSERT INTO emprestimos (id_ferramenta, id_amigo, data_inicial, data_prazo, data
 --querys
 
 -- retorna os emprestimos
-SELECT emprestimos.id as id_emprestimo,ferramentas.id as id_ferramenta,amigos.id as id_amigo,data_inicial,data_devolucao,ferramentas.nome AS nome_ferramenta, 
+SELECT emprestimos.id as id_emprestimo,ferramentas.id as id_ferramenta,amigos.id as id_amigo,data_inicial,data_prazo,data_devolucao,ferramentas.nome AS nome_ferramenta, 
        amigos.nome AS nome_amigo,apelido FROM emprestimos
 JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id
 JOIN amigos ON emprestimos.id_amigo = amigos.id
-ORDER BY nome_amigo ASC;
+ORDER BY data_prazo ASC;
 
 SELECT * FROM emprestimos;
 
 --retorna quem tem mais emprestimos
-SELECT amigos.id, 
-       amigos.nome AS nome_amigo, 
-       COUNT(emprestimos.id) AS quantidade_emprestimos
+SELECT id, nome , apelido
 FROM amigos
-JOIN emprestimos ON amigos.id = emprestimos.id_amigo
-GROUP BY amigos.id
-ORDER BY quantidade_emprestimos DESC
+JOIN (
+    SELECT id_amigo, COUNT(*) AS total_emprestimos
+    FROM emprestimos
+    GROUP BY id_amigo
+) AS contagem_emprestimos ON amigos.id = contagem_emprestimos.id_amigo
+ORDER BY contagem_emprestimos.total_emprestimos DESC
 LIMIT 1;
 
 --retorna ferramentas
