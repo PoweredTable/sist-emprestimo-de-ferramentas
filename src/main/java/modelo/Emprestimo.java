@@ -93,23 +93,23 @@ public class Emprestimo {
 
     // Métodos de acesso ao banco de dados
     public static Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
-        return DAO.get(id);
+        return DAO.buscar(id);
     }
 
     public static ArrayList<Emprestimo> buscarTudo() throws ExceptionDAO {
-        return DAO.getAll();
+        return DAO.buscarTudo();
     }
 
     public static void cadastrar(Emprestimo emprestimo) throws ExceptionDAO {
-        DAO.create(emprestimo);
+        DAO.cadastrar(emprestimo);
     }
 
     public static void alterar(Emprestimo emprestimo) throws ExceptionDAO {
-        DAO.update(emprestimo);
+        DAO.alterar(emprestimo);
     }
 
     public static void excluir(Integer id) throws ExceptionDAO {
-        DAO.delete(id);
+        DAO.excluir(id);
     }
 
     // toString para facilitar a visualização dos dados

@@ -28,7 +28,7 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
             emprestimo.setId_amigo(1);
             emprestimo.setData_inicial(LocalDate.now());
             emprestimo.setData_prazo(LocalDate.now().plusDays(30));
-            emprestimoDAO.create(emprestimo);
+            emprestimoDAO.cadastrar(emprestimo);
 
 
             System.out.println("Emprestimo cadastrado com sucesso!");
@@ -90,11 +90,11 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
     // }
     // }
 
-    public Optional<Emprestimo> get(Integer id) throws ExceptionDAO {
+    public Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
         return Optional.empty();
     }
 
-    public ArrayList<Emprestimo> getAll() throws ExceptionDAO {
+    public ArrayList<Emprestimo> buscarTudo() throws ExceptionDAO {
         String sql = "SELECT * FROM emprestimos;";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -141,7 +141,7 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
         return emprestimos;
     }
 
-    public void create(Emprestimo emprestimo) throws ExceptionDAO {
+    public void cadastrar(Emprestimo emprestimo) throws ExceptionDAO {
         String sql = "INSERT INTO emprestimos (id_ferramenta, id_amigo, data_inicial, data_prazo) VALUES (?, ?, ?, ?);   ";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -175,7 +175,7 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
         }
     }
 
-    public void update(Emprestimo emprestimo) throws ExceptionDAO {
+    public void alterar(Emprestimo emprestimo) throws ExceptionDAO {
         String sql = "UPDATE emprestimo SET data_devolucao=? WHERE id = ?;";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -206,7 +206,7 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
         }
     }
 
-    public void delete(Integer emprestimo) throws ExceptionDAO {
+    public void excluir(Integer emprestimo) throws ExceptionDAO {
         String sql = "DELETE FROM emprestimos WHERE id = ?";
         PreparedStatement pStatement = null;
         Connection connection = null;
