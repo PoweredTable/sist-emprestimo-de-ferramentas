@@ -63,6 +63,8 @@ JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id
 JOIN amigos ON emprestimos.id_amigo = amigos.id
 ORDER BY nome_amigo ASC;
 
+SELECT * FROM emprestimos;
+
 --retorna quem tem mais emprestimos
 SELECT amigos.id, 
        amigos.nome AS nome_amigo, 
@@ -104,6 +106,8 @@ WHERE id = ?;
 UPDATE emprestimo
 SET data_devolucao=?
 WHERE id = ?;
+
+
 
 --deletes 
 
