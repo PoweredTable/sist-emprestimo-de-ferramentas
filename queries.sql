@@ -86,8 +86,7 @@ ORDER BY nome ASC;
 
 --retorna amigo solicitado verificando se ele tem emprestimo em aberto
 SELECT * FROM emprestimos
-JOIN amigos ON emprestimos.id_amigo = amigos.id
-WHERE emprestimos.id_amigo=1 AND data_devolucao IS NULL;
+WHERE emprestimos.id_amigo=? AND data_devolucao IS NULL;
 
 --retorna os emprestimos devolvidos
 SELECT * FROM emprestimos

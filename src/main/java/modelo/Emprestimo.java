@@ -9,11 +9,11 @@ import java.util.Optional;
 
 public class Emprestimo {
     private Integer id;
-    private Integer id_ferramenta;
-    private Integer id_amigo;
-    private LocalDate data_inicial;
-    private LocalDate data_prazo;
-    private LocalDate data_devolucao;
+    private Integer idFerramenta;
+    private Integer idAmigo;
+    private LocalDate dataInicial;
+    private LocalDate dataPrazo;
+    private LocalDate dataDevolucao;
 
     private static final EmprestimoDAO DAO = new EmprestimoDAO();
 
@@ -22,24 +22,24 @@ public class Emprestimo {
     }
 
     // Construtor com todos os parâmetros
-    public Emprestimo(Integer id_ferramenta, Integer id_amigo, LocalDate data_inicial, LocalDate data_prazo,
-    LocalDate data_devolucao) {
-        this.id_ferramenta = id_ferramenta;
-        this.id_amigo = id_amigo;
-        this.data_inicial = data_inicial;
-        this.data_prazo = data_prazo;
-        this.data_devolucao = data_devolucao;
+    public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
+    LocalDate dataDevolucao) {
+        this.idFerramenta = idFerramenta;
+        this.idAmigo = idAmigo;
+        this.dataInicial = dataInicial;
+        this.dataPrazo = dataPrazo;
+        this.dataDevolucao = dataDevolucao;
     }
 
     // Construtor para testes com id
-    public Emprestimo(Integer id, Integer id_ferramenta, Integer id_amigo, LocalDate data_inicial, LocalDate data_prazo,
-    LocalDate data_devolucao) {
+    public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
+    LocalDate dataDevolucao) {
         this.id = id;
-        this.id_ferramenta = id_ferramenta;
-        this.id_amigo = id_amigo;
-        this.data_inicial = data_inicial;
-        this.data_prazo = data_prazo;
-        this.data_devolucao = data_devolucao;
+        this.idFerramenta = idFerramenta;
+        this.idAmigo = idAmigo;
+        this.dataInicial = dataInicial;
+        this.dataPrazo = dataPrazo;
+        this.dataDevolucao = dataDevolucao;
     }
 
     // Getters e Setters
@@ -51,44 +51,44 @@ public class Emprestimo {
         this.id = id;
     }
 
-    public Integer getId_ferramenta() {
-        return id_ferramenta;
+    public Integer getIdFerramenta() {
+        return idFerramenta;
     }
 
-    public void setId_ferramenta(Integer id_ferramenta) {
-        this.id_ferramenta = id_ferramenta;
+    public void setIdFerramenta(Integer idFerramenta) {
+        this.idFerramenta = idFerramenta;
     }
 
-    public Integer getId_amigo() {
-        return id_amigo;
+    public Integer getIdAmigo() {
+        return idAmigo;
     }
 
-    public void setId_amigo(Integer id_amigo) {
-        this.id_amigo = id_amigo;
+    public void setIdAmigo(Integer idAmigo) {
+        this.idAmigo = idAmigo;
     }
 
-    public LocalDate getData_inicial() {
-        return data_inicial;
+    public LocalDate getDataInicial() {
+        return dataInicial;
     }
 
-    public void setData_inicial(LocalDate data_inicial) {
-        this.data_inicial = data_inicial;
+    public void setDataInicial(LocalDate dataInicial) {
+        this.dataInicial = dataInicial;
     }
 
-    public LocalDate getData_prazo() {
-        return data_prazo;
+    public LocalDate getDataPrazo() {
+        return dataPrazo;
     }
 
-    public void setData_prazo(LocalDate data_prazo) {
-        this.data_prazo = data_prazo;
+    public void setDataPrazo(LocalDate dataPrazo) {
+        this.dataPrazo = dataPrazo;
     }
 
-    public LocalDate getData_devolucao() {
-        return data_devolucao;
+    public LocalDate getDataDevolucao() {
+        return dataDevolucao;
     }
 
-    public void setData_devolucao(LocalDate data_devolucao) {
-        this.data_devolucao = data_devolucao;
+    public void setDataDevolucao(LocalDate dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
     }
 
     // Métodos de acesso ao banco de dados
@@ -117,11 +117,11 @@ public class Emprestimo {
     public String toString() {
         return "EmprestimoModelo{" +
                 "id=" + id +
-                ", id_ferramenta=" + id_ferramenta +
-                ", id_amigo=" + id_amigo +
-                ", data_inicial=" + data_inicial +
-                ", data_prazo=" + data_prazo +
-                ", data_devolucao=" + data_devolucao +
+                ", idFerramenta=" + idFerramenta +
+                ", idAmigo=" + idAmigo +
+                ", dataInicial=" + dataInicial +
+                ", dataPrazo=" + dataPrazo +
+                ", dataDevolucao=" + dataDevolucao +
                 '}';
     }
 }
