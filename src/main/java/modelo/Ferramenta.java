@@ -6,7 +6,7 @@ import java.util.Optional;
 import dao.ExceptionDAO;
 import dao.FerramentaDAO;
 
-public class FerramentaModelo {
+public class Ferramenta {
     private Integer id;
     private String nome;
     private String marca;
@@ -15,17 +15,16 @@ public class FerramentaModelo {
     private static final FerramentaDAO DAO = new FerramentaDAO();
 
     //contructor vazio 
-    public FerramentaModelo() {
-        this("","",0.0);
+    public Ferramenta() {
     }
 
-    public FerramentaModelo(String nome, String marca, Double preco) {
+    public Ferramenta(String nome, String marca, Double preco) {
         this.nome = nome;
         this.marca = marca;
         this.preco = preco;
     }
 
-    public FerramentaModelo(int id, String nome, String marca, Double preco) {
+    public Ferramenta(int id, String nome, String marca, Double preco) {
         this.id = id;
         this.nome = nome;
         this.marca = marca;
@@ -64,19 +63,19 @@ public class FerramentaModelo {
         this.preco = preco;
     }
 
-    public static Optional<FerramentaModelo> buscar(Integer id) throws ExceptionDAO {
+    public static Optional<Ferramenta> buscar(Integer id) throws ExceptionDAO {
         return DAO.get(id);
     }
 
-    public static ArrayList<FerramentaModelo> buscarTudo() throws ExceptionDAO {
+    public static ArrayList<Ferramenta> buscarTudo() throws ExceptionDAO {
         return DAO.getAll();
     }
 
-    public static void cadastrar(FerramentaModelo ferramenta) throws ExceptionDAO {
+    public static void cadastrar(Ferramenta ferramenta) throws ExceptionDAO {
         DAO.create(ferramenta);
     }
 
-    public static void alterar(FerramentaModelo amigo) throws ExceptionDAO {
+    public static void alterar(Ferramenta amigo) throws ExceptionDAO {
         DAO.update(amigo);
     }
 

@@ -5,25 +5,25 @@ import java.util.List;
 import java.util.Optional;
 
 import dao.ExceptionDAO;
-import modelo.FerramentaModelo;
+import modelo.Ferramenta;
 import util.TextUtil;
 
 public class FerramentaControle {
 
-    public static Optional<FerramentaModelo> buscar(Integer id) throws ExceptionDAO {
-        return FerramentaModelo.buscar(id);
+    public static Optional<Ferramenta> buscar(Integer id) throws ExceptionDAO {
+        return Ferramenta.buscar(id);
     }
 
-    public static ArrayList<FerramentaModelo> buscarTudo() throws ExceptionDAO {
-        return FerramentaModelo.buscarTudo();
+    public static ArrayList<Ferramenta> buscarTudo() throws ExceptionDAO {
+        return Ferramenta.buscarTudo();
     }
 
     public static boolean cadastrar(String nome, String marca, Double preco) throws ExceptionDAO {
         if (!TextUtil.isValidTextList(List.of(nome, marca))) {
             return false;
         }
-        FerramentaModelo ferramenta = new FerramentaModelo(nome, marca, preco);
-        FerramentaModelo.cadastrar(ferramenta);
+        Ferramenta ferramenta = new Ferramenta(nome, marca, preco);
+        Ferramenta.cadastrar(ferramenta);
         return true;
     }
 }

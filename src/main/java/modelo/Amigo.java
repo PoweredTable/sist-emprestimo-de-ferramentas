@@ -6,7 +6,7 @@ import dao.ExceptionDAO;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class AmigoModelo {
+public class Amigo {
     private Integer id;
     private String nome;
     private String apelido;
@@ -15,18 +15,17 @@ public class AmigoModelo {
     private static final AmigoDAO DAO = new AmigoDAO();
 
     //contrutor vazio
-    public AmigoModelo(){
-        this("","","");
+    public Amigo(){
     }
 
-    public AmigoModelo(String nome, String apelido, String telefone) {
+    public Amigo(String nome, String apelido, String telefone) {
         this.nome = nome;
         this.apelido = apelido;
         this.telefone = telefone;
     }
 
     //contrutor para testes com id
-    public AmigoModelo(int id, String nome, String apelido, String telefone) {
+    public Amigo(int id, String nome, String apelido, String telefone) {
         this.id = id;
         this.nome = nome;
         this.apelido = apelido;
@@ -65,19 +64,19 @@ public class AmigoModelo {
         this.telefone = telefone;
     }
 
-    public static Optional<AmigoModelo> buscar(Integer id) throws ExceptionDAO {
+    public static Optional<Amigo> buscar(Integer id) throws ExceptionDAO {
         return DAO.get(id);
     }
 
-    public static ArrayList<AmigoModelo> buscarTudo() throws ExceptionDAO {
+    public static ArrayList<Amigo> buscarTudo() throws ExceptionDAO {
         return DAO.getAll();
     }
 
-    public static void cadastrar(AmigoModelo amigo) throws ExceptionDAO {
+    public static void cadastrar(Amigo amigo) throws ExceptionDAO {
         DAO.create(amigo);
     }
 
-    public static void alterar(AmigoModelo amigo) throws ExceptionDAO {
+    public static void alterar(Amigo amigo) throws ExceptionDAO {
         DAO.update(amigo);
     }
 
