@@ -14,6 +14,9 @@ public class Emprestimo {
     private LocalDate dataInicial;
     private LocalDate dataPrazo;
     private LocalDate dataDevolucao;
+    private String nomeAmigo;
+    private String apelidoAmigo;
+    private String nomeFerramenta;
 
     private static final EmprestimoDAO DAO = new EmprestimoDAO();
 
@@ -91,6 +94,30 @@ public class Emprestimo {
         this.dataDevolucao = dataDevolucao;
     }
 
+    public String getNomeAmigo() {
+        return nomeAmigo;
+    }
+
+    public void setNomeAmigo(String nomeAmigo) {
+        this.nomeAmigo = nomeAmigo;
+    }
+
+    public String getApelidoAmigo() {
+        return apelidoAmigo;
+    }
+
+    public void setApelidoAmigo(String apelidoAmigo) {
+        this.apelidoAmigo = apelidoAmigo;
+    }
+
+    public String getNomeFerramenta() {
+        return nomeFerramenta;
+    }
+
+    public void setNomeFerramenta(String nomeFerramenta) {
+        this.nomeFerramenta = nomeFerramenta;
+    }
+
     // Métodos de acesso ao banco de dados
     public static Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
         return DAO.buscar(id);
@@ -115,13 +142,16 @@ public class Emprestimo {
     // toString para facilitar a visualização dos dados
     @Override
     public String toString() {
-        return "EmprestimoModelo{" +
+        return "Emprestimo{" +
                 "id=" + id +
                 ", idFerramenta=" + idFerramenta +
                 ", idAmigo=" + idAmigo +
                 ", dataInicial=" + dataInicial +
                 ", dataPrazo=" + dataPrazo +
                 ", dataDevolucao=" + dataDevolucao +
+                ", nomeAmigo='" + nomeAmigo + '\'' +
+                ", apelidoAmigo='" + apelidoAmigo + '\'' +
+                ", nomeFerramenta='" + nomeFerramenta + '\'' +
                 '}';
     }
 }

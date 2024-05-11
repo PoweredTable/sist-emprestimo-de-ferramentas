@@ -12,10 +12,12 @@ import modelo.Emprestimo;
 
 public class EmprestimoDAO implements Dao<Emprestimo> {
 
-    // teste de insert
+    // testes
     public static void main(String[] args) {
         // testarBuscar();
         // testarBuscarTudo();
+        // testarBuscarVencidos();
+        // testarBuscarEmDia();
         // testarCadastrar();
         // testarAlterar();
         // testarExcluir();
@@ -26,7 +28,13 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
     }
 
     public ArrayList<Emprestimo> buscarTudo() throws ExceptionDAO {
-        String sql = "SELECT * FROM emprestimos;";
+        String sql = "SELECT emprestimos.id as id_emprestimo, ferramentas.id as id_ferramenta, " +
+                     "amigos.id as id_amigo, data_inicial, data_prazo, data_devolucao, " +
+                     "ferramentas.nome AS nome_ferramenta, amigos.nome AS nome_amigo, apelido " +
+                     "FROM emprestimos " +
+                     "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
+                     "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
+                     "ORDER BY data_prazo ASC;";
         ArrayList<Emprestimo> emprestimos = new ArrayList<>();
         
         try (Connection connection = new DBConnection().getConnection();
@@ -35,21 +43,111 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
             
             while (rs.next()) {
                 Emprestimo emprestimo = new Emprestimo();
-                emprestimo.setId(rs.getInt("id"));
+                emprestimo.setId(rs.getInt("id_emprestimo"));
                 emprestimo.setIdFerramenta(rs.getInt("id_ferramenta"));
                 emprestimo.setIdAmigo(rs.getInt("id_amigo"));
                 emprestimo.setDataInicial(toLocalDate(rs.getDate("data_inicial")));
                 emprestimo.setDataPrazo(toLocalDate(rs.getDate("data_prazo")));
                 emprestimo.setDataDevolucao(toLocalDate(rs.getDate("data_devolucao")));
+                emprestimo.setNomeFerramenta(rs.getString("nome_ferramenta"));
+                emprestimo.setNomeAmigo(rs.getString("nome_amigo"));
+                emprestimo.setApelidoAmigo(rs.getString("apelido"));
                 emprestimos.add(emprestimo);
             }
-
+    
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao consultar emprestimo: " + e);
         }
         
         return emprestimos;
     }
+
+    public ArrayList<Emprestimo> buscarVencidos() throws ExceptionDAO {
+        String sql = "SELECT emprestimos.id as id_emprestimo, " +
+                "ferramentas.id as id_ferramenta, " +
+                "amigos.id as id_amigo, " +
+                "data_inicial, " +
+                "data_prazo, " +
+                "data_devolucao, " +
+                "ferramentas.nome AS nome_ferramenta, " +
+                "amigos.nome AS nome_amigo, " +
+                "apelido " +
+                "FROM emprestimos " +
+                "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
+                "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
+                "WHERE data_prazo < CURRENT_DATE AND data_devolucao IS NULL " +
+                "ORDER BY data_prazo ASC;";
+        ArrayList<Emprestimo> emprestimos = new ArrayList<>();
+    
+        try (Connection connection = new DBConnection().getConnection();
+             PreparedStatement pStatement = connection.prepareStatement(sql);
+             ResultSet rs = pStatement.executeQuery()) {
+    
+            while (rs.next()) {
+                Emprestimo emprestimo = new Emprestimo();
+                emprestimo.setId(rs.getInt("id_emprestimo"));
+                emprestimo.setIdFerramenta(rs.getInt("id_ferramenta"));
+                emprestimo.setIdAmigo(rs.getInt("id_amigo"));
+                emprestimo.setDataInicial(toLocalDate(rs.getDate("data_inicial")));
+                emprestimo.setDataPrazo(toLocalDate(rs.getDate("data_prazo")));
+                emprestimo.setDataDevolucao(toLocalDate(rs.getDate("data_devolucao")));
+                emprestimo.setNomeFerramenta(rs.getString("nome_ferramenta"));
+                emprestimo.setNomeAmigo(rs.getString("nome_amigo"));
+                emprestimo.setApelidoAmigo(rs.getString("apelido"));
+                emprestimos.add(emprestimo);
+            }
+    
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar emprestimo: " + e);
+        }
+    
+        return emprestimos;
+    }
+    
+    public ArrayList<Emprestimo> buscarEmDia() throws ExceptionDAO {
+        String sql = "SELECT emprestimos.id as id_emprestimo, " +
+                "ferramentas.id as id_ferramenta, " +
+                "amigos.id as id_amigo, " +
+                "data_inicial, " +
+                "data_prazo, " +
+                "data_devolucao, " +
+                "ferramentas.nome AS nome_ferramenta, " +
+                "amigos.nome AS nome_amigo, " +
+                "apelido " +
+                "FROM emprestimos " +
+                "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
+                "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
+                "WHERE data_prazo >= CURRENT_DATE AND data_devolucao IS NULL " +
+                "ORDER BY data_prazo ASC;";
+        ArrayList<Emprestimo> emprestimos = new ArrayList<>();
+    
+        try (Connection connection = new DBConnection().getConnection();
+             PreparedStatement pStatement = connection.prepareStatement(sql);
+             ResultSet rs = pStatement.executeQuery()) {
+    
+            while (rs.next()) {
+                Emprestimo emprestimo = new Emprestimo();
+                emprestimo.setId(rs.getInt("id_emprestimo"));
+                emprestimo.setIdFerramenta(rs.getInt("id_ferramenta"));
+                emprestimo.setIdAmigo(rs.getInt("id_amigo"));
+                emprestimo.setDataInicial(toLocalDate(rs.getDate("data_inicial")));
+                emprestimo.setDataPrazo(toLocalDate(rs.getDate("data_prazo")));
+                emprestimo.setDataDevolucao(toLocalDate(rs.getDate("data_devolucao")));
+                emprestimo.setNomeFerramenta(rs.getString("nome_ferramenta"));
+                emprestimo.setNomeAmigo(rs.getString("nome_amigo"));
+                emprestimo.setApelidoAmigo(rs.getString("apelido"));
+                emprestimos.add(emprestimo);
+            }
+    
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar emprestimo: " + e);
+        }
+    
+        return emprestimos;
+    }
+    
+    
+
 
     public void cadastrar(Emprestimo emprestimo) throws ExceptionDAO {
         String sql = "INSERT INTO emprestimos (id_ferramenta, id_amigo, data_inicial, data_prazo) VALUES (?, ?, ?, ?);";
@@ -143,8 +241,8 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
             Emprestimo emprestimo = new Emprestimo();
             emprestimo.setIdFerramenta(1);
             emprestimo.setIdAmigo(1);
-            emprestimo.setDataInicial(LocalDate.now());
-            emprestimo.setDataPrazo(LocalDate.now().plusDays(30));
+            emprestimo.setDataInicial(LocalDate.of(1999, 10, 10));
+            emprestimo.setDataPrazo(LocalDate.of(1999,11,11));
     
             emprestimoDAO.cadastrar(emprestimo);
     
@@ -180,4 +278,39 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
             System.out.println("Erro ao excluir emprestimo: " + e.getMessage());
         }
     }
+
+    public static void testarBuscarVencidos() {
+        try {
+            EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+            ArrayList<Emprestimo> emprestimosVencidos = emprestimoDAO.buscarVencidos();
+            if (!emprestimosVencidos.isEmpty()) {
+                System.out.println("Emprestimos vencidos encontrados:");
+                for (Emprestimo emprestimo : emprestimosVencidos) {
+                    System.out.println(emprestimo);
+                }
+            } else {
+                System.out.println("Nenhum emprestimo vencido encontrado.");
+            }
+        } catch (ExceptionDAO e) {
+            System.out.println("Erro ao buscar emprestimos vencidos: " + e.getMessage());
+        }
+    }
+    
+    public static void testarBuscarEmDia() {
+        try {
+            EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+            ArrayList<Emprestimo> emprestimosEmDia = emprestimoDAO.buscarEmDia();
+            if (!emprestimosEmDia.isEmpty()) {
+                System.out.println("Emprestimos em dia encontrados:");
+                for (Emprestimo emprestimo : emprestimosEmDia) {
+                    System.out.println(emprestimo);
+                }
+            } else {
+                System.out.println("Nenhum emprestimo em dia encontrado.");
+            }
+        } catch (ExceptionDAO e) {
+            System.out.println("Erro ao buscar emprestimos em dia: " + e.getMessage());
+        }
+    }
 }
+

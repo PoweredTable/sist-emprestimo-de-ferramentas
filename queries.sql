@@ -63,6 +63,23 @@ JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id
 JOIN amigos ON emprestimos.id_amigo = amigos.id
 ORDER BY data_prazo ASC;
 
+-- retorna os vencidos
+SELECT emprestimos.id as id_emprestimo,
+       ferramentas.id as id_ferramenta,
+       amigos.id as id_amigo,
+       data_inicial,
+       data_prazo,
+       data_devolucao,
+       ferramentas.nome AS nome_ferramenta, 
+       amigos.nome AS nome_amigo,
+       apelido 
+FROM emprestimos
+JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id
+JOIN amigos ON emprestimos.id_amigo = amigos.id
+WHERE data_prazo < CURRENT_DATE AND data_devolucao IS NULL
+ORDER BY data_prazo ASC;
+
+
 SELECT * FROM emprestimos;
 
 --retorna quem tem mais emprestimos
