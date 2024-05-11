@@ -76,11 +76,11 @@ public class FerramentaDAO implements Dao<Ferramenta> {
     //     }
     //     }
 
-    public Optional<Ferramenta> get(Integer id) throws ExceptionDAO {
+    public Optional<Ferramenta> buscar(Integer id) throws ExceptionDAO {
         return Optional.empty();
     }
 
-    public ArrayList<Ferramenta> getAll() throws ExceptionDAO {
+    public ArrayList<Ferramenta> buscarTudo() throws ExceptionDAO {
         String sql = "SELECT * FROM ferramentas ORDER BY nome ASC;";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -125,7 +125,7 @@ public class FerramentaDAO implements Dao<Ferramenta> {
         return ferramentas;
     }
 
-    public void create(Ferramenta ferramenta) throws ExceptionDAO {
+    public void cadastrar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "INSERT INTO ferramentas (nome,marca,custo) values (?,?,?)";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -157,7 +157,7 @@ public class FerramentaDAO implements Dao<Ferramenta> {
         }
     }
 
-    public void update(Ferramenta ferramenta) throws ExceptionDAO {
+    public void alterar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "UPDATE ferramentas SET nome = ?, marca = ?, custo = ? WHERE id = ?;";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -190,7 +190,7 @@ public class FerramentaDAO implements Dao<Ferramenta> {
         }
     }
 
-    public void delete(Integer ferramenta) throws ExceptionDAO {
+    public void excluir(Integer ferramenta) throws ExceptionDAO {
         String sql = "DELETE FROM ferramentas WHERE id = ?";
         PreparedStatement pStatement = null;
         Connection connection = null;

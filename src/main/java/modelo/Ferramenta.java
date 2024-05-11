@@ -64,28 +64,28 @@ public class Ferramenta {
     }
 
     public static Optional<Ferramenta> buscar(Integer id) throws ExceptionDAO {
-        return DAO.get(id);
+        return DAO.buscar(id);
     }
 
     public static ArrayList<Ferramenta> buscarTudo() throws ExceptionDAO {
-        return DAO.getAll();
+        return DAO.buscarTudo();
     }
 
     public static void cadastrar(Ferramenta ferramenta) throws ExceptionDAO {
-        DAO.create(ferramenta);
+        DAO.cadastrar(ferramenta);
     }
 
     public static void alterar(Ferramenta amigo) throws ExceptionDAO {
-        DAO.update(amigo);
+        DAO.alterar(amigo);
     }
 
     public static void excluir(Integer id) throws ExceptionDAO {
-        DAO.delete(id);
+        DAO.excluir(id);
     }
 
     //faz com que o print saia legivel
     public String toString() {
-        return "FerramentaModelo{" +
+        return "Ferramenta{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", marca='" + marca + '\'' +

@@ -76,11 +76,11 @@ public class AmigoDAO implements Dao<Amigo> {
     // }
     // }
 
-    public Optional<Amigo> get(Integer id) throws ExceptionDAO {
+    public Optional<Amigo> buscar(Integer id) throws ExceptionDAO {
         return Optional.empty();
     }
 
-    public ArrayList<Amigo> getAll() throws ExceptionDAO {
+    public ArrayList<Amigo> buscarTudo() throws ExceptionDAO {
         String sql = "SELECT * FROM amigos ORDER BY nome ASC;";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -124,7 +124,7 @@ public class AmigoDAO implements Dao<Amigo> {
         return amigos;
     }
 
-    public void create(Amigo amigo) throws ExceptionDAO {
+    public void cadastrar(Amigo amigo) throws ExceptionDAO {
         String sql = "INSERT INTO amigos (nome,apelido,telefone) values (?,?,?)";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -156,7 +156,7 @@ public class AmigoDAO implements Dao<Amigo> {
         }
     }
 
-    public void update(Amigo amigo) throws ExceptionDAO {
+    public void alterar(Amigo amigo) throws ExceptionDAO {
         String sql = "UPDATE amigos SET nome = ?, apelido = ?, telefone = ? WHERE id = ?;";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -189,7 +189,7 @@ public class AmigoDAO implements Dao<Amigo> {
         }
     }
 
-    public void delete(Integer amigo) throws ExceptionDAO {
+    public void excluir(Integer amigo) throws ExceptionDAO {
         String sql = "DELETE FROM amigos WHERE id = ?";
         PreparedStatement pStatement = null;
         Connection connection = null;

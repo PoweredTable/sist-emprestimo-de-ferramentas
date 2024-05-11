@@ -65,28 +65,28 @@ public class Amigo {
     }
 
     public static Optional<Amigo> buscar(Integer id) throws ExceptionDAO {
-        return DAO.get(id);
+        return DAO.buscar(id);
     }
 
     public static ArrayList<Amigo> buscarTudo() throws ExceptionDAO {
-        return DAO.getAll();
+        return DAO.buscarTudo();
     }
 
     public static void cadastrar(Amigo amigo) throws ExceptionDAO {
-        DAO.create(amigo);
+        DAO.cadastrar(amigo);
     }
 
     public static void alterar(Amigo amigo) throws ExceptionDAO {
-        DAO.update(amigo);
+        DAO.alterar(amigo);
     }
 
     public static void excluir(Integer id) throws ExceptionDAO {
-        DAO.delete(id);
+        DAO.excluir(id);
     }
 
     //faz com que o print saia legivel
     public String toString() {
-        return "AmigoModelo{" +
+        return "Amigo{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", apelido='" + apelido + '\'' +
