@@ -1,11 +1,11 @@
 package modelo;
 
-import dao.EmprestimoDAO;
-import dao.ExceptionDAO;
-
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Optional;
+
+import dao.EmprestimoDAO;
+import dao.ExceptionDAO;
 
 public class Emprestimo {
     private Integer id;

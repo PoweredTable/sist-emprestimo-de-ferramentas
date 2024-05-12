@@ -1,10 +1,10 @@
 package modelo;
 
-import dao.AmigoDAO;
-import dao.ExceptionDAO;
-
 import java.util.ArrayList;
 import java.util.Optional;
+
+import dao.AmigoDAO;
+import dao.ExceptionDAO;
 
 public class Amigo {
     private Integer id;
