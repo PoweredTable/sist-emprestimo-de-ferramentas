@@ -33,8 +33,8 @@ public class FerramentaDAO implements Dao<Ferramenta> {
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
 
         try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql);
-             ResultSet rs = pStatement.executeQuery()) {
+                PreparedStatement pStatement = connection.prepareStatement(sql);
+                ResultSet rs = pStatement.executeQuery()) {
 
             while (rs.next()) {
                 Ferramenta ferramenta = new Ferramenta();
@@ -54,9 +54,9 @@ public class FerramentaDAO implements Dao<Ferramenta> {
 
     public void cadastrar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "INSERT INTO ferramentas (nome, marca, custo) VALUES (?, ?, ?)";
-        
+
         try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+                PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setString(1, ferramenta.getNome());
             pStatement.setString(2, ferramenta.getMarca());
@@ -70,9 +70,9 @@ public class FerramentaDAO implements Dao<Ferramenta> {
 
     public int alterar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "UPDATE ferramentas SET nome = ?, marca = ?, custo = ? WHERE id = ?";
-        
+
         try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+                PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setString(1, ferramenta.getNome());
             pStatement.setString(2, ferramenta.getMarca());
@@ -87,9 +87,9 @@ public class FerramentaDAO implements Dao<Ferramenta> {
 
     public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM ferramentas WHERE id = ?";
-        
+
         try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+                PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setInt(1, id);
             return pStatement.executeUpdate();
@@ -104,8 +104,23 @@ public class FerramentaDAO implements Dao<Ferramenta> {
         }
     }
 
-    public boolean isFerramentaEmprestada(Integer id) {
-        // TODO: implementar query para verificar se ferramenta está emprestada
-        return false;
+    public boolean isFerramentaEmprestada(Integer id) throws ExceptionDAO {
+        String sql = "SELECT id_ferramenta FROM emprestimos " +
+                "WHERE id_ferramenta = ? AND data_devolucao IS NULL;";
+        boolean isEmprestada = false;
+
+        try (Connection connection = new DBConnection().getConnection();
+                PreparedStatement pStatement = connection.prepareStatement(sql)) {
+            pStatement.setInt(1, id);
+            try (ResultSet rs = pStatement.executeQuery()) {
+                if (rs.next()) {
+                    isEmprestada = true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar ferramenta: " + e);
+        }
+
+        return isEmprestada;
     }
 }

@@ -106,9 +106,23 @@ SELECT * FROM emprestimos
 WHERE emprestimos.id_amigo=? AND data_devolucao IS NULL;
 
 --retorna os emprestimos devolvidos
-SELECT * FROM emprestimos
+SELECT emprestimos.id as id_emprestimo,
+       ferramentas.id as id_ferramenta,
+       amigos.id as id_amigo,
+       data_inicial,
+       data_prazo,
+       data_devolucao,
+       ferramentas.nome AS nome_ferramenta, 
+       amigos.nome AS nome_amigo,
+       apelido  
+FROM emprestimos
 JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id
 WHERE data_devolucao IS NOT NULL;
+
+-- retorna se 
+SELECT id_ferramenta FROM emprestimos
+WHERE id_ferramenta = ? AND data_devolucao IS NULL;
+
 
 --updates 
 

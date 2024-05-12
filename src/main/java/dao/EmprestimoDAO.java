@@ -79,8 +79,20 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
     }
 
     public ArrayList<Emprestimo> buscarAtivos() throws ExceptionDAO {
-        //TODO: Implementar query para buscar ativos.
-        return buscarTudo();
+        String sql = "SELECT emprestimos.id AS id_emprestimo, " +
+                 "ferramentas.id AS id_ferramenta, " +
+                 "amigos.id AS id_amigo, " +
+                 "data_inicial, " +
+                 "data_prazo, " +
+                 "data_devolucao, " +
+                 "ferramentas.nome AS nome_ferramenta, " +
+                 "amigos.nome AS nome_amigo, " +
+                 "apelido " +
+                 "FROM emprestimos " +
+                 "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
+                 "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
+                 "WHERE data_devolucao IS NULL;";
+        return buscarEmprestimos(sql);
     }
 
     public ArrayList<Emprestimo> buscarEmDia() throws ExceptionDAO {
