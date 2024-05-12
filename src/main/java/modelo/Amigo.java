@@ -74,8 +74,12 @@ public class Amigo {
         DAO.cadastrar(amigo);
     }
 
-    public static void alterar(Amigo amigo) throws ExceptionDAO {
-        DAO.alterar(amigo);
+    public static int alterar(Amigo amigo) throws ExceptionDAO {
+        return DAO.alterar(amigo);
+    }
+
+    public static int excluir(Integer id) throws ExceptionDAO {
+        return DAO.excluir(id);
     }
 
     public static void excluir(Integer id) throws ExceptionDAO {

@@ -74,12 +74,12 @@ public class Ferramenta {
         DAO.cadastrar(ferramenta);
     }
 
-    public static void alterar(Ferramenta amigo) throws ExceptionDAO {
-        DAO.alterar(amigo);
+    public static int alterar(Ferramenta amigo) throws ExceptionDAO {
+        return DAO.alterar(amigo);
     }
 
-    public static void excluir(Integer id) throws ExceptionDAO {
-        DAO.excluir(id);
+    public static int excluir(Integer id) throws ExceptionDAO {
+        return DAO.excluir(id);
     }
 
     public String toString() {

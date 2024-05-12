@@ -127,12 +127,12 @@ public class Emprestimo {
         DAO.cadastrar(emprestimo);
     }
 
-    public static void alterar(Emprestimo emprestimo) throws ExceptionDAO {
-        DAO.alterar(emprestimo);
+    public static int alterar(Emprestimo emprestimo) throws ExceptionDAO {
+        return DAO.alterar(emprestimo);
     }
 
-    public static void excluir(Integer id) throws ExceptionDAO {
-        DAO.excluir(id);
+    public static int excluir(Integer id) throws ExceptionDAO {
+        return DAO.excluir(id);
     }
 
     // toString para facilitar a visualização dos dados
