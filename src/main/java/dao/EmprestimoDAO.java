@@ -193,13 +193,13 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
         }
     }
 
-    public int excluir(Integer emprestimo) throws ExceptionDAO {
+    public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM emprestimos WHERE id = ?";
         
         try (Connection connection = new DBConnection().getConnection();
              PreparedStatement pStatement = connection.prepareStatement(sql)) {
-            
-            pStatement.setInt(1, emprestimo);
+
+            pStatement.setInt(1, id);
             return pStatement.executeUpdate();
             
         } catch (SQLException e) {

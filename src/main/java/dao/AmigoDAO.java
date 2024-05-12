@@ -84,13 +84,13 @@ public class AmigoDAO implements Dao<Amigo> {
         }
     }
 
-    public int excluir(Integer amigo) throws ExceptionDAO {
+    public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM amigos WHERE id = ?";
         
         try (Connection connection = new DBConnection().getConnection();
              PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
-            pStatement.setInt(1, amigo);
+            pStatement.setInt(1, id);
             return pStatement.executeUpdate();
 
         } catch (SQLException e) {
