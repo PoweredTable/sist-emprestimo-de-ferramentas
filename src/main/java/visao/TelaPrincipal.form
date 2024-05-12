@@ -65,7 +65,7 @@
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jPanel6" max="32767" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jPanel7" max="32767" attributes="0"/>
+                                          <Component id="jPanel7" pref="731" max="32767" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jSeparator1" min="-2" pref="14" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -79,14 +79,13 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                           <Component id="filler4" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Component id="filler2" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -125,8 +124,8 @@
                       <Component id="jPanel5" min="-2" pref="555" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="filler4" pref="8" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="filler4" pref="30" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
