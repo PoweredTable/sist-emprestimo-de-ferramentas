@@ -141,7 +141,17 @@ public class Emprestimo {
         return DAO.excluir(id);
     }
 
-    // toString para facilitar a visualização dos dados
+    public static ArrayList<Emprestimo> buscarAtivos() throws ExceptionDAO {
+        return DAO.buscarAtivos();
+    }
+
+    public static ArrayList<Emprestimo> buscarEmDia() throws ExceptionDAO {
+        return DAO.buscarEmDia();
+    }
+
+    public static ArrayList<Emprestimo> buscarAtrasados() throws ExceptionDAO {
+        return DAO.buscarAtrasados();
+    }
 
     @Override
     public String toString() {
