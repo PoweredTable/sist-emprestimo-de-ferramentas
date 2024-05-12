@@ -23,7 +23,13 @@ public class Emprestimo {
     public Emprestimo() {
     }
 
-    // Construtor com todos os parâmetros
+    public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo) {
+        this.idFerramenta = idFerramenta;
+        this.idAmigo = idAmigo;
+        this.dataInicial = dataInicial;
+        this.dataPrazo = dataPrazo;
+    }
+
     public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
     LocalDate dataDevolucao) {
         this.idFerramenta = idFerramenta;
