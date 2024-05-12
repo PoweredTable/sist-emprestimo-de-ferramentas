@@ -23,8 +23,7 @@ public class Amigo {
         this.telefone = telefone;
     }
 
-    //contrutor para testes com id
-    public Amigo(int id, String nome, String apelido, String telefone) {
+    public Amigo(Integer id, String nome, String apelido, String telefone) {
         this.id = id;
         this.nome = nome;
         this.apelido = apelido;
