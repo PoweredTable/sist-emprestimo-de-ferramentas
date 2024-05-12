@@ -14,7 +14,6 @@ public class Amigo {
 
     private static final AmigoDAO DAO = AmigoDAO.getInstance();
 
-    //contrutor vazio
     public Amigo(){
     }
 
@@ -84,7 +83,6 @@ public class Amigo {
         DAO.excluir(id);
     }
 
-    //faz com que o print saia legivel
     public String toString() {
         return "Amigo{" +
                 "id=" + id +

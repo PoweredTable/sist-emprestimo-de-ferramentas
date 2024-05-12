@@ -14,7 +14,6 @@ public class Ferramenta {
 
     private static final FerramentaDAO DAO = FerramentaDAO.getInstance();
 
-    //contructor vazio 
     public Ferramenta() {
     }
 
@@ -83,7 +82,6 @@ public class Ferramenta {
         DAO.excluir(id);
     }
 
-    //faz com que o print saia legivel
     public String toString() {
         return "Ferramenta{" +
                 "id=" + id +

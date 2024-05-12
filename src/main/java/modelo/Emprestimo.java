@@ -20,7 +20,6 @@ public class Emprestimo {
 
     private static final EmprestimoDAO DAO = EmprestimoDAO.getInstance();
 
-    // Construtor vazio
     public Emprestimo() {
     }
 
@@ -34,7 +33,6 @@ public class Emprestimo {
         this.dataDevolucao = dataDevolucao;
     }
 
-    // Construtor para testes com id
     public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
     LocalDate dataDevolucao) {
         this.id = id;
@@ -45,7 +43,6 @@ public class Emprestimo {
         this.dataDevolucao = dataDevolucao;
     }
 
-    // Getters e Setters
     public Integer getId() {
         return id;
     }
@@ -118,7 +115,6 @@ public class Emprestimo {
         this.nomeFerramenta = nomeFerramenta;
     }
 
-    // Métodos de acesso ao banco de dados
     public static Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
         return DAO.buscar(id);
     }
@@ -140,6 +136,7 @@ public class Emprestimo {
     }
 
     // toString para facilitar a visualização dos dados
+
     @Override
     public String toString() {
         return "Emprestimo{" +
