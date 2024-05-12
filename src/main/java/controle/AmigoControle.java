@@ -1,7 +1,7 @@
 package controle;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import dao.ExceptionDAO;
@@ -25,5 +25,10 @@ public class AmigoControle {
         Amigo amigo = new Amigo(nome, apelido, telefone);
         Amigo.cadastrar(amigo);
         return true;
+    }
+
+    public static boolean amigoPossuiEmprestimoAtivo(Integer id) throws ExceptionDAO {
+        Objects.requireNonNull(id, "O Id do modelo 'Amigo' não pode ser nulo!");
+        return Amigo.amigoPossuiEmprestimoAtivo(id);
     }
 }

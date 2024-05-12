@@ -82,8 +82,8 @@ public class Amigo {
         return DAO.excluir(id);
     }
 
-    public static void excluir(Integer id) throws ExceptionDAO {
-        DAO.excluir(id);
+    public static boolean amigoPossuiEmprestimoAtivo(Integer id) throws ExceptionDAO {
+        return DAO.amigoPossuiEmprestimoAtivo(id);
     }
 
     public String toString() {
