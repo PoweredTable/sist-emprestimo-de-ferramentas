@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import modelo.Emprestimo;
 
+
 public class EmprestimoDAO implements Dao<Emprestimo> {
 
     private static EmprestimoDAO instance;
@@ -133,9 +134,11 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
 
     public void cadastrar(Emprestimo emprestimo) throws ExceptionDAO {
         String sql = "INSERT INTO emprestimos (id_ferramenta, id_amigo, data_inicial, data_prazo) VALUES (?, ?, ?, ?);";
+
         
         try (Connection connection = new DBConnection().getConnection();
              PreparedStatement pStatement = connection.prepareStatement(sql)) {
+            
             
             pStatement.setInt(1, emprestimo.getIdFerramenta());
             pStatement.setInt(2, emprestimo.getIdAmigo());
@@ -295,5 +298,7 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
             System.out.println("Erro ao buscar emprestimos em dia: " + e.getMessage());
         }
     }
+
+    //TODO: conversar sobre testes, fazer em classes separadas
 }
 

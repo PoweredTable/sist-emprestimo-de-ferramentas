@@ -32,8 +32,8 @@ public class AmigoDAO implements Dao<Amigo> {
         ArrayList<Amigo> amigos = new ArrayList<>();
 
         try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql);
-             ResultSet rs = pStatement.executeQuery()) {
+                PreparedStatement pStatement = connection.prepareStatement(sql);
+                ResultSet rs = pStatement.executeQuery()) {
 
             while (rs.next()) {
                 Amigo amigo = new Amigo();
@@ -53,9 +53,9 @@ public class AmigoDAO implements Dao<Amigo> {
 
     public void cadastrar(Amigo amigo) throws ExceptionDAO {
         String sql = "INSERT INTO amigos (nome, apelido, telefone) VALUES (?, ?, ?)";
-        
+
         try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+                PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setString(1, amigo.getNome());
             pStatement.setString(2, amigo.getApelido());
@@ -69,9 +69,9 @@ public class AmigoDAO implements Dao<Amigo> {
 
     public int alterar(Amigo amigo) throws ExceptionDAO {
         String sql = "UPDATE amigos SET nome = ?, apelido = ?, telefone = ? WHERE id = ?";
-        
+
         try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+                PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setString(1, amigo.getNome());
             pStatement.setString(2, amigo.getApelido());
@@ -86,15 +86,15 @@ public class AmigoDAO implements Dao<Amigo> {
 
     public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM amigos WHERE id = ?";
-        
+
         try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+                PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setInt(1, id);
             return pStatement.executeUpdate();
 
         } catch (SQLException e) {
-            if (e.getSQLState().equals("23503") && amigoPossuiEmprestimo(id)){
+            if (e.getSQLState().equals("23503") && amigoPossuiEmprestimo(id)) {
                 throw new ExceptionDAO("Não é possível deletar amigo pois ele " +
                         "possui registros de empréstimo.");
 
@@ -105,7 +105,7 @@ public class AmigoDAO implements Dao<Amigo> {
 
     private boolean amigoPossuiEmprestimo(String sql, Integer id) throws ExceptionDAO {
         try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+                PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setInt(1, id);
             try (ResultSet rs = pStatement.executeQuery()) {
@@ -131,5 +131,56 @@ public class AmigoDAO implements Dao<Amigo> {
         return amigoPossuiEmprestimo(sql, id);
     }
 
-}
+    public Amigo buscarMaiorUtilizador() throws ExceptionDAO {
+        String sql = "SELECT a.id, a.nome, a.apelido, a.telefone " +
+                     "FROM amigos a " +
+                     "JOIN emprestimos e ON e.id_amigo = a.id " +
+                     "GROUP BY a.id, a.nome, a.apelido, a.telefone " +
+                     "ORDER BY COUNT(e.id_amigo) DESC " +
+                     "LIMIT 1;";
+        Amigo amigo = new Amigo();
+    
+        try (Connection connection = new DBConnection().getConnection();
+             PreparedStatement pStatement = connection.prepareStatement(sql);
+             ResultSet rs = pStatement.executeQuery()) {
+    
+            if (rs.next()) {
+                amigo.setId(rs.getInt("id"));
+                amigo.setNome(rs.getString("nome"));
+                amigo.setApelido(rs.getString("apelido"));
+                amigo.setTelefone(rs.getString("telefone"));
+            }
+    
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar amigo: " + e);
+        }
+    
+        return amigo;
+    }
 
+    public Amigo buscarNome(String nome) throws ExceptionDAO {
+        String sql = "SELECT * FROM amigos WHERE UPPER(nome) LIKE UPPER(?)";
+        Amigo amigo = new Amigo();
+    
+        try (Connection connection = new DBConnection().getConnection();
+             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+    
+            pStatement.setString(1, "%" + nome + "%"); // Adicione os curingas diretamente aqui
+            ResultSet rs = pStatement.executeQuery();
+    
+            if (rs.next()) {
+                amigo.setId(rs.getInt("id"));
+                amigo.setNome(rs.getString("nome"));
+                amigo.setApelido(rs.getString("apelido"));
+                amigo.setTelefone(rs.getString("telefone"));
+            }
+    
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar amigo: " + e);
+        }
+    
+        return amigo;
+    }
+    
+    //TODO: implementar testes
+}

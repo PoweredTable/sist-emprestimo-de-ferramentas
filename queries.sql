@@ -119,9 +119,27 @@ FROM emprestimos
 JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id
 WHERE data_devolucao IS NOT NULL;
 
--- retorna se 
+-- retorna se a ferramenta nao foi devolvida
 SELECT id_ferramenta FROM emprestimos
 WHERE id_ferramenta = ? AND data_devolucao IS NULL;
+
+-- retorna apenas ferramentas não ativas
+SELECT f.* FROM emprestimos e
+RIGHT JOIN ferramentas f ON e.id_ferramenta = f.id
+WHERE data_devolucao IS NOT NULL OR id_ferramenta IS NULL;
+
+-- buscar maior utilizador
+SELECT a.*, COUNT(e.id_amigo) AS quantidade_amigos 
+FROM amigos a
+JOIN emprestimos e ON e.id_amigo = a.id
+GROUP BY a.id
+ORDER BY quantidade_amigos DESC
+LIMIT 1;
+
+-- buscar amigo por nome
+SELECT * FROM amigos
+WHERE UPPER(nome) LIKE UPPER('%carlos%');
+
 
 
 --updates 
