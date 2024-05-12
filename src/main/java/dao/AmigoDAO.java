@@ -94,7 +94,42 @@ public class AmigoDAO implements Dao<Amigo> {
             return pStatement.executeUpdate();
 
         } catch (SQLException e) {
+            if (e.getSQLState().equals("23503") && amigoPossuiEmprestimo(id)){
+                throw new ExceptionDAO("Não é possível deletar amigo pois ele " +
+                        "possui registros de empréstimo.");
+
+            }
             throw new ExceptionDAO("Erro ao deletar amigo: " + e);
         }
     }
+
+    private boolean amigoPossuiEmprestimo(String sql, Integer id) throws ExceptionDAO {
+        try (Connection connection = new DBConnection().getConnection();
+             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+
+            pStatement.setInt(1, id);
+            try (ResultSet rs = pStatement.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao verificar empréstimos: " + e);
+        }
+        return false;
+    }
+
+    private boolean amigoPossuiEmprestimo(Integer id) throws ExceptionDAO {
+        String sql = "SELECT COUNT(*) FROM emprestimos WHERE id_amigo = ?";
+        return amigoPossuiEmprestimo(sql, id);
+    }
+
+    public boolean amigoPossuiEmprestimoAtivo(Integer id) throws ExceptionDAO {
+        String sql = "SELECT COUNT(*) FROM emprestimos WHERE id_amigo = ? AND data_devolucao IS NULL";
+        return amigoPossuiEmprestimo(sql, id);
+    }
+
 }
+

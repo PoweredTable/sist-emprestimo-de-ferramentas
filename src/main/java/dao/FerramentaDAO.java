@@ -85,17 +85,27 @@ public class FerramentaDAO implements Dao<Ferramenta> {
         }
     }
 
-    public int excluir(Integer ferramenta) throws ExceptionDAO {
+    public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM ferramentas WHERE id = ?";
         
         try (Connection connection = new DBConnection().getConnection();
              PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
-            pStatement.setInt(1, ferramenta);
+            pStatement.setInt(1, id);
             return pStatement.executeUpdate();
 
         } catch (SQLException e) {
+            if (e.getSQLState().equals("23503") && isFerramentaEmprestada(id)) {
+                throw new ExceptionDAO("Não é possível deletar ferramenta pois ela " +
+                        "possui registros de empréstimo.");
+            }
+
             throw new ExceptionDAO("Erro ao deletar ferramenta: " + e);
         }
+    }
+
+    public boolean isFerramentaEmprestada(Integer id) {
+        // TODO: implementar query para verificar se ferramenta está emprestada
+        return false;
     }
 }
