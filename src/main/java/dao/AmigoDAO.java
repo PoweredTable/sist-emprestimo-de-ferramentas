@@ -11,12 +11,17 @@ import modelo.Amigo;
 
 public class AmigoDAO implements Dao<Amigo> {
 
-    public static void main(String[] args) throws ExceptionDAO{
-        AmigoDAO amigo = new AmigoDAO();
+    private static AmigoDAO instance;
 
-        amigo.excluir(1);
+    private AmigoDAO() {
+    }
 
-     }
+    public static AmigoDAO getInstance() {
+        if (instance == null) {
+            instance = new AmigoDAO();
+        }
+        return instance;
+    }
 
     public Optional<Amigo> buscar(Integer id) throws ExceptionDAO {
         return Optional.empty();

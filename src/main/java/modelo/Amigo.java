@@ -12,7 +12,7 @@ public class Amigo {
     private String apelido;
     private String telefone;
 
-    private static final AmigoDAO DAO = new AmigoDAO();
+    private static final AmigoDAO DAO = AmigoDAO.getInstance();
 
     //contrutor vazio
     public Amigo(){

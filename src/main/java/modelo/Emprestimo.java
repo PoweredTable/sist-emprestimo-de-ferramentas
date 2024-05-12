@@ -18,7 +18,7 @@ public class Emprestimo {
     private String apelidoAmigo;
     private String nomeFerramenta;
 
-    private static final EmprestimoDAO DAO = new EmprestimoDAO();
+    private static final EmprestimoDAO DAO = EmprestimoDAO.getInstance();
 
     // Construtor vazio
     public Emprestimo() {

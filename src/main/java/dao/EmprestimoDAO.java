@@ -12,6 +12,18 @@ import modelo.Emprestimo;
 
 public class EmprestimoDAO implements Dao<Emprestimo> {
 
+    private static EmprestimoDAO instance;
+
+    private EmprestimoDAO() {
+    }
+
+    public static EmprestimoDAO getInstance() {
+        if (instance == null) {
+            instance = new EmprestimoDAO();
+        }
+        return instance;
+    }
+
     // testes
     public static void main(String[] args) {
         // testarBuscar();

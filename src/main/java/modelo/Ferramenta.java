@@ -12,7 +12,7 @@ public class Ferramenta {
     private String marca;
     private Double preco;
 
-    private static final FerramentaDAO DAO = new FerramentaDAO();
+    private static final FerramentaDAO DAO = FerramentaDAO.getInstance();
 
     //contructor vazio 
     public Ferramenta() {

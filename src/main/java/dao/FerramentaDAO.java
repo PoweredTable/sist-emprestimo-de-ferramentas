@@ -11,6 +11,19 @@ import modelo.Ferramenta;
 
 public class FerramentaDAO implements Dao<Ferramenta> {
 
+    private static FerramentaDAO instance;
+
+    private FerramentaDAO() {
+    }
+
+    public static FerramentaDAO getInstance() {
+        if (instance == null) {
+            instance = new FerramentaDAO();
+        }
+        return instance;
+    }
+
+    @Override
     public Optional<Ferramenta> buscar(Integer id) throws ExceptionDAO {
         return Optional.empty();
     }
