@@ -11,6 +11,13 @@ import modelo.Amigo;
 
 public class AmigoDAO implements Dao<Amigo> {
 
+    public static void main(String[] args) throws ExceptionDAO{
+        AmigoDAO amigo = new AmigoDAO();
+
+        amigo.excluir(1);
+
+     }
+
     public Optional<Amigo> buscar(Integer id) throws ExceptionDAO {
         return Optional.empty();
     }
@@ -55,7 +62,7 @@ public class AmigoDAO implements Dao<Amigo> {
         }
     }
 
-    public void alterar(Amigo amigo) throws ExceptionDAO {
+    public int alterar(Amigo amigo) throws ExceptionDAO {
         String sql = "UPDATE amigos SET nome = ?, apelido = ?, telefone = ? WHERE id = ?";
         
         try (Connection connection = new DBConnection().getConnection();
@@ -65,21 +72,21 @@ public class AmigoDAO implements Dao<Amigo> {
             pStatement.setString(2, amigo.getApelido());
             pStatement.setString(3, amigo.getTelefone());
             pStatement.setInt(4, amigo.getId());
-            pStatement.execute();
+            return pStatement.executeUpdate();
 
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao alterar amigo: " + e);
         }
     }
 
-    public void excluir(Integer amigo) throws ExceptionDAO {
+    public int excluir(Integer amigo) throws ExceptionDAO {
         String sql = "DELETE FROM amigos WHERE id = ?";
         
         try (Connection connection = new DBConnection().getConnection();
              PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setInt(1, amigo);
-            pStatement.execute();
+            return pStatement.executeUpdate();
 
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao deletar amigo: " + e);

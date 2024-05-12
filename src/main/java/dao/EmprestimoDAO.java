@@ -19,7 +19,7 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
         // testarBuscarVencidos();
         // testarBuscarEmDia();
         // testarCadastrar();
-        // testarAlterar();
+        testarAlterar();
         // testarExcluir();
     }
 
@@ -166,7 +166,7 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
         }
     }
 
-    public void alterar(Emprestimo emprestimo) throws ExceptionDAO {
+    public int alterar(Emprestimo emprestimo) throws ExceptionDAO {
         String sql = "UPDATE emprestimos SET data_devolucao=? WHERE id = ?;";
     
         try (Connection connection = new DBConnection().getConnection();
@@ -174,21 +174,21 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
     
             pStatement.setDate(1, toSqlDate(emprestimo.getDataDevolucao()));
             pStatement.setInt(2, emprestimo.getId());
-            pStatement.execute();
+            return pStatement.executeUpdate();
     
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao alterar emprestimo: " + e);
         }
     }
 
-    public void excluir(Integer emprestimo) throws ExceptionDAO {
+    public int excluir(Integer emprestimo) throws ExceptionDAO {
         String sql = "DELETE FROM emprestimos WHERE id = ?";
         
         try (Connection connection = new DBConnection().getConnection();
              PreparedStatement pStatement = connection.prepareStatement(sql)) {
             
             pStatement.setInt(1, emprestimo);
-            pStatement.execute();
+            return pStatement.executeUpdate();
             
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao deletar emprestimo: " + e);
@@ -257,12 +257,13 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
             EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
     
             Emprestimo emprestimo = new Emprestimo();
-            emprestimo.setId(1); // ID do emprestimo que deseja alterar
+            emprestimo.setId(999); // ID do emprestimo que deseja alterar
             emprestimo.setDataDevolucao(LocalDate.now()); // Nova data de devolucao
+            
+            int x = emprestimoDAO.alterar(emprestimo);
+            
     
-            emprestimoDAO.alterar(emprestimo);
-    
-            System.out.println("Emprestimo alterado com sucesso!");
+            System.out.println(x);
         } catch (ExceptionDAO e) {
             System.out.println("Erro ao alterar emprestimo: " + e.getMessage());
         }

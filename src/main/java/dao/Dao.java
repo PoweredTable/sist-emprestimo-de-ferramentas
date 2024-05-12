@@ -11,7 +11,7 @@ public interface Dao<T> {
 
     void cadastrar(T t) throws ExceptionDAO;
 
-    void alterar(T t) throws ExceptionDAO;
+    int alterar(T t) throws ExceptionDAO;
 
-    void excluir(Integer id) throws ExceptionDAO;
+    int excluir(Integer id) throws ExceptionDAO;
 }

@@ -55,7 +55,7 @@ public class FerramentaDAO implements Dao<Ferramenta> {
         }
     }
 
-    public void alterar(Ferramenta ferramenta) throws ExceptionDAO {
+    public int alterar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "UPDATE ferramentas SET nome = ?, marca = ?, custo = ? WHERE id = ?";
         
         try (Connection connection = new DBConnection().getConnection();
@@ -65,21 +65,21 @@ public class FerramentaDAO implements Dao<Ferramenta> {
             pStatement.setString(2, ferramenta.getMarca());
             pStatement.setDouble(3, ferramenta.getPreco());
             pStatement.setInt(4, ferramenta.getId());
-            pStatement.execute();
+            return pStatement.executeUpdate();
 
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao alterar ferramenta: " + e);
         }
     }
 
-    public void excluir(Integer ferramenta) throws ExceptionDAO {
+    public int excluir(Integer ferramenta) throws ExceptionDAO {
         String sql = "DELETE FROM ferramentas WHERE id = ?";
         
         try (Connection connection = new DBConnection().getConnection();
              PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setInt(1, ferramenta);
-            pStatement.execute();
+            return pStatement.executeUpdate();
 
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao deletar ferramenta: " + e);
