@@ -15,6 +15,10 @@ public class Amigo {
     private static final AmigoDAO DAO = AmigoDAO.getInstance();
 
     public Amigo(){
+        this.id = null;
+        this.nome = null;
+        this.apelido = null;
+        this.telefone = null;
     }
 
     public Amigo(String nome, String apelido, String telefone) {
