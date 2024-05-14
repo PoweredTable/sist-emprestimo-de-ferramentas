@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import modelo.Emprestimo;
 
 
-public class EmprestimoDAO implements Dao<Emprestimo> {
+public class EmprestimoDAO implements DAO<Emprestimo> {
 
     private static EmprestimoDAO instance;
 

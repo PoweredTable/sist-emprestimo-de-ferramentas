@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import modelo.Amigo;
 
-public class AmigoDAO implements Dao<Amigo> {
+public class AmigoDAO implements DAO<Amigo> {
 
     private static AmigoDAO instance;
 

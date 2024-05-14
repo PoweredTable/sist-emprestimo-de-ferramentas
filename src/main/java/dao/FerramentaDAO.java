@@ -10,7 +10,7 @@ import java.util.Optional;
 import modelo.Amigo;
 import modelo.Ferramenta;
 
-public class FerramentaDAO implements Dao<Ferramenta> {
+public class FerramentaDAO implements DAO<Ferramenta> {
 
     private static FerramentaDAO instance;
 
