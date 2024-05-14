@@ -14,7 +14,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
+        
         initComponents();
+        setLocationRelativeTo(null);
         jButtonTodos.setSvgImage("visao/Imagens/trash-xmark.svg",24,24);
         jButtonTodos.setBorder(null);
         jButtonEmDia.setSvgImage("visao/Imagens/check.svg",24,24);
@@ -76,6 +78,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.white);
+        setLocation(new java.awt.Point(0, 0));
         setMaximumSize(new java.awt.Dimension(1000, 800));
         setMinimumSize(new java.awt.Dimension(1280, 900));
         setPreferredSize(new java.awt.Dimension(1280, 900));
@@ -147,6 +150,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButtonNewFerramenta.setForeground(new java.awt.Color(0, 0, 0));
         jButtonNewFerramenta.setText("FERRAMENTAS");
         jButtonNewFerramenta.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
+        jButtonNewFerramenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNewFerramentaActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButtonNewFerramenta);
 
         jButtonNewAmigos.setBackground(new java.awt.Color(255, 187, 0));
@@ -321,8 +329,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         TelaAmigos amigos = new TelaAmigos();
         amigos.setVisible(true);
-        this.setVisible(false);
+        setEnabled(false);
+        amigos.setLocationRelativeTo(null);
+        
+        amigos.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            // Quando a tela de ferramentas for fechada, reative a tela principal
+                setEnabled(true);
+                toFront();
+            };
+        });
     }//GEN-LAST:event_jButtonNewAmigosActionPerformed
+
+    private void jButtonNewFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewFerramentaActionPerformed
+        // TODO add your handling code here:
+        TelaFerramentas ferramentas = new TelaFerramentas();
+        ferramentas.setVisible(true);
+        setEnabled(false);
+        ferramentas.setLocationRelativeTo(null);
+
+        ferramentas.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            // Quando a tela de ferramentas for fechada, reative a tela principal
+                setEnabled(true);
+                toFront();
+            };
+        });
+    }//GEN-LAST:event_jButtonNewFerramentaActionPerformed
 
     /**
      * @param args the command line arguments
