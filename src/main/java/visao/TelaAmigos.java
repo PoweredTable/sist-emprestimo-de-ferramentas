@@ -14,6 +14,7 @@ public class TelaAmigos extends javax.swing.JFrame {
      * Creates new form TelaAmigos1
      */
     public TelaAmigos() {
+        setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -53,7 +54,7 @@ public class TelaAmigos extends javax.swing.JFrame {
         jButtonEditar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 900));
 
         BG.setBackground(new java.awt.Color(64, 64, 64));
@@ -191,15 +192,15 @@ public class TelaAmigos extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Valor Total Pago:");
+        jLabel4.setText("Maior utilitário:");
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 187, 0));
-        jLabel5.setText("R$200");
+        jLabel5.setText("Lucas");
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Quantidade de Total:");
+        jLabel2.setText("Quantidade de total:");
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 187, 0));
@@ -223,12 +224,13 @@ public class TelaAmigos extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)))
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5)))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
@@ -357,18 +359,34 @@ public class TelaAmigos extends javax.swing.JFrame {
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         // TODO add your handling code here:
-        ModalAmigos modal = new ModalAmigos();
-        modal.setVisible(true);
+        DialogAmigos dialog = new DialogAmigos(this, true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        TelaPrincipal principal = new TelaPrincipal();
+        principal.setEnabled(true);
+        principal.toFront();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         // TODO add your handling code here:
-        ModalAmigos modal = new ModalAmigos();
-        modal.setVisible(true);
+        DialogAmigos dialog = new DialogAmigos(this, true);
+        
+        dialog.setTitleDialog("Editar");
+        dialog.setTextButtonSalvar("Editar");
+
+    // Preencher os campos com as informações da ferramenta a ser editada
+        String nomeAmigo = "nome do amigo"; // Substitua isso com o nome da ferramenta que você deseja editar
+        String apelidoAmigo = "apelido do amigo"; // Substitua isso com a descrição da ferramenta que você deseja editar
+        String telefoneAmigo = "telefone do Amigo"; // Substitua isso com a categoria da ferramenta que você deseja editar
+
+        dialog.setNome(nomeAmigo);
+        dialog.setApelido(apelidoAmigo);
+        dialog.setTelefone(telefoneAmigo);
+        dialog.setVisible(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     /**
