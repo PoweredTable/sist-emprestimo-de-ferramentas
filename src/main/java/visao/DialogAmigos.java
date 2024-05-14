@@ -1,22 +1,44 @@
+package visao;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package visao;
 
 /**
  *
  * @author waldy
  */
-public class ModalAmigos extends javax.swing.JFrame {
+public class DialogAmigos extends javax.swing.JDialog {
 
     /**
-     * Creates new form ModalAmigos
+     * Creates new form DialogAmigos
      */
-    public ModalAmigos() {
+    public DialogAmigos(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
     }
-
+    
+    public void setTitleDialog(String texto){
+        jLabelTitleDialog.setText(texto);
+    }
+    
+    public void setTextButtonSalvar(String texto){
+        jButtonSalvar.setText(texto);
+    }
+    
+    public void setNome(String nome){
+        jTextFieldNome.setText(nome);
+    }
+    
+    public void setApelido (String apelido){
+        jTextFieldApelido.setText(apelido);
+    }
+    
+    public void setTelefone(String telefone) {
+        jTextFieldTelefone.setText(telefone);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,64 +50,55 @@ public class ModalAmigos extends javax.swing.JFrame {
 
         BG = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelTitleDialog = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jTextFieldNome = new javax.swing.JTextField();
+        jTextFieldApelido = new javax.swing.JTextField();
+        jTextFieldTelefone = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButtonCalcelar = new javax.swing.JButton();
         jButtonSalvar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(550, 350));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(550, 350));
-        setPreferredSize(new java.awt.Dimension(550, 350));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+        setResizable(false);
 
         BG.setBackground(new java.awt.Color(64, 64, 64));
 
         jPanel1.setBackground(new java.awt.Color(64, 64, 64));
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel1.setBackground(new java.awt.Color(64, 64, 64));
-        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 187, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cadastro");
-        jPanel1.add(jLabel1);
+        jLabelTitleDialog.setBackground(new java.awt.Color(64, 64, 64));
+        jLabelTitleDialog.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        jLabelTitleDialog.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelTitleDialog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitleDialog.setText("Cadastro");
+        jPanel1.add(jLabelTitleDialog);
 
         jPanel4.setBackground(new java.awt.Color(64, 64, 64));
 
         jPanel2.setBackground(new java.awt.Color(64, 64, 64));
         jPanel2.setLayout(new java.awt.GridLayout(3, 0, 0, 20));
 
-        jTextField1.setBackground(new java.awt.Color(156, 156, 156));
-        jTextField1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(64, 64, 64));
-        jTextField1.setText("Nome");
-        jTextField1.setToolTipText("");
-        jPanel2.add(jTextField1);
+        jTextFieldNome.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldNome.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldNome.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldNome.setText("Nome");
+        jTextFieldNome.setToolTipText("");
+        jPanel2.add(jTextFieldNome);
 
-        jTextField2.setBackground(new java.awt.Color(156, 156, 156));
-        jTextField2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(64, 64, 64));
-        jTextField2.setText("Apelido");
-        jPanel2.add(jTextField2);
+        jTextFieldApelido.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldApelido.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldApelido.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldApelido.setText("Apelido");
+        jPanel2.add(jTextFieldApelido);
 
-        jTextField3.setBackground(new java.awt.Color(156, 156, 156));
-        jTextField3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(64, 64, 64));
-        jTextField3.setText("Telefone");
-        jPanel2.add(jTextField3);
+        jTextFieldTelefone.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldTelefone.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldTelefone.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldTelefone.setText("Telefone");
+        jPanel2.add(jTextFieldTelefone);
 
         jPanel3.setBackground(new java.awt.Color(64, 64, 64));
         jPanel3.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
@@ -105,6 +118,11 @@ public class ModalAmigos extends javax.swing.JFrame {
         jButtonSalvar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButtonSalvar.setForeground(new java.awt.Color(64, 64, 64));
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButtonSalvar);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -162,16 +180,17 @@ public class ModalAmigos extends javax.swing.JFrame {
     private void jButtonCalcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        
     }//GEN-LAST:event_jButtonCalcelarActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.dispose();
-    }//GEN-LAST:event_formWindowClosing
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_formWindowClosed
+        if (jButtonSalvar.getText().equals("Salvar")) {
+        // Lógica para cadastrar nova ferramenta
+        }else if (jButtonSalvar.getText().equals("Editar")) {
+        // Lógica para editar ferramenta
+        }
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,20 +209,27 @@ public class ModalAmigos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModalAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModalAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModalAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModalAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModalAmigos().setVisible(true);
+                DialogAmigos dialog = new DialogAmigos(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -212,13 +238,13 @@ public class ModalAmigos extends javax.swing.JFrame {
     private javax.swing.JPanel BG;
     private javax.swing.JButton jButtonCalcelar;
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelTitleDialog;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextFieldApelido;
+    private javax.swing.JTextField jTextFieldNome;
+    private javax.swing.JTextField jTextFieldTelefone;
     // End of variables declaration//GEN-END:variables
 }
