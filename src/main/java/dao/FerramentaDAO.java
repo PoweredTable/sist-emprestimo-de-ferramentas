@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import modelo.Amigo;
 import modelo.Ferramenta;
 
 public class FerramentaDAO implements DAO<Ferramenta> {
@@ -33,8 +32,8 @@ public class FerramentaDAO implements DAO<Ferramenta> {
         String sql = "SELECT * FROM ferramentas ORDER BY nome ASC;";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
 
-        try (Connection connection = new DBConexao().getConnection();
-                PreparedStatement pStatement = connection.prepareStatement(sql);
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql);
                 ResultSet rs = pStatement.executeQuery()) {
 
             while (rs.next()) {
@@ -56,8 +55,8 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     public void cadastrar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "INSERT INTO ferramentas (nome, marca, custo) VALUES (?, ?, ?)";
 
-        try (Connection connection = new DBConexao().getConnection();
-                PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql)) {
 
             pStatement.setString(1, ferramenta.getNome());
             pStatement.setString(2, ferramenta.getMarca());
@@ -72,8 +71,8 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     public int alterar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "UPDATE ferramentas SET nome = ?, marca = ?, custo = ? WHERE id = ?";
 
-        try (Connection connection = new DBConexao().getConnection();
-                PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql)) {
 
             pStatement.setString(1, ferramenta.getNome());
             pStatement.setString(2, ferramenta.getMarca());
@@ -89,14 +88,14 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM ferramentas WHERE id = ?";
 
-        try (Connection connection = new DBConexao().getConnection();
-                PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql)) {
 
             pStatement.setInt(1, id);
             return pStatement.executeUpdate();
 
         } catch (SQLException e) {
-            if (e.getSQLState().equals("23503") && isFerramentaEmprestada(id)) {
+            if (e.getSQLState().equals("23503") && ferramentaEmprestada(id)) {
                 throw new ExceptionDAO("Não é possível deletar ferramenta pois ela " +
                         "possui registros de empréstimo.");
             }
@@ -105,13 +104,13 @@ public class FerramentaDAO implements DAO<Ferramenta> {
         }
     }
 
-    public static boolean isFerramentaEmprestada(Integer id) throws ExceptionDAO {
+    public static boolean ferramentaEmprestada(Integer id) throws ExceptionDAO {
         String sql = "SELECT id_ferramenta FROM emprestimos " +
                 "WHERE id_ferramenta = ? AND data_devolucao IS NULL;";
         boolean isEmprestada = false;
 
-        try (Connection connection = new DBConexao().getConnection();
-                PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql)) {
             pStatement.setInt(1, id);
             try (ResultSet rs = pStatement.executeQuery()) {
                 if (rs.next()) {
@@ -131,8 +130,8 @@ public class FerramentaDAO implements DAO<Ferramenta> {
                      "WHERE data_devolucao IS NOT NULL OR id_ferramenta IS NULL;";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
     
-        try (Connection connection = new DBConexao().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql);
+        try (Connection conn = new DBConexao().getConexao();
+             PreparedStatement pStatement = conn.prepareStatement(sql);
              ResultSet rs = pStatement.executeQuery()) {
     
             while (rs.next()) {
@@ -155,8 +154,8 @@ public class FerramentaDAO implements DAO<Ferramenta> {
         String sql = "SELECT * FROM ferramentas WHERE UPPER(nome) LIKE UPPER(?)";
         Ferramenta ferramenta = new Ferramenta();
     
-        try (Connection connection = new DBConexao().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+             PreparedStatement pStatement = conn.prepareStatement(sql)) {
     
             pStatement.setString(1, "%" + nome + "%"); // Adicione os curingas diretamente aqui
             try (ResultSet rs = pStatement.executeQuery()) { // Use try-with-resources para garantir que o ResultSet seja fechado

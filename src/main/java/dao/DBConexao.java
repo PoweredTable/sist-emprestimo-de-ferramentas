@@ -7,12 +7,11 @@ import java.sql.SQLException;
 
 public class DBConexao {
     
-    public Connection getConnection(){
+    public Connection getConexao(){
         String url = System.getenv("URL");
         String user = System.getenv("USER");
         String password = System.getenv("PASSWORD");
         
-
         Connection conn = null;
         
         try{
