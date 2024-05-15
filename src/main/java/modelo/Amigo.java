@@ -15,6 +15,10 @@ public class Amigo {
     private static final AmigoDAO DAO = AmigoDAO.getInstance();
 
     public Amigo(){
+        this.id = null;
+        this.nome = null;
+        this.apelido = null;
+        this.telefone = null;
     }
 
     public Amigo(String nome, String apelido, String telefone) {
@@ -84,6 +88,14 @@ public class Amigo {
 
     public static boolean amigoPossuiEmprestimoAtivo(Integer id) throws ExceptionDAO {
         return DAO.amigoPossuiEmprestimoAtivo(id);
+    }
+
+    public static Amigo buscarMaiorUtilizador() throws ExceptionDAO {
+        return DAO.buscarMaiorUtilizador();
+    }
+
+    public static Amigo buscarNome(String nome) throws ExceptionDAO {
+        return DAO.buscarNome(nome);
     }
 
     public String toString() {

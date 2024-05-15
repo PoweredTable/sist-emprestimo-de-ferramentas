@@ -5,14 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class DBConnection {
+public class DBConexao {
     
-    public Connection getConnection(){
+    public Connection getConexao(){
         String url = System.getenv("URL");
         String user = System.getenv("USER");
         String password = System.getenv("PASSWORD");
         
-
         Connection conn = null;
         
         try{
