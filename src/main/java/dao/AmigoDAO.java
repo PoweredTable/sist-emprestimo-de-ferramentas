@@ -31,7 +31,7 @@ public class AmigoDAO implements DAO<Amigo> {
         String sql = "SELECT * FROM amigos ORDER BY nome ASC;";
         ArrayList<Amigo> amigos = new ArrayList<>();
 
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
                 PreparedStatement pStatement = connection.prepareStatement(sql);
                 ResultSet rs = pStatement.executeQuery()) {
 
@@ -54,7 +54,7 @@ public class AmigoDAO implements DAO<Amigo> {
     public void cadastrar(Amigo amigo) throws ExceptionDAO {
         String sql = "INSERT INTO amigos (nome, apelido, telefone) VALUES (?, ?, ?)";
 
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
                 PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setString(1, amigo.getNome());
@@ -70,7 +70,7 @@ public class AmigoDAO implements DAO<Amigo> {
     public int alterar(Amigo amigo) throws ExceptionDAO {
         String sql = "UPDATE amigos SET nome = ?, apelido = ?, telefone = ? WHERE id = ?";
 
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
                 PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setString(1, amigo.getNome());
@@ -87,7 +87,7 @@ public class AmigoDAO implements DAO<Amigo> {
     public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM amigos WHERE id = ?";
 
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
                 PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setInt(1, id);
@@ -104,7 +104,7 @@ public class AmigoDAO implements DAO<Amigo> {
     }
 
     private boolean amigoPossuiEmprestimo(String sql, Integer id) throws ExceptionDAO {
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
                 PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setInt(1, id);
@@ -140,7 +140,7 @@ public class AmigoDAO implements DAO<Amigo> {
                      "LIMIT 1;";
         Amigo amigo = new Amigo();
     
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
              PreparedStatement pStatement = connection.prepareStatement(sql);
              ResultSet rs = pStatement.executeQuery()) {
     
@@ -162,7 +162,7 @@ public class AmigoDAO implements DAO<Amigo> {
         String sql = "SELECT * FROM amigos WHERE UPPER(nome) LIKE UPPER(?)";
         Amigo amigo = new Amigo();
     
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
              PreparedStatement pStatement = connection.prepareStatement(sql)) {
     
             pStatement.setString(1, "%" + nome + "%"); // Adicione os curingas diretamente aqui

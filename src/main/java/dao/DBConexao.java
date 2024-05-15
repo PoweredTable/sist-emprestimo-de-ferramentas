@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class DBConnection {
+public class DBConexao {
     
     public Connection getConnection(){
         String url = System.getenv("URL");

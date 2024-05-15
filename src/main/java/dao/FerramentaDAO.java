@@ -33,7 +33,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
         String sql = "SELECT * FROM ferramentas ORDER BY nome ASC;";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
 
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
                 PreparedStatement pStatement = connection.prepareStatement(sql);
                 ResultSet rs = pStatement.executeQuery()) {
 
@@ -56,7 +56,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     public void cadastrar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "INSERT INTO ferramentas (nome, marca, custo) VALUES (?, ?, ?)";
 
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
                 PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setString(1, ferramenta.getNome());
@@ -72,7 +72,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     public int alterar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "UPDATE ferramentas SET nome = ?, marca = ?, custo = ? WHERE id = ?";
 
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
                 PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setString(1, ferramenta.getNome());
@@ -89,7 +89,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM ferramentas WHERE id = ?";
 
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
                 PreparedStatement pStatement = connection.prepareStatement(sql)) {
 
             pStatement.setInt(1, id);
@@ -110,7 +110,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
                 "WHERE id_ferramenta = ? AND data_devolucao IS NULL;";
         boolean isEmprestada = false;
 
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
                 PreparedStatement pStatement = connection.prepareStatement(sql)) {
             pStatement.setInt(1, id);
             try (ResultSet rs = pStatement.executeQuery()) {
@@ -131,7 +131,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
                      "WHERE data_devolucao IS NOT NULL OR id_ferramenta IS NULL;";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
     
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
              PreparedStatement pStatement = connection.prepareStatement(sql);
              ResultSet rs = pStatement.executeQuery()) {
     
@@ -155,7 +155,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
         String sql = "SELECT * FROM ferramentas WHERE UPPER(nome) LIKE UPPER(?)";
         Ferramenta ferramenta = new Ferramenta();
     
-        try (Connection connection = new DBConnection().getConnection();
+        try (Connection connection = new DBConexao().getConnection();
              PreparedStatement pStatement = connection.prepareStatement(sql)) {
     
             pStatement.setString(1, "%" + nome + "%"); // Adicione os curingas diretamente aqui
