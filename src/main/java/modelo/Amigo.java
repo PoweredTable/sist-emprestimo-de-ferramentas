@@ -94,6 +94,10 @@ public class Amigo {
         return DAO.buscarMaiorUtilizador();
     }
 
+    public static Amigo buscarNome(String nome) throws ExceptionDAO {
+        return DAO.buscarNome(nome);
+    }
+
     public String toString() {
         return "Amigo{" +
                 "id=" + id +
