@@ -8,7 +8,7 @@ CREATE TABLE ferramentas (
 CREATE TABLE amigos (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) not null,
-    apelido VARCHAR(100) not null ,
+    apelido VARCHAR(100),
     telefone VARCHAR(20) not null
 );
 
