@@ -15,6 +15,10 @@ public class Ferramenta {
     private static final FerramentaDAO DAO = FerramentaDAO.getInstance();
 
     public Ferramenta() {
+        this.id = null;
+        this.nome = null;
+        this.marca = null;
+        this.preco = null;
     }
 
     public Ferramenta(String nome, String marca, Double preco) {
