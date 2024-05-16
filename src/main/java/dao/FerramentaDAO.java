@@ -104,7 +104,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
         }
     }
 
-    public static boolean ferramentaEmprestada(Integer id) throws ExceptionDAO {
+    public boolean ferramentaEmprestada(Integer id) throws ExceptionDAO {
         String sql = "SELECT id_ferramenta FROM emprestimos " +
                 "WHERE id_ferramenta = ? AND data_devolucao IS NULL;";
         boolean isEmprestada = false;
@@ -150,9 +150,10 @@ public class FerramentaDAO implements DAO<Ferramenta> {
         return ferramentas;
     }
     
-    public Ferramenta buscarNome(String nome) throws ExceptionDAO {
+    public ArrayList<Ferramenta> buscarNome(String nome) throws ExceptionDAO {
         String sql = "SELECT * FROM ferramentas WHERE UPPER(nome) LIKE UPPER(?)";
         Ferramenta ferramenta = new Ferramenta();
+        ArrayList<Ferramenta> ferramentas = new ArrayList<>();
     
         try (Connection conn = new DBConexao().getConexao();
              PreparedStatement pStatement = conn.prepareStatement(sql)) {
@@ -164,6 +165,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
                     ferramenta.setNome(rs.getString("nome"));
                     ferramenta.setMarca(rs.getString("marca"));
                     ferramenta.setPreco(rs.getDouble("custo"));
+                    ferramentas.add(ferramenta);
                 }
             }
     
@@ -171,9 +173,9 @@ public class FerramentaDAO implements DAO<Ferramenta> {
             throw new ExceptionDAO("Erro ao consultar ferramenta: " + e);
         }
     
-        return ferramenta;
+        return ferramentas;
     }
 
-    //TODO: implementar testes
+
     
 }
