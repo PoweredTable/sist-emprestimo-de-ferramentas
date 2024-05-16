@@ -6,8 +6,7 @@ import java.util.Optional;
 
 import dao.EmprestimoDAO;
 import dao.ExceptionDAO;
-import modelo.Amigo;
-import modelo.Ferramenta;
+// 
 
 public class Emprestimo {
     private Integer id;
@@ -16,9 +15,6 @@ public class Emprestimo {
     private LocalDate dataInicial;
     private LocalDate dataPrazo;
     private LocalDate dataDevolucao;
-    private String nomeAmigo;
-    private String apelidoAmigo;
-    private String nomeFerramenta;
     private Amigo amigo;
     private Ferramenta ferramenta;
 
@@ -177,9 +173,9 @@ public class Emprestimo {
                 ", dataInicial=" + dataInicial +
                 ", dataPrazo=" + dataPrazo +
                 ", dataDevolucao=" + dataDevolucao +
-                ", nomeAmigo='" + nomeAmigo + '\'' +
-                ", apelidoAmigo='" + apelidoAmigo + '\'' +
-                ", nomeFerramenta='" + nomeFerramenta + '\'' +
+                ", nomeAmigo='" + amigo.getNome() + '\'' +
+                ", apelidoAmigo='" + amigo.getApelido() + '\'' +
+                ", nomeFerramenta='" + ferramenta.getNome() + '\'' +
                 '}';
     }
 }
