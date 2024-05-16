@@ -36,7 +36,49 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
-        return Optional.empty();
+        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta FROM emprestimos, amigos.nome AS nome_amigo" +
+                     "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
+                     "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
+                     "WHERE emprestimos.id =?;";
+    
+        try (Connection conn = new DBConexao().getConexao();
+             PreparedStatement pStatement = conn.prepareStatement(sql);
+             ResultSet rs = pStatement.executeQuery()) {
+    
+            pStatement.setInt(1, id);
+    
+            if (rs.next()) {
+                Emprestimo emprestimo = new Emprestimo();
+                
+                emprestimo.setId(rs.getInt("id_emprestimo"));
+                emprestimo.setIdFerramenta(rs.getInt("id_ferramenta"));
+                emprestimo.setIdAmigo(rs.getInt("id_amigo"));
+                emprestimo.setDataInicial(toLocalDate(rs.getDate("data_inicial")));
+                emprestimo.setDataPrazo(toLocalDate(rs.getDate("data_prazo")));
+                emprestimo.setDataDevolucao(toLocalDate(rs.getDate("data_devolucao")));
+
+                Ferramenta ferramenta = new Ferramenta();
+                ferramenta.setId(rs.getInt("id_ferramenta"));
+                ferramenta.setNome(rs.getString("nome_ferramenta"));
+                ferramenta.setMarca(rs.getString("marca"));
+                ferramenta.setPreco(rs.getDouble("custo"));
+                emprestimo.setFerramenta(ferramenta);
+                
+                Amigo amigo = new Amigo();
+                amigo.setId(rs.getInt("id_amigo"));
+                amigo.setNome(rs.getString("nome_amigo"));
+                amigo.setApelido(rs.getString("apelido"));
+                amigo.setTelefone(rs.getString("telefone"));
+                emprestimo.setAmigo(amigo);
+    
+                return Optional.of(emprestimo);
+            } else {
+                return Optional.empty();
+            }
+    
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar emprestimo: " + e);
+        }
     }
 
     private ArrayList<Emprestimo> buscarEmprestimos(String sql) throws ExceptionDAO {
