@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import dao.EmprestimoDAO;
 import dao.ExceptionDAO;
+// 
 
 public class Emprestimo {
     private Integer id;
@@ -14,9 +15,8 @@ public class Emprestimo {
     private LocalDate dataInicial;
     private LocalDate dataPrazo;
     private LocalDate dataDevolucao;
-    private String nomeAmigo;
-    private String apelidoAmigo;
-    private String nomeFerramenta;
+    private Amigo amigo;
+    private Ferramenta ferramenta;
 
     private static final EmprestimoDAO DAO = EmprestimoDAO.getInstance();
 
@@ -27,9 +27,8 @@ public class Emprestimo {
         this.dataInicial = null;
         this.dataPrazo = null;
         this.dataDevolucao = null;
-        this.nomeAmigo = null;
-        this.apelidoAmigo = null;
-        this.nomeFerramenta = null;
+        this.amigo = new Amigo();
+        this.ferramenta = new Ferramenta();
     }
 
     public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo) {
@@ -58,6 +57,17 @@ public class Emprestimo {
         this.dataDevolucao = dataDevolucao;
     }
 
+    public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
+    LocalDate dataDevolucao, Amigo amigo, Ferramenta ferramenta) {
+        this.id = id;
+        this.idFerramenta = idFerramenta;
+        this.idAmigo = idAmigo;
+        this.dataInicial = dataInicial;
+        this.dataPrazo = dataPrazo;
+        this.dataDevolucao = dataDevolucao;
+        this.amigo = amigo;
+        this.ferramenta = ferramenta;
+    }
     public Integer getId() {
         return id;
     }
@@ -106,28 +116,20 @@ public class Emprestimo {
         this.dataDevolucao = dataDevolucao;
     }
 
-    public String getNomeAmigo() {
-        return nomeAmigo;
+    public Amigo getAmigo() {
+        return amigo;
     }
 
-    public void setNomeAmigo(String nomeAmigo) {
-        this.nomeAmigo = nomeAmigo;
+    public void setAmigo(Amigo amigo) {
+        this.amigo = amigo;
     }
 
-    public String getApelidoAmigo() {
-        return apelidoAmigo;
+    public Ferramenta getFerramenta() {
+        return ferramenta;
     }
 
-    public void setApelidoAmigo(String apelidoAmigo) {
-        this.apelidoAmigo = apelidoAmigo;
-    }
-
-    public String getNomeFerramenta() {
-        return nomeFerramenta;
-    }
-
-    public void setNomeFerramenta(String nomeFerramenta) {
-        this.nomeFerramenta = nomeFerramenta;
+    public void setFerramenta(Ferramenta ferramenta) {
+        this.ferramenta = ferramenta;
     }
 
     public static Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
@@ -171,9 +173,9 @@ public class Emprestimo {
                 ", dataInicial=" + dataInicial +
                 ", dataPrazo=" + dataPrazo +
                 ", dataDevolucao=" + dataDevolucao +
-                ", nomeAmigo='" + nomeAmigo + '\'' +
-                ", apelidoAmigo='" + apelidoAmigo + '\'' +
-                ", nomeFerramenta='" + nomeFerramenta + '\'' +
+                ", nomeAmigo='" + amigo.getNome() + '\'' +
+                ", apelidoAmigo='" + amigo.getApelido() + '\'' +
+                ", nomeFerramenta='" + ferramenta.getNome() + '\'' +
                 '}';
     }
 }

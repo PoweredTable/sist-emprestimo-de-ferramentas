@@ -86,6 +86,18 @@ public class Ferramenta {
         return DAO.excluir(id);
     }
 
+    public static boolean ferramentaEmprestada(Integer id) throws ExceptionDAO {
+        return DAO.ferramentaEmprestada(id);
+    }
+
+    public static ArrayList<Ferramenta> buscarFerramentasDisponiveis() throws ExceptionDAO {
+        return DAO.buscarFerramentasDisponiveis();
+    }
+
+    public static Ferramenta buscarNome(String nome) throws ExceptionDAO {
+        return DAO.buscarNome(nome);
+    }
+
     public String toString() {
         return "Ferramenta{" +
                 "id=" + id +
