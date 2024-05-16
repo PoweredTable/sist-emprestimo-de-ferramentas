@@ -27,8 +27,8 @@ public class Emprestimo {
         this.dataInicial = null;
         this.dataPrazo = null;
         this.dataDevolucao = null;
-        this.amigo = null;
-        this.ferramenta = null;
+        this.amigo = new Amigo();
+        this.ferramenta = new Ferramenta();
     }
 
     public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo) {
