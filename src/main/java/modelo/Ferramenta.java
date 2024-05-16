@@ -94,7 +94,7 @@ public class Ferramenta {
         return DAO.buscarFerramentasDisponiveis();
     }
 
-    public static Ferramenta buscarNome(String nome) throws ExceptionDAO {
+    public static ArrayList<Ferramenta> buscarNome(String nome) throws ExceptionDAO {
         return DAO.buscarNome(nome);
     }
 
