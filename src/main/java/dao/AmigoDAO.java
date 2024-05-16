@@ -131,7 +131,7 @@ public class AmigoDAO implements DAO<Amigo> {
         return amigoPossuiEmprestimo(sql, id);
     }
 
-    public Amigo buscarMaiorUtilizador() throws ExceptionDAO {
+    public Optional<Amigo> buscarMaiorUtilizador() throws ExceptionDAO {
         String sql = "SELECT a.id, a.nome, a.apelido, a.telefone " +
                      "FROM amigos a " +
                      "JOIN emprestimos e ON e.id_amigo = a.id " +
@@ -149,18 +149,23 @@ public class AmigoDAO implements DAO<Amigo> {
                 amigo.setNome(rs.getString("nome"));
                 amigo.setApelido(rs.getString("apelido"));
                 amigo.setTelefone(rs.getString("telefone"));
+
+                return Optional.of(amigo);
+            } else {
+                return Optional.empty();
             }
     
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao consultar amigo: " + e);
         }
     
-        return amigo;
+        
     }
 
-    public Amigo buscarNome(String nome) throws ExceptionDAO {
+    public ArrayList<Amigo> buscarNome(String nome) throws ExceptionDAO {
         String sql = "SELECT * FROM amigos WHERE UPPER(nome) LIKE UPPER(?)";
         Amigo amigo = new Amigo();
+        ArrayList<Amigo> amigos = new ArrayList<>();
     
         try (Connection conn = new DBConexao().getConexao();
              PreparedStatement pStatement = conn.prepareStatement(sql)) {
@@ -173,13 +178,14 @@ public class AmigoDAO implements DAO<Amigo> {
                 amigo.setNome(rs.getString("nome"));
                 amigo.setApelido(rs.getString("apelido"));
                 amigo.setTelefone(rs.getString("telefone"));
+                amigos.add(amigo);
             }
     
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao consultar amigo: " + e);
         }
     
-        return amigo;
+        return amigos;
     }
     
     //TODO: implementar testes
