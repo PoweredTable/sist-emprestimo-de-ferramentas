@@ -90,11 +90,11 @@ public class Amigo {
         return DAO.amigoPossuiEmprestimoAtivo(id);
     }
 
-    public static Amigo buscarMaiorUtilizador() throws ExceptionDAO {
+    public static Optional<Amigo> buscarMaiorUtilizador() throws ExceptionDAO {
         return DAO.buscarMaiorUtilizador();
     }
 
-    public static Amigo buscarNome(String nome) throws ExceptionDAO {
+    public static ArrayList<Amigo> buscarNome(String nome) throws ExceptionDAO {
         return DAO.buscarNome(nome);
     }
 
