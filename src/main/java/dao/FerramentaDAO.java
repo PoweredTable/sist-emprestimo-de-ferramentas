@@ -152,7 +152,6 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     
     public ArrayList<Ferramenta> buscarNome(String nome) throws ExceptionDAO {
         String sql = "SELECT * FROM ferramentas WHERE UPPER(nome) LIKE UPPER(?)";
-        Ferramenta ferramenta = new Ferramenta();
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
     
         try (Connection conn = new DBConexao().getConexao();
@@ -161,6 +160,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
             pStatement.setString(1, "%" + nome + "%"); // Adicione os curingas diretamente aqui
             try (ResultSet rs = pStatement.executeQuery()) { // Use try-with-resources para garantir que o ResultSet seja fechado
                 if (rs.next()) {
+                    Ferramenta ferramenta = new Ferramenta();
                     ferramenta.setId(rs.getInt("id"));
                     ferramenta.setNome(rs.getString("nome"));
                     ferramenta.setMarca(rs.getString("marca"));
