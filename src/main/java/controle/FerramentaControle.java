@@ -79,7 +79,7 @@ public class FerramentaControle {
         return Ferramenta.buscarFerramentasDisponiveis();
     }
 
-    public static ArrayList<Ferramenta> buscarNome(String nome) throws ExceptionDAO, NullPointerException {
+    public static ArrayList<Ferramenta> buscarNome(String nome) throws ExceptionDAO {
         Objects.requireNonNull(nome, "O nome da ferramenta não pode ser nulo!");
         return Ferramenta.buscarNome(nome);
     }
