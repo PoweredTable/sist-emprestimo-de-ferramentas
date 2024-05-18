@@ -30,7 +30,26 @@ public class FerramentaDAO implements DAO<Ferramenta> {
 
     public ArrayList<Ferramenta> buscarTudo() throws ExceptionDAO {
         String sql = "SELECT * FROM ferramentas ORDER BY nome ASC;";
-        return buscarFerramentas(sql);
+        ArrayList<Ferramenta> ferramentas = new ArrayList<>();
+
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql);
+                ResultSet rs = pStatement.executeQuery()) {
+
+            while (rs.next()) {
+                Ferramenta ferramenta = new Ferramenta();
+                ferramenta.setId(rs.getInt("id"));
+                ferramenta.setNome(rs.getString("nome"));
+                ferramenta.setMarca(rs.getString("marca"));
+                ferramenta.setPreco(rs.getDouble("custo"));
+                ferramentas.add(ferramenta);
+            }
+
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar ferramenta: " + e);
+        }
+
+        return ferramentas;
     }
 
     public void cadastrar(Ferramenta ferramenta) throws ExceptionDAO {
@@ -107,24 +126,14 @@ public class FerramentaDAO implements DAO<Ferramenta> {
 
     public ArrayList<Ferramenta> buscarFerramentasDisponiveis() throws ExceptionDAO {
         String sql = "SELECT f.* FROM emprestimos e " +
-                "RIGHT JOIN ferramentas f ON e.id_ferramenta = f.id " +
-                "WHERE data_devolucao IS NOT NULL OR id_ferramenta IS NULL;";
-
-        return buscarFerramentas(sql);
-    }
-
-    public ArrayList<Ferramenta> buscarNome(String nome) throws ExceptionDAO {
-        String sql = "SELECT * FROM ferramentas WHERE UPPER(nome) LIKE UPPER(?)";
-        return buscarFerramentas(sql);
-    }
-
-    private ArrayList<Ferramenta> buscarFerramentas(String sql) throws ExceptionDAO {
+                     "RIGHT JOIN ferramentas f ON e.id_ferramenta = f.id " +
+                     "WHERE data_devolucao IS NOT NULL OR id_ferramenta IS NULL;";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
-
+    
         try (Connection conn = new DBConexao().getConexao();
-                PreparedStatement pStatement = conn.prepareStatement(sql);
-                ResultSet rs = pStatement.executeQuery()) {
-
+             PreparedStatement pStatement = conn.prepareStatement(sql);
+             ResultSet rs = pStatement.executeQuery()) {
+    
             while (rs.next()) {
                 Ferramenta ferramenta = new Ferramenta();
                 ferramenta.setId(rs.getInt("id"));
@@ -133,12 +142,40 @@ public class FerramentaDAO implements DAO<Ferramenta> {
                 ferramenta.setPreco(rs.getDouble("custo"));
                 ferramentas.add(ferramenta);
             }
-
+    
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar ferramentas: " + e);
+        }
+    
+        return ferramentas;
+    }
+    
+    public ArrayList<Ferramenta> buscarNome(String nome) throws ExceptionDAO {
+        String sql = "SELECT * FROM ferramentas WHERE UPPER(nome) LIKE UPPER(?)";
+        Ferramenta ferramenta = new Ferramenta();
+        ArrayList<Ferramenta> ferramentas = new ArrayList<>();
+    
+        try (Connection conn = new DBConexao().getConexao();
+             PreparedStatement pStatement = conn.prepareStatement(sql)) {
+    
+            pStatement.setString(1, "%" + nome + "%"); // Adicione os curingas diretamente aqui
+            try (ResultSet rs = pStatement.executeQuery()) { // Use try-with-resources para garantir que o ResultSet seja fechado
+                if (rs.next()) {
+                    ferramenta.setId(rs.getInt("id"));
+                    ferramenta.setNome(rs.getString("nome"));
+                    ferramenta.setMarca(rs.getString("marca"));
+                    ferramenta.setPreco(rs.getDouble("custo"));
+                    ferramentas.add(ferramenta);
+                }
+            }
+    
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao consultar ferramenta: " + e);
         }
-
+    
         return ferramentas;
     }
 
+
+    
 }
