@@ -6,6 +6,8 @@ import java.util.Optional;
 import dao.AmigoDAO;
 import dao.ExceptionDAO;
 
+/**                                         
+ */
 public class Amigo {
     private Integer id;
     private String nome;
