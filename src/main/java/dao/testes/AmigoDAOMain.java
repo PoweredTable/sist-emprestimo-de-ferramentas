@@ -20,7 +20,7 @@ public class AmigoDAOMain {
             amigoDAO.cadastrar(novoAmigo);
             System.out.println("Amigo cadastrado com sucesso!");
 
-            // Testar buscar
+            // // Testar buscar
             Optional<Amigo> amigoBuscado = amigoDAO.buscar(novoAmigo.getId());
             if (amigoBuscado.isPresent()) {
                 System.out.println("Amigo encontrado: " + amigoBuscado.get().getNome());
@@ -50,13 +50,13 @@ public class AmigoDAOMain {
             }
 
             // Testar excluir
-            int idParaExcluir = 2; // Certifique-se de que este ID exista para o teste
-            int linhasExcluidas = amigoDAO.excluir(idParaExcluir);
-            if (linhasExcluidas > 0) {
-                System.out.println("Amigo excluído com sucesso!");
-            } else {
-                System.out.println("Falha ao excluir amigo ou amigo não encontrado.");
-            }
+            // int idParaExcluir = 2; // Certifique-se de que este ID exista para o teste
+            // int linhasExcluidas = amigoDAO.excluir(idParaExcluir);
+            // if (linhasExcluidas > 0) {
+            // System.out.println("Amigo excluído com sucesso!");
+            // } else {
+            // System.out.println("Falha ao excluir amigo ou amigo não encontrado.");
+            // }
 
             // Testar se amigo possui empréstimo ativo
             boolean possuiEmprestimoAtivo = amigoDAO.amigoPossuiEmprestimoAtivo(1);
@@ -71,7 +71,7 @@ public class AmigoDAOMain {
             }
 
             // Testar buscar por nome
-            ArrayList<Amigo> amigosPorNome = amigoDAO.buscarNome("João");
+            ArrayList<Amigo> amigosPorNome = amigoDAO.buscarNome("e");
             System.out.println("Amigos encontrados por nome:");
             for (Amigo amigo : amigosPorNome) {
                 System.out.println(amigo.getNome());
