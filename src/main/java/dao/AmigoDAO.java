@@ -164,7 +164,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     public ArrayList<Amigo> buscarNome(String nome) throws ExceptionDAO {
         String sql = "SELECT * FROM amigos WHERE UPPER(nome) LIKE UPPER(?)";
-        Amigo amigo = new Amigo();
         ArrayList<Amigo> amigos = new ArrayList<>();
     
         try (Connection conn = new DBConexao().getConexao();
@@ -174,6 +173,7 @@ public class AmigoDAO implements DAO<Amigo> {
             ResultSet rs = pStatement.executeQuery();
     
             if (rs.next()) {
+                Amigo amigo = new Amigo();
                 amigo.setId(rs.getInt("id"));
                 amigo.setNome(rs.getString("nome"));
                 amigo.setApelido(rs.getString("apelido"));

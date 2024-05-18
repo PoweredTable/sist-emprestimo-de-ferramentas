@@ -10,16 +10,15 @@ import modelo.Emprestimo;
 
 public class EmprestimoControle {
 
-    public static void checkModelo(Emprestimo emprestimo) {
-        Objects.requireNonNull(emprestimo);
-        Objects.requireNonNull(emprestimo.getIdFerramenta());
-        Objects.requireNonNull(emprestimo.getIdAmigo());
-        Objects.requireNonNull(emprestimo.getDataInicial());
-        Objects.requireNonNull(emprestimo.getDataPrazo());
+    private static final String erroMsgModeloNulo = "O objeto 'emprestimo' não pode ser nulo!";
+    private static final String erroMsgIdNulo = "O atributo 'Id' do objeto 'emprestimo' não pode ser nulo!";
+
+    private EmprestimoControle() {
+
     }
 
     public static Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
-        Objects.requireNonNull(id, "O Id do modelo 'Emprestimo' não pode ser nulo!");
+        Objects.requireNonNull(id, erroMsgIdNulo);
         return Emprestimo.buscar(id);
     }
 
@@ -27,22 +26,36 @@ public class EmprestimoControle {
         return Emprestimo.buscarTudo();
     }
 
+    public static void cadastrar(Emprestimo emprestimo) throws ExceptionDAO {
+        Objects.requireNonNull(emprestimo, erroMsgModeloNulo);
+        Objects.requireNonNull(emprestimo.getIdFerramenta(), "O atributo 'IdFerramenta' do objeto " +
+                "'emprestimo' não pode ser nulo!");
+        Objects.requireNonNull(emprestimo.getIdAmigo(), "O atributo 'IdAmigo' do objeto " +
+                "'emprestimo' não pode ser nulo!");
+        Objects.requireNonNull(emprestimo.getDataInicial(), "O atributo 'dataInicial' do objeto " +
+                "'emprestimo' não pode ser nulo!");
+        Objects.requireNonNull(emprestimo.getDataPrazo(), "O atributo 'dataPrazo' do objeto " +
+                "'emprestimo' não pode ser nulo!");
+        Emprestimo.cadastrar(emprestimo);
+    }
+
     public static void cadastrar(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo) throws ExceptionDAO {
         Emprestimo emprestimo = new Emprestimo(idFerramenta, idAmigo, dataInicial, dataPrazo);
         cadastrar(emprestimo);
     }
 
-    public static void cadastrar(Emprestimo emprestimo) throws ExceptionDAO {
-        checkModelo(emprestimo);
-        Emprestimo.cadastrar(emprestimo);
-    }
-
     public static void alterar(Emprestimo emprestimo) throws ExceptionDAO {
-        //TODO: finalizar método
+        Objects.requireNonNull(emprestimo, erroMsgModeloNulo);
+        Integer id = emprestimo.getId();
+        Objects.requireNonNull(id, erroMsgIdNulo);
+        int rowsAffected = Emprestimo.alterar(emprestimo);
+        if (rowsAffected == 0) {
+            throw new ExceptionDAO("O empréstimo '" + id + "' não foi alterado pois não exite!");
+        }
     }
 
     public static void excluir(Integer id) throws ExceptionDAO {
-        Objects.requireNonNull(id);
+        Objects.requireNonNull(id, erroMsgIdNulo);
         int rowsAffected = Emprestimo.excluir(id);
         if (rowsAffected == 0) {
             throw new ExceptionDAO("O empréstimo '" + id + "' não foi excluído pois não existe!");
@@ -66,7 +79,7 @@ public class EmprestimoControle {
     }
 
     public static void confirmarDevolucao(Integer id, LocalDate date) throws ExceptionDAO {
-        Objects.requireNonNull(id, "O Id do modelo 'Emprestimo' não pode ser nulo!");
+        Objects.requireNonNull(id, erroMsgIdNulo);
         Objects.requireNonNull(date, "A data de devolução não pode ser nula!");
 
         Optional<Emprestimo> emprestimoOptional = buscar(id);
