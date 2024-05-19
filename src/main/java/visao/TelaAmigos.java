@@ -4,7 +4,6 @@
  */
 package visao;
 
-import javax.swing.table.TableRowSorter;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -114,6 +113,11 @@ public class TelaAmigos extends javax.swing.JFrame {
         jButtonPesquisar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButtonPesquisar.setForeground(new java.awt.Color(64, 64, 64));
         jButtonPesquisar.setText("Pesquisar");
+        jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButtonPesquisar);
 
         jPanel7.setBackground(new java.awt.Color(64, 64, 64));
@@ -318,6 +322,11 @@ public class TelaAmigos extends javax.swing.JFrame {
         jButtonExcluir.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButtonExcluir.setForeground(new java.awt.Color(64, 64, 64));
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
         jPanel12.add(jButtonExcluir);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -433,7 +442,7 @@ public class TelaAmigos extends javax.swing.JFrame {
                 String nome = jTable1Amigos.getValueAt(index, 1).toString();
                 String apelido = jTable1Amigos.getValueAt(index, 2).toString();
                 String telefone = jTable1Amigos.getValueAt(index, 3).toString();
-                
+
                 dialog.setId(id);
                 dialog.setNome(nome);
                 dialog.setApelido(apelido);
@@ -442,6 +451,30 @@ public class TelaAmigos extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTable1AmigosMouseClicked
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        // TODO add your handling code here:
+        excluirAmigo();
+        carregaTabelaAmigos();
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+        // TODO add your handling code here:
+        if (jTextFieldPesquisar.getText().equals("")) {
+            carregaTabelaAmigos();
+        } else {
+            try {
+                String nome = jTextFieldPesquisar.getText();
+                System.err.println(AmigoControle.buscarNome(nome));
+                
+                carregaTabelaFiltrada();
+            } catch (Exception e) {
+                
+            }
+           
+        }
+        
+    }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     public void carregaTabelaAmigos() {
         DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
@@ -469,9 +502,44 @@ public class TelaAmigos extends javax.swing.JFrame {
                 });
             }
         } catch (ExceptionDAO e) {
-            JOptionPane.showMessageDialog(null, "Deu Ruim");
+            JOptionPane.showMessageDialog(null, e);
         }
     }
+
+    public void carregaTabelaFiltrada() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
+
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+        //Carrega a lista de objetos aluno
+        //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        //jTable1Amigos.setRowSorter(sorter);
+        try {
+            String nome = jTextFieldPesquisar.getText();
+            ArrayList<Amigo> lista = AmigoControle.buscarNome(nome);
+
+            for (Amigo f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getNome(),
+                    f.getApelido(),
+                    f.getTelefone()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public void excluirAmigo() {
+        int id = dialog.getId();
+        try {
+            AmigoControle.excluir(id);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */
