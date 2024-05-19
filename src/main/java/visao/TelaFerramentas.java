@@ -61,7 +61,7 @@ public class TelaFerramentas extends javax.swing.JFrame {
         BG.setBackground(new java.awt.Color(64, 64, 64));
 
         jPanel2.setBackground(new java.awt.Color(64, 64, 64));
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setBackground(new java.awt.Color(46, 46, 46));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
@@ -177,15 +177,23 @@ public class TelaFerramentas extends javax.swing.JFrame {
         jTable1.setBackground(new java.awt.Color(89, 89, 89));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "Marca", "Preço"
+                "ID", "Nome", "Marca", "Preço"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setSelectionForeground(new java.awt.Color(115, 115, 115));
         jScrollPane1.setViewportView(jTable1);
 
@@ -261,7 +269,7 @@ public class TelaFerramentas extends javax.swing.JFrame {
         jPanel10.setPreferredSize(new java.awt.Dimension(1280, 900));
 
         jPanel11.setBackground(new java.awt.Color(64, 64, 64));
-        jPanel11.setLayout(new java.awt.GridLayout());
+        jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonVoltar.setBackground(new java.awt.Color(156, 156, 156));
         jButtonVoltar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
