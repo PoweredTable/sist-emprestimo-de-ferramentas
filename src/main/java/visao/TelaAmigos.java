@@ -4,11 +4,26 @@
  */
 package visao;
 
+import javax.swing.table.TableRowSorter;
+import java.util.Collections;
+import java.util.Comparator;
+
+import modelo.Amigo;
+import controle.AmigoControle;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import dao.ExceptionDAO;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 /**
  *
  * @author waldy
  */
 public class TelaAmigos extends javax.swing.JFrame {
+
+    private DialogAmigos dialog;
 
     /**
      * Creates new form TelaAmigos1
@@ -16,6 +31,13 @@ public class TelaAmigos extends javax.swing.JFrame {
     public TelaAmigos() {
         setLocationRelativeTo(null);
         initComponents();
+        this.dialog = new DialogAmigos(this, true);
+        dialog.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                // Código para atualizar a tabela na tela principal
+                carregaTabelaAmigos();
+            }
+        });
     }
 
     /**
@@ -41,7 +63,7 @@ public class TelaAmigos extends javax.swing.JFrame {
         jButtonCadastrar = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable1Amigos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -173,20 +195,25 @@ public class TelaAmigos extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(156, 156, 156));
 
-        jTable1.setBackground(new java.awt.Color(89, 89, 89));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1Amigos.setBackground(new java.awt.Color(89, 89, 89));
+        jTable1Amigos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "Apelido", "Telefone"
+                "ID", "Nome", "Apelido", "Telefone"
             }
         ));
-        jTable1.setSelectionForeground(new java.awt.Color(115, 115, 115));
-        jScrollPane1.setViewportView(jTable1);
+        jTable1Amigos.setSelectionForeground(new java.awt.Color(115, 115, 115));
+        jTable1Amigos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1AmigosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1Amigos);
 
         jPanel1.setBackground(new java.awt.Color(156, 156, 156));
 
@@ -359,9 +386,15 @@ public class TelaAmigos extends javax.swing.JFrame {
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         // TODO add your handling code here:
-        DialogAmigos dialog = new DialogAmigos(this, true);
+        //DialogAmigos dialog = new DialogAmigos(this, true);
+        dialog.setTitleDialog("Cadastro");
+        dialog.setTextButtonSalvar("Salvar");
+        dialog.setNome("");
+        dialog.setApelido("");
+        dialog.setTelefone("");
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
+
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
@@ -373,22 +406,72 @@ public class TelaAmigos extends javax.swing.JFrame {
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         // TODO add your handling code here:
-        DialogAmigos dialog = new DialogAmigos(this, true);
-        
+        //DialogAmigos dialog = new DialogAmigos(this, true);
+
         dialog.setTitleDialog("Editar");
         dialog.setTextButtonSalvar("Editar");
 
-    // Preencher os campos com as informações da ferramenta a ser editada
-        String nomeAmigo = "nome do amigo"; // Substitua isso com o nome da ferramenta que você deseja editar
-        String apelidoAmigo = "apelido do amigo"; // Substitua isso com a descrição da ferramenta que você deseja editar
-        String telefoneAmigo = "telefone do Amigo"; // Substitua isso com a categoria da ferramenta que você deseja editar
+        // Preencher os campos com as informações da ferramenta a ser editada
+        String nomeAmigo = dialog.getNome(); // Substitua isso com o nome da ferramenta que você deseja editar
+        String apelidoAmigo = dialog.getApelido(); // Substitua isso com a descrição da ferramenta que você deseja editar
+        String telefoneAmigo = dialog.getTelefone(); // Substitua isso com a categoria da ferramenta que você deseja editar
 
         dialog.setNome(nomeAmigo);
         dialog.setApelido(apelidoAmigo);
         dialog.setTelefone(telefoneAmigo);
         dialog.setVisible(true);
+        dialog.setModoEdicao(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
+    private void jTable1AmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1AmigosMouseClicked
+        // TODO add your handling code here:
+        System.out.println("Clique efetuado");
+        if (evt.getClickCount() == 1) { // Verifica se o clique foi único
+            int index = jTable1Amigos.getSelectedRow();
+            if (index != -1) { // Verifica se uma linha está selecionada
+                int id = Integer.parseInt(jTable1Amigos.getValueAt(index, 0).toString());
+                String nome = jTable1Amigos.getValueAt(index, 1).toString();
+                String apelido = jTable1Amigos.getValueAt(index, 2).toString();
+                String telefone = jTable1Amigos.getValueAt(index, 3).toString();
+                
+                dialog.setId(id);
+                dialog.setNome(nome);
+                dialog.setApelido(apelido);
+                dialog.setTelefone(telefone);
+                //dialog.setVisible(true); // Torna a dialog visível após configurar os campos
+            }
+        }
+    }//GEN-LAST:event_jTable1AmigosMouseClicked
+
+    public void carregaTabelaAmigos() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
+
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+        //Carrega a lista de objetos aluno
+        //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        //jTable1Amigos.setRowSorter(sorter);
+        try {
+            ArrayList<Amigo> lista = AmigoControle.buscarTudo();
+
+            Collections.sort(lista, new Comparator<Amigo>() {
+                @Override
+                public int compare(Amigo a1, Amigo a2) {
+                    return Long.compare(a1.getId(), a2.getId());
+                }
+            });
+
+            for (Amigo f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getNome(),
+                    f.getApelido(),
+                    f.getTelefone()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, "Deu Ruim");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -449,7 +532,7 @@ public class TelaAmigos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable1Amigos;
     private javax.swing.JTextField jTextFieldPesquisar;
     // End of variables declaration//GEN-END:variables
 }
