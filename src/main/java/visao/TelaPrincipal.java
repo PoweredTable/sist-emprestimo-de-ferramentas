@@ -332,6 +332,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setEnabled(false);
         amigos.setLocationRelativeTo(null);
         amigos.carregaTabelaAmigos();
+        amigos.apresentaMaiorUtilizador();
+        amigos.apresentaQuantidadeAmigos();
         
         amigos.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
