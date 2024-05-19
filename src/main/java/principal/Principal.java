@@ -1,6 +1,6 @@
 package Principal;
 
-import visao.TelaPrincipal;
+import view.TelaPrincipal;
 
 public class Principal {
 
