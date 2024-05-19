@@ -8,7 +8,7 @@ CREATE TABLE ferramentas (
 CREATE TABLE amigos (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) not null,
-    apelido VARCHAR(100) not null ,
+    apelido VARCHAR(100),
     telefone VARCHAR(20) not null
 );
 
@@ -59,6 +59,11 @@ INSERT INTO emprestimos (id_ferramenta, id_amigo, data_inicial, data_prazo, data
 -- retorna os emprestimos
 SELECT emprestimos.id as id_emprestimo,ferramentas.id as id_ferramenta,amigos.id as id_amigo,data_inicial,data_prazo,data_devolucao,ferramentas.nome AS nome_ferramenta, 
        amigos.nome AS nome_amigo,apelido FROM emprestimos
+JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id
+JOIN amigos ON emprestimos.id_amigo = amigos.id
+ORDER BY data_prazo ASC;
+
+SELECT *, ferramentas.nome as nome_ferramenta FROM emprestimos
 JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id
 JOIN amigos ON emprestimos.id_amigo = amigos.id
 ORDER BY data_prazo ASC;

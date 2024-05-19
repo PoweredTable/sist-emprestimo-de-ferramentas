@@ -131,7 +131,7 @@ public class AmigoDAO implements DAO<Amigo> {
         return amigoPossuiEmprestimo(sql, id);
     }
 
-    public Amigo buscarMaiorUtilizador() throws ExceptionDAO {
+    public Optional<Amigo> buscarMaiorUtilizador() throws ExceptionDAO {
         String sql = "SELECT a.id, a.nome, a.apelido, a.telefone " +
                      "FROM amigos a " +
                      "JOIN emprestimos e ON e.id_amigo = a.id " +
@@ -149,18 +149,22 @@ public class AmigoDAO implements DAO<Amigo> {
                 amigo.setNome(rs.getString("nome"));
                 amigo.setApelido(rs.getString("apelido"));
                 amigo.setTelefone(rs.getString("telefone"));
+
+                return Optional.of(amigo);
+            } else {
+                return Optional.empty();
             }
     
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao consultar amigo: " + e);
         }
     
-        return amigo;
+        
     }
 
-    public Amigo buscarNome(String nome) throws ExceptionDAO {
+    public ArrayList<Amigo> buscarNome(String nome) throws ExceptionDAO {
         String sql = "SELECT * FROM amigos WHERE UPPER(nome) LIKE UPPER(?)";
-        Amigo amigo = new Amigo();
+        ArrayList<Amigo> amigos = new ArrayList<>();
     
         try (Connection conn = new DBConexao().getConexao();
              PreparedStatement pStatement = conn.prepareStatement(sql)) {
@@ -169,18 +173,39 @@ public class AmigoDAO implements DAO<Amigo> {
             ResultSet rs = pStatement.executeQuery();
     
             if (rs.next()) {
+                Amigo amigo = new Amigo();
                 amigo.setId(rs.getInt("id"));
                 amigo.setNome(rs.getString("nome"));
                 amigo.setApelido(rs.getString("apelido"));
                 amigo.setTelefone(rs.getString("telefone"));
+                amigos.add(amigo);
             }
     
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao consultar amigo: " + e);
         }
     
-        return amigo;
+        return amigos;
     }
     
-    //TODO: implementar testes
+    public int quantidadeAmigos() throws ExceptionDAO {
+        String sql = "SELECT COUNT(*) FROM amigos";
+        int quantidade = 0;
+
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql);
+                ResultSet rs = pStatement.executeQuery()) {
+
+            if (rs.next()) {
+                quantidade = rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar quantidade de amigos: " + e);
+        }
+
+        return quantidade;
+    }
+
+    
 }
