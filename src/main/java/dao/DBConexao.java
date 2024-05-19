@@ -15,7 +15,7 @@ public class DBConexao {
         Connection conn = null;
         
         try{
-            Class.forName("org.postgresql.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         }catch(ClassNotFoundException e){
             e.printStackTrace();
         }
