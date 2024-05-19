@@ -201,7 +201,7 @@ public class AmigoDAO implements DAO<Amigo> {
             }
 
         } catch (SQLException e) {
-            throw new ExceptionDAO("Erro ao consultar quantidade de ferramentas: " + e);
+            throw new ExceptionDAO("Erro ao consultar quantidade de amigos: " + e);
         }
 
         return quantidade;
