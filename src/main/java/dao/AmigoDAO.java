@@ -187,4 +187,27 @@ public class AmigoDAO implements DAO<Amigo> {
 
         return amigos;
     }
+
+    
+    public int quantidadeAmigos() throws ExceptionDAO {
+        String sql = "SELECT COUNT(*) FROM amigos";
+        int quantidade = 0;
+
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql);
+                ResultSet rs = pStatement.executeQuery()) {
+
+            if (rs.next()) {
+                quantidade = rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar quantidade de amigos: " + e);
+        }
+
+        return quantidade;
+    }
+
+    
+
 }
