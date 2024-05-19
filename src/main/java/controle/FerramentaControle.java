@@ -93,8 +93,7 @@ public class FerramentaControle {
         return soma;
     }
 
-    public static int totalFerramentas() throws ExceptionDAO {
-        //TODO: implementar DAO
-        return 0;
+    public static int quantidadeFerramentas() throws ExceptionDAO {
+        return Ferramenta.quantidadeFerramentas();
     }
 }
