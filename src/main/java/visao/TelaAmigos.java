@@ -6,8 +6,8 @@ package visao;
 
 import java.util.Collections;
 import java.util.Comparator;
-
 import modelo.Amigo;
+import java.util.Optional;
 import controle.AmigoControle;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -20,6 +20,7 @@ import java.awt.event.WindowEvent;
  *
  * @author waldy
  */
+
 public class TelaAmigos extends javax.swing.JFrame {
 
     private DialogAmigos dialog;
@@ -65,9 +66,9 @@ public class TelaAmigos extends javax.swing.JFrame {
         jTable1Amigos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelMaiorUtiizador = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelQuantidadeAmigos = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jButtonVoltar = new javax.swing.JButton();
@@ -98,7 +99,6 @@ public class TelaAmigos extends javax.swing.JFrame {
         jTextFieldPesquisar.setBackground(new java.awt.Color(156, 156, 156));
         jTextFieldPesquisar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextFieldPesquisar.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldPesquisar.setText("jTextField1");
         jTextFieldPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPesquisarActionPerformed(evt);
@@ -210,7 +210,15 @@ public class TelaAmigos extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nome", "Apelido", "Telefone"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1Amigos.setSelectionForeground(new java.awt.Color(115, 115, 115));
         jTable1Amigos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -225,17 +233,17 @@ public class TelaAmigos extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Maior utilitário:");
 
-        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 187, 0));
-        jLabel5.setText("Lucas");
+        jLabelMaiorUtiizador.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabelMaiorUtiizador.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelMaiorUtiizador.setText("-");
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Quantidade de total:");
+        jLabel2.setText("Quantidade total:");
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 187, 0));
-        jLabel3.setText("12");
+        jLabelQuantidadeAmigos.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabelQuantidadeAmigos.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelQuantidadeAmigos.setText("12");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -245,11 +253,11 @@ public class TelaAmigos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(jLabelQuantidadeAmigos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelMaiorUtiizador, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -258,10 +266,10 @@ public class TelaAmigos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
+                        .addComponent(jLabelQuantidadeAmigos))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabelMaiorUtiizador)))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
@@ -389,6 +397,32 @@ public class TelaAmigos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void apresentaMaiorUtilizador() {
+        try {
+            Optional<Amigo> optionalAmigo = AmigoControle.buscarMaiorUtilizador();
+            if (optionalAmigo.isPresent()) {
+                Amigo amigo = optionalAmigo.get();
+                // Now you can use the amigo object
+                String nome = amigo.getNome();
+                jLabelMaiorUtiizador.setText(nome);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public void apresentaQuantidadeAmigos() {
+        try {
+            String quantidade = String.valueOf(AmigoControle.quantidadeAmigos());
+            jLabelQuantidadeAmigos.setText(quantidade);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+
     private void jTextFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPesquisarActionPerformed
@@ -466,114 +500,112 @@ public class TelaAmigos extends javax.swing.JFrame {
             try {
                 String nome = jTextFieldPesquisar.getText();
                 System.err.println(AmigoControle.buscarNome(nome));
-                
                 carregaTabelaFiltrada();
             } catch (Exception e) {
-                
+
             }
-           
         }
-        
+
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     public void carregaTabelaAmigos() {
-        DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
+    DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
 
-        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
-        //Carrega a lista de objetos aluno
-        //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-        //jTable1Amigos.setRowSorter(sorter);
-        try {
-            ArrayList<Amigo> lista = AmigoControle.buscarTudo();
+    modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+    //Carrega a lista de objetos aluno
+    //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+    //jTable1Amigos.setRowSorter(sorter);
+    try {
+        ArrayList<Amigo> lista = AmigoControle.buscarTudo();
 
-            Collections.sort(lista, new Comparator<Amigo>() {
-                @Override
-                public int compare(Amigo a1, Amigo a2) {
-                    return Long.compare(a1.getId(), a2.getId());
-                }
-            });
-
-            for (Amigo f : lista) {
-                modelo.addRow(new Object[]{
-                    f.getId(),
-                    f.getNome(),
-                    f.getApelido(),
-                    f.getTelefone()
-                });
+        Collections.sort(lista, new Comparator<Amigo>() {
+            @Override
+            public int compare(Amigo a1, Amigo a2) {
+                return Long.compare(a1.getId(), a2.getId());
             }
-        } catch (ExceptionDAO e) {
-            JOptionPane.showMessageDialog(null, e);
+        });
+
+        for (Amigo f : lista) {
+            modelo.addRow(new Object[]{
+                f.getId(),
+                f.getNome(),
+                f.getApelido(),
+                f.getTelefone()
+            });
         }
+    } catch (ExceptionDAO e) {
+        JOptionPane.showMessageDialog(null, e);
     }
+}
 
     public void carregaTabelaFiltrada() {
-        DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
+    DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
 
-        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
-        //Carrega a lista de objetos aluno
-        //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-        //jTable1Amigos.setRowSorter(sorter);
-        try {
-            String nome = jTextFieldPesquisar.getText();
-            ArrayList<Amigo> lista = AmigoControle.buscarNome(nome);
+    modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+    //Carrega a lista de objetos aluno
+    //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+    //jTable1Amigos.setRowSorter(sorter);
+    try {
+        String nome = jTextFieldPesquisar.getText();
+        ArrayList<Amigo> lista = AmigoControle.buscarNome(nome);
 
-            for (Amigo f : lista) {
-                modelo.addRow(new Object[]{
-                    f.getId(),
-                    f.getNome(),
-                    f.getApelido(),
-                    f.getTelefone()
-                });
-            }
-        } catch (ExceptionDAO e) {
-            JOptionPane.showMessageDialog(null, e);
+        for (Amigo f : lista) {
+            modelo.addRow(new Object[]{
+                f.getId(),
+                f.getNome(),
+                f.getApelido(),
+                f.getTelefone()
+            });
         }
+    } catch (ExceptionDAO e) {
+        JOptionPane.showMessageDialog(null, e);
     }
+}
 
     public void excluirAmigo() {
-        int id = dialog.getId();
-        try {
-            AmigoControle.excluir(id);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-
+    int id = dialog.getId();
+    try {
+        AmigoControle.excluir(id);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
     }
+
+}
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+     */
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaAmigos().setVisible(true);
-            }
-        });
+    } catch (ClassNotFoundException ex) {
+        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new TelaAmigos().setVisible(true);
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BG;
@@ -584,9 +616,9 @@ public class TelaAmigos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelMaiorUtiizador;
+    private javax.swing.JLabel jLabelQuantidadeAmigos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
