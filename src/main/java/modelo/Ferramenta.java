@@ -98,6 +98,10 @@ public class Ferramenta {
         return DAO.buscarNome(nome);
     }
 
+    public static int quantidadeFerramentas() throws ExceptionDAO {
+        return DAO.quantidadeFerramentas();
+    }
+
     public String toString() {
         return "Ferramenta{" +
                 "id=" + id +
