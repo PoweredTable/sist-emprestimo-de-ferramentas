@@ -159,7 +159,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     
             pStatement.setString(1, "%" + nome + "%"); // Adicione os curingas diretamente aqui
             try (ResultSet rs = pStatement.executeQuery()) { // Use try-with-resources para garantir que o ResultSet seja fechado
-                if (rs.next()) {
+                while (rs.next()) {
                     Ferramenta ferramenta = new Ferramenta();
                     ferramenta.setId(rs.getInt("id"));
                     ferramenta.setNome(rs.getString("nome"));
