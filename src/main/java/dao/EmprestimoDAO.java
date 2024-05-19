@@ -50,7 +50,7 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
             if (rs.next()) {
                 Emprestimo emprestimo = new Emprestimo();
                 
-                emprestimo.setId(rs.getInt("id_emprestimo"));
+                emprestimo.setId(rs.getInt("id"));
                 emprestimo.setIdFerramenta(rs.getInt("id_ferramenta"));
                 emprestimo.setIdAmigo(rs.getInt("id_amigo"));
                 emprestimo.setDataInicial(toLocalDate(rs.getDate("data_inicial")));
@@ -92,7 +92,7 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
                 Emprestimo emprestimo = new Emprestimo();
                 
 
-                emprestimo.setId(rs.getInt("id_emprestimo"));
+                emprestimo.setId(rs.getInt("id"));
                 emprestimo.setIdFerramenta(rs.getInt("id_ferramenta"));
                 emprestimo.setIdAmigo(rs.getInt("id_amigo"));
                 emprestimo.setDataInicial(toLocalDate(rs.getDate("data_inicial")));
@@ -125,10 +125,10 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public ArrayList<Emprestimo> buscarTudo() throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta FROM emprestimos, amigos.nome AS nome_amigo" +
-                     "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
-                     "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
-                     "ORDER BY data_prazo ASC;";
+        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta, amigos.nome AS nome_amigo FROM emprestimos " +
+                "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
+                "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
+                "ORDER BY data_prazo ASC;";
         return buscarEmprestimos(sql);
     }
 
@@ -325,5 +325,22 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
 
-    // TODO: conversar sobre testes, fazer em classes separadas
+    public int quantidadeEmprestimos() throws ExceptionDAO {
+        String sql = "SELECT COUNT(*) FROM emprestimos;";
+        int quantidade = 0;
+
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql);
+                ResultSet rs = pStatement.executeQuery()) {
+
+            if (rs.next()) {
+                quantidade = rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar quantidade de emprestimos: " + e);
+        }
+
+        return quantidade;
+    }
 }
