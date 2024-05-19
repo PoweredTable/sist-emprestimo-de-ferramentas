@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import modelo.Emprestimo;
 
 
-public class EmprestimoDAO implements Dao<Emprestimo> {
+public class EmprestimoDAO implements DAO<Emprestimo> {
 
     private static EmprestimoDAO instance;
 
@@ -43,8 +43,8 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
     private ArrayList<Emprestimo> buscarEmprestimos(String sql) throws ExceptionDAO {
         ArrayList<Emprestimo> emprestimos = new ArrayList<>();
         
-        try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql);
+        try (Connection conn = new DBConexao().getConexao();
+             PreparedStatement pStatement = conn.prepareStatement(sql);
              ResultSet rs = pStatement.executeQuery()) {
             
             while (rs.next()) {
@@ -136,8 +136,8 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
         String sql = "INSERT INTO emprestimos (id_ferramenta, id_amigo, data_inicial, data_prazo) VALUES (?, ?, ?, ?);";
 
         
-        try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+             PreparedStatement pStatement = conn.prepareStatement(sql)) {
             
             
             pStatement.setInt(1, emprestimo.getIdFerramenta());
@@ -154,8 +154,8 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
     public int alterar(Emprestimo emprestimo) throws ExceptionDAO {
         String sql = "UPDATE emprestimos SET data_devolucao=? WHERE id = ?;";
     
-        try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+             PreparedStatement pStatement = conn.prepareStatement(sql)) {
     
             pStatement.setDate(1, toSqlDate(emprestimo.getDataDevolucao()));
             pStatement.setInt(2, emprestimo.getId());
@@ -169,8 +169,8 @@ public class EmprestimoDAO implements Dao<Emprestimo> {
     public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM emprestimos WHERE id = ?";
         
-        try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+             PreparedStatement pStatement = conn.prepareStatement(sql)) {
 
             pStatement.setInt(1, id);
             return pStatement.executeUpdate();

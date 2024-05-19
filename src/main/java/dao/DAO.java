@@ -3,7 +3,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public interface Dao<T> {
+public interface DAO<T> {
 
     Optional<T> buscar(Integer id) throws ExceptionDAO;
 

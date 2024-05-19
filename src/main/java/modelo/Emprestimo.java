@@ -21,6 +21,15 @@ public class Emprestimo {
     private static final EmprestimoDAO DAO = EmprestimoDAO.getInstance();
 
     public Emprestimo() {
+        this.id = null;
+        this.idFerramenta = null;
+        this.idAmigo = null;
+        this.dataInicial = null;
+        this.dataPrazo = null;
+        this.dataDevolucao = null;
+        this.nomeAmigo = null;
+        this.apelidoAmigo = null;
+        this.nomeFerramenta = null;
     }
 
     public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo) {

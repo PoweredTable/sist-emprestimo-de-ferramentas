@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import modelo.Amigo;
 
-public class AmigoDAO implements Dao<Amigo> {
+public class AmigoDAO implements DAO<Amigo> {
 
     private static AmigoDAO instance;
 
@@ -31,8 +31,8 @@ public class AmigoDAO implements Dao<Amigo> {
         String sql = "SELECT * FROM amigos ORDER BY nome ASC;";
         ArrayList<Amigo> amigos = new ArrayList<>();
 
-        try (Connection connection = new DBConnection().getConnection();
-                PreparedStatement pStatement = connection.prepareStatement(sql);
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql);
                 ResultSet rs = pStatement.executeQuery()) {
 
             while (rs.next()) {
@@ -54,8 +54,8 @@ public class AmigoDAO implements Dao<Amigo> {
     public void cadastrar(Amigo amigo) throws ExceptionDAO {
         String sql = "INSERT INTO amigos (nome, apelido, telefone) VALUES (?, ?, ?)";
 
-        try (Connection connection = new DBConnection().getConnection();
-                PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql)) {
 
             pStatement.setString(1, amigo.getNome());
             pStatement.setString(2, amigo.getApelido());
@@ -70,8 +70,8 @@ public class AmigoDAO implements Dao<Amigo> {
     public int alterar(Amigo amigo) throws ExceptionDAO {
         String sql = "UPDATE amigos SET nome = ?, apelido = ?, telefone = ? WHERE id = ?";
 
-        try (Connection connection = new DBConnection().getConnection();
-                PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql)) {
 
             pStatement.setString(1, amigo.getNome());
             pStatement.setString(2, amigo.getApelido());
@@ -87,8 +87,8 @@ public class AmigoDAO implements Dao<Amigo> {
     public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM amigos WHERE id = ?";
 
-        try (Connection connection = new DBConnection().getConnection();
-                PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql)) {
 
             pStatement.setInt(1, id);
             return pStatement.executeUpdate();
@@ -104,8 +104,8 @@ public class AmigoDAO implements Dao<Amigo> {
     }
 
     private boolean amigoPossuiEmprestimo(String sql, Integer id) throws ExceptionDAO {
-        try (Connection connection = new DBConnection().getConnection();
-                PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql)) {
 
             pStatement.setInt(1, id);
             try (ResultSet rs = pStatement.executeQuery()) {
@@ -140,8 +140,8 @@ public class AmigoDAO implements Dao<Amigo> {
                      "LIMIT 1;";
         Amigo amigo = new Amigo();
     
-        try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql);
+        try (Connection conn = new DBConexao().getConexao();
+             PreparedStatement pStatement = conn.prepareStatement(sql);
              ResultSet rs = pStatement.executeQuery()) {
     
             if (rs.next()) {
@@ -162,8 +162,8 @@ public class AmigoDAO implements Dao<Amigo> {
         String sql = "SELECT * FROM amigos WHERE UPPER(nome) LIKE UPPER(?)";
         Amigo amigo = new Amigo();
     
-        try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(sql)) {
+        try (Connection conn = new DBConexao().getConexao();
+             PreparedStatement pStatement = conn.prepareStatement(sql)) {
     
             pStatement.setString(1, "%" + nome + "%"); // Adicione os curingas diretamente aqui
             ResultSet rs = pStatement.executeQuery();
