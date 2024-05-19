@@ -86,4 +86,9 @@ public class AmigoControle {
     public static Optional<Amigo> buscarMaiorUtilizador() throws ExceptionDAO {
         return Amigo.buscarMaiorUtilizador();
     }
+
+    public static int totalAmigos() throws ExceptionDAO {
+        //TODO: implementar DAO
+        return 0;
+    }
 }

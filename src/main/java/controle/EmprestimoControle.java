@@ -101,5 +101,10 @@ public class EmprestimoControle {
     public static void confirmarDevolucao(Emprestimo emprestimo) throws ExceptionDAO {
         confirmarDevolucao(emprestimo.getId(), emprestimo.getDataDevolucao());
     }
+
+    public static int totalEmprestimos() throws ExceptionDAO {
+        //TODO: implementar DAO
+        return 0;
+    }
 }
 
