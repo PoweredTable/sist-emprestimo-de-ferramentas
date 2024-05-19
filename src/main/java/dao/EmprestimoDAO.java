@@ -142,7 +142,7 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public ArrayList<Emprestimo> buscarEmDia() throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta FROM emprestimos, amigos.nome AS nome_amigo" +
+        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta, amigos.nome AS nome_amigo " +
                 "FROM emprestimos " +
                 "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
                 "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
