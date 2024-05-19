@@ -98,6 +98,10 @@ public class Amigo {
         return DAO.buscarNome(nome);
     }
 
+    public static int quantidadeAmigos() throws ExceptionDAO {
+        return DAO.quantidadeAmigos();
+    }
+
     public String toString() {
         return "Amigo{" +
                 "id=" + id +
