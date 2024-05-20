@@ -6,15 +6,17 @@ package visao;
 
 import java.util.Collections;
 import java.util.Comparator;
-import modelo.Amigo;
-import java.util.Optional;
-import controle.AmigoControle;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import dao.ExceptionDAO;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Optional;
+
+import modelo.Amigo;
+import controle.AmigoControle;
+import dao.ExceptionDAO;
+
 
 /**
  *
@@ -243,7 +245,7 @@ public class TelaAmigos extends javax.swing.JFrame {
 
         jLabelQuantidadeAmigos.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabelQuantidadeAmigos.setForeground(new java.awt.Color(255, 187, 0));
-        jLabelQuantidadeAmigos.setText("12");
+        jLabelQuantidadeAmigos.setText("-");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
