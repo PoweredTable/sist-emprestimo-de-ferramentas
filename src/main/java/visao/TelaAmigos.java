@@ -17,7 +17,6 @@ import modelo.Amigo;
 import controle.AmigoControle;
 import dao.ExceptionDAO;
 
-
 /**
  *
  * @author waldy
@@ -465,7 +464,7 @@ public class TelaAmigos extends javax.swing.JFrame {
         dialog.setApelido(apelidoAmigo);
         dialog.setTelefone(telefoneAmigo);
         dialog.setVisible(true);
-        dialog.setModoEdicao(true);
+        
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jTable1AmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1AmigosMouseClicked
@@ -483,7 +482,7 @@ public class TelaAmigos extends javax.swing.JFrame {
                 dialog.setNome(nome);
                 dialog.setApelido(apelido);
                 dialog.setTelefone(telefone);
-                //dialog.setVisible(true); // Torna a dialog visível após configurar os campos
+
             }
         }
     }//GEN-LAST:event_jTable1AmigosMouseClicked
@@ -501,7 +500,6 @@ public class TelaAmigos extends javax.swing.JFrame {
         } else {
             try {
                 String nome = jTextFieldPesquisar.getText();
-                System.err.println(AmigoControle.buscarNome(nome));
                 carregaTabelaFiltrada();
             } catch (Exception e) {
 
@@ -511,103 +509,101 @@ public class TelaAmigos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     public void carregaTabelaAmigos() {
-    DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
 
-    modelo.setNumRows(0); //Posiciona na primeira linha da tabela
-    //Carrega a lista de objetos aluno
-    //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-    //jTable1Amigos.setRowSorter(sorter);
-    try {
-        ArrayList<Amigo> lista = AmigoControle.buscarTudo();
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+        //Carrega a lista de objetos aluno
+        //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        //jTable1Amigos.setRowSorter(sorter);
+        try {
+            ArrayList<Amigo> lista = AmigoControle.buscarTudo();
 
-        Collections.sort(lista, new Comparator<Amigo>() {
-            @Override
-            public int compare(Amigo a1, Amigo a2) {
-                return Long.compare(a1.getId(), a2.getId());
-            }
-        });
-
-        for (Amigo f : lista) {
-            modelo.addRow(new Object[]{
-                f.getId(),
-                f.getNome(),
-                f.getApelido(),
-                f.getTelefone()
+            Collections.sort(lista, new Comparator<Amigo>() {
+                @Override
+                public int compare(Amigo a1, Amigo a2) {
+                    return Long.compare(a1.getId(), a2.getId());
+                }
             });
+
+            for (Amigo f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getNome(),
+                    f.getApelido(),
+                    f.getTelefone()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-    } catch (ExceptionDAO e) {
-        JOptionPane.showMessageDialog(null, e);
     }
-}
 
     public void carregaTabelaFiltrada() {
-    DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
 
-    modelo.setNumRows(0); //Posiciona na primeira linha da tabela
-    //Carrega a lista de objetos aluno
-    //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-    //jTable1Amigos.setRowSorter(sorter);
-    try {
-        String nome = jTextFieldPesquisar.getText();
-        ArrayList<Amigo> lista = AmigoControle.buscarNome(nome);
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
 
-        for (Amigo f : lista) {
-            modelo.addRow(new Object[]{
-                f.getId(),
-                f.getNome(),
-                f.getApelido(),
-                f.getTelefone()
-            });
+        try {
+            String nome = jTextFieldPesquisar.getText();
+            ArrayList<Amigo> lista = AmigoControle.buscarNome(nome);
+
+            for (Amigo f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getNome(),
+                    f.getApelido(),
+                    f.getTelefone()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-    } catch (ExceptionDAO e) {
-        JOptionPane.showMessageDialog(null, e);
     }
-}
 
     public void excluirAmigo() {
-    int id = dialog.getId();
-    try {
-        AmigoControle.excluir(id);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e);
-    }
+        int id = dialog.getId();
+        try {
+            AmigoControle.excluir(id);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
 
-}
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    } catch (ClassNotFoundException ex) {
-        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (InstantiationException ex) {
-        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (IllegalAccessException ex) {
-        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    //</editor-fold>
+        //</editor-fold>
 
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            new TelaAmigos().setVisible(true);
-        }
-    });
-}
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TelaAmigos().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BG;

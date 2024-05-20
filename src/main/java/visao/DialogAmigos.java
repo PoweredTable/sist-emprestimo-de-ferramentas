@@ -7,13 +7,10 @@ import controle.AmigoControle;
 import modelo.Amigo;
 import dao.ExceptionDAO;
 
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-
 /**
  *
  * @author waldy
@@ -31,15 +28,9 @@ public class DialogAmigos extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
     }
-    
-    public boolean getModoEdicao(){
-        return modoEdicao;
-    }
-    
-    public void setModoEdicao(boolean modoEdicao){
-        this.modoEdicao = modoEdicao;
-    }
 
+  
+   
     public void setTitleDialog(String texto) {
         jLabelTitleDialog.setText(texto);
     }
@@ -48,15 +39,14 @@ public class DialogAmigos extends javax.swing.JDialog {
         jButtonSalvar.setText(texto);
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
-    
-    public int getId(){
+
+    public int getId() {
         return this.id;
     }
-    
-    
+
     public void setNome(String nome) {
         jTextFieldNome.setText(nome);
     }
@@ -234,7 +224,7 @@ public class DialogAmigos extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (jButtonSalvar.getText().equals("Salvar")) {
             cadastrarAmigo();
-            
+
             this.dispose();
         } else if (jButtonSalvar.getText().equals("Editar")) {
             // Lógica para editar ferramenta
@@ -247,34 +237,32 @@ public class DialogAmigos extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosed
 
-    public void cadastrarAmigo(){
+    public void cadastrarAmigo() {
         try {
             String nome = getNome();
             String apelido = getApelido();
             String telefone = getTelefone();
-            
-            AmigoControle.cadastrar(nome,apelido,telefone);
+
+            AmigoControle.cadastrar(nome, apelido, telefone);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Deu Ruim");
         }
     }
-    
-        public void editarAmigo(){
+
+    public void editarAmigo() {
         try {
             int id = getId();
             String nome = getNome();
             String apelido = getApelido();
             String telefone = getTelefone();
-            Amigo amigo = new Amigo(id,nome,apelido,telefone);
+            Amigo amigo = new Amigo(id, nome, apelido, telefone);
             AmigoControle.alterar(amigo);
-            
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
 
-    
     /**
      * @param args the command line arguments
      */
