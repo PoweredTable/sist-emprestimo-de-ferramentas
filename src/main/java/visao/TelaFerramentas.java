@@ -78,7 +78,6 @@ public class TelaFerramentas extends javax.swing.JFrame {
         jTextFieldPesquisar.setBackground(new java.awt.Color(156, 156, 156));
         jTextFieldPesquisar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextFieldPesquisar.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldPesquisar.setText("jTextField1");
         jTextFieldPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPesquisarActionPerformed(evt);
@@ -209,7 +208,7 @@ public class TelaFerramentas extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Quantidade de total:");
+        jLabel2.setText("Quantidade total:");
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 187, 0));
