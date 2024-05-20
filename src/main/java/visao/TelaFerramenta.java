@@ -21,16 +21,16 @@ import dao.ExceptionDAO;
  *
  * @author waldy
  */
-public class TelaFerramentas extends javax.swing.JFrame {
+public class TelaFerramenta extends javax.swing.JFrame {
     
-    private DialogFerramentas dialog;
+    private DialogFerramenta dialog;
     /**
      * Creates new form TelaFerramentas
      */
-    public TelaFerramentas() {
+    public TelaFerramenta() {
         setLocationRelativeTo(null);
         initComponents();
-        this.dialog = new DialogFerramentas(this, true);
+        this.dialog = new DialogFerramenta(this, true);
         dialog.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent e) {
                 // Código para atualizar a tabela na tela principal
@@ -387,7 +387,7 @@ public class TelaFerramentas extends javax.swing.JFrame {
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         // TODO add your handling code here:
-        DialogFerramentas dialog = new DialogFerramentas(this, true);
+        DialogFerramenta dialog = new DialogFerramenta(this, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
@@ -464,7 +464,7 @@ public class TelaFerramentas extends javax.swing.JFrame {
     
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         // TODO add your handling code here:
-        DialogFerramentas dialog = new DialogFerramentas(this, true);
+        DialogFerramenta dialog = new DialogFerramenta(this, true);
         
         dialog.setTitleDialog("Editar");
         dialog.setSalvarButtonText("Editar");
@@ -497,20 +497,20 @@ public class TelaFerramentas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaFerramentas().setVisible(true);
+                new TelaFerramenta().setVisible(true);
             }
         });
     }

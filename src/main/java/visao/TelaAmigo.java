@@ -22,17 +22,17 @@ import dao.ExceptionDAO;
  * @author waldy
  */
 
-public class TelaAmigos extends javax.swing.JFrame {
+public class TelaAmigo extends javax.swing.JFrame {
 
-    private DialogAmigos dialog;
+    private DialogAmigo dialog;
 
     /**
      * Creates new form TelaAmigos1
      */
-    public TelaAmigos() {
+    public TelaAmigo() {
         setLocationRelativeTo(null);
         initComponents();
-        this.dialog = new DialogAmigos(this, true);
+        this.dialog = new DialogAmigo(this, true);
         dialog.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent e) {
                 // Código para atualizar a tabela na tela principal
@@ -587,20 +587,20 @@ public class TelaAmigos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAmigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAmigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAmigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAmigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaAmigos().setVisible(true);
+                new TelaAmigo().setVisible(true);
             }
         });
     }
