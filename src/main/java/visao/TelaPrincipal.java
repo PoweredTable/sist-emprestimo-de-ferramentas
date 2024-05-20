@@ -349,6 +349,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         TelaFerramentas ferramentas = new TelaFerramentas();
         ferramentas.setVisible(true);
+        ferramentas.carregaTabelaFerramentas();
         setEnabled(false);
         ferramentas.setLocationRelativeTo(null);
 

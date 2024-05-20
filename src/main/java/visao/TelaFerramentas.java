@@ -4,18 +4,40 @@
  */
 package visao;
 
+import java.util.Collections;
+import java.util.Comparator;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Optional;
+
+import modelo.Ferramenta;
+import controle.FerramentaControle;
+import dao.ExceptionDAO;
+
 /**
  *
  * @author waldy
  */
 public class TelaFerramentas extends javax.swing.JFrame {
-
+    
+    private DialogFerramentas dialog;
     /**
      * Creates new form TelaFerramentas
      */
     public TelaFerramentas() {
         setLocationRelativeTo(null);
         initComponents();
+        this.dialog = new DialogFerramentas(this, true);
+        dialog.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                // Código para atualizar a tabela na tela principal
+                carregaTabelaFerramentas();
+            }
+        });
+        
     }
 
     /**
@@ -41,7 +63,7 @@ public class TelaFerramentas extends javax.swing.JFrame {
         jButtonCadastrar = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableFerramentas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -173,8 +195,8 @@ public class TelaFerramentas extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(156, 156, 156));
 
-        jTable1.setBackground(new java.awt.Color(89, 89, 89));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableFerramentas.setBackground(new java.awt.Color(89, 89, 89));
+        jTableFerramentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -193,8 +215,8 @@ public class TelaFerramentas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setSelectionForeground(new java.awt.Color(115, 115, 115));
-        jScrollPane1.setViewportView(jTable1);
+        jTableFerramentas.setSelectionForeground(new java.awt.Color(115, 115, 115));
+        jScrollPane1.setViewportView(jTableFerramentas);
 
         jPanel1.setBackground(new java.awt.Color(156, 156, 156));
 
@@ -378,6 +400,68 @@ public class TelaFerramentas extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
+    public void carregaTabelaFerramentas() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableFerramentas.getModel();
+
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+        //Carrega a lista de objetos aluno
+        //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        //jTable1Amigos.setRowSorter(sorter);
+        try {
+            ArrayList<Ferramenta> lista = FerramentaControle.buscarTudo();
+
+            Collections.sort(lista, new Comparator<Ferramenta>() {
+                @Override
+                public int compare(Ferramenta a1, Ferramenta a2) {
+                    return Long.compare(a1.getId(), a2.getId());
+                }
+            });
+
+            for (Ferramenta f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getNome(),
+                    f.getMarca(),
+                    f.getPreco()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void carregaTabelaFiltrada() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableFerramentas.getModel();
+
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+
+        try {
+            String nome = jTextFieldPesquisar.getText();
+            ArrayList<Ferramenta> lista = FerramentaControle.buscarNome(nome);
+
+            for (Ferramenta f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getNome(),
+                    f.getMarca(),
+                    f.getPreco()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void excluirAmigo() {
+        int id = dialog.getId();
+        try {
+            FerramentaControle.excluir(id);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+    
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         // TODO add your handling code here:
         DialogFerramentas dialog = new DialogFerramentas(this, true);
@@ -456,7 +540,7 @@ public class TelaFerramentas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableFerramentas;
     private javax.swing.JTextField jTextFieldPesquisar;
     // End of variables declaration//GEN-END:variables
 }

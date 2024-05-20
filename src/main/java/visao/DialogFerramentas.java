@@ -9,7 +9,7 @@ package visao;
  * @author waldy
  */
 public class DialogFerramentas extends javax.swing.JDialog {
-
+    private int id;
     /**
      * Creates new form DialogFerramentas
      */
@@ -25,17 +25,36 @@ public class DialogFerramentas extends javax.swing.JDialog {
     public void setSalvarButtonText(String text) {
         jButtonSalvar.setText(text);
     }
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    
+    public int getId(){
+        return this.id;
+    }
      
     public void setNome(String nome) {
         jTextFieldNome.setText(nome);
     }
     
-    public void setMarca(String descricao) {
-        jTextFieldMarca.setText(descricao);
+    public String getNome(){
+        return jTextFieldNome.getText();
+    }
+    
+    public void setMarca(String marca) {
+        jTextFieldMarca.setText(marca);
+    }
+    
+    public String getMarca(){
+        return jTextFieldMarca.getText();
     }
 
-    public void setPreco(String categoria) {
-        jTextFieldPreco.setText(categoria);
+    public void setPreco(String preco) {
+        jTextFieldPreco.setText(preco);
+    }
+    public String getPreco(){
+        return jTextFieldPreco.getText();
     }
 
     /**
