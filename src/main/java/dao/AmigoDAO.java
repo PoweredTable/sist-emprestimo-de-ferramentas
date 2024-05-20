@@ -165,14 +165,14 @@ public class AmigoDAO implements DAO<Amigo> {
     public ArrayList<Amigo> buscarNome(String nome) throws ExceptionDAO {
         String sql = "SELECT * FROM amigos WHERE UPPER(nome) LIKE UPPER(?)";
         ArrayList<Amigo> amigos = new ArrayList<>();
-    
+
         try (Connection conn = new DBConexao().getConexao();
              PreparedStatement pStatement = conn.prepareStatement(sql)) {
-    
+
             pStatement.setString(1, "%" + nome + "%"); // Adicione os curingas diretamente aqui
             ResultSet rs = pStatement.executeQuery();
-    
-            if (rs.next()) {
+
+            while (rs.next()) {
                 Amigo amigo = new Amigo();
                 amigo.setId(rs.getInt("id"));
                 amigo.setNome(rs.getString("nome"));
@@ -180,13 +180,34 @@ public class AmigoDAO implements DAO<Amigo> {
                 amigo.setTelefone(rs.getString("telefone"));
                 amigos.add(amigo);
             }
-    
+
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao consultar amigo: " + e);
         }
-    
+
         return amigos;
     }
+
     
-    //TODO: implementar testes
+    public int quantidadeAmigos() throws ExceptionDAO {
+        String sql = "SELECT COUNT(*) FROM amigos";
+        int quantidade = 0;
+
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql);
+                ResultSet rs = pStatement.executeQuery()) {
+
+            if (rs.next()) {
+                quantidade = rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar quantidade de amigos: " + e);
+        }
+
+        return quantidade;
+    }
+
+    
+
 }

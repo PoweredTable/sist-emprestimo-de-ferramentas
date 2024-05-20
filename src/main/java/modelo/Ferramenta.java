@@ -209,7 +209,14 @@ public class Ferramenta {
         return DAO.buscarNome(nome);
     }
 
+<<<<<<< HEAD
     @Override
+=======
+    public static int quantidadeFerramentas() throws ExceptionDAO {
+        return DAO.quantidadeFerramentas();
+    }
+
+>>>>>>> dev
     public String toString() {
         return "Ferramenta{" +
                 "id=" + id +

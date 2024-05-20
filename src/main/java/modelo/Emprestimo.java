@@ -308,6 +308,10 @@ public class Emprestimo {
         return DAO.buscarAtrasados();
     }
 
+    public static int quantidadeEmprestimos() throws ExceptionDAO {
+        return DAO.quantidadeEmprestimos();
+    }
+
     @Override
     public String toString() {
         return "Emprestimo{" +

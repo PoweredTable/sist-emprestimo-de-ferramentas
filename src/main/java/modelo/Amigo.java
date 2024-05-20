@@ -174,12 +174,19 @@ public class Amigo {
         return DAO.buscarNome(nome);
     }
 
+<<<<<<< HEAD
     /**
      * Retorna uma representação em string do amigo.
      * 
      * @return uma string representando o amigo
      */
     @Override
+=======
+    public static int quantidadeAmigos() throws ExceptionDAO {
+        return DAO.quantidadeAmigos();
+    }
+
+>>>>>>> dev
     public String toString() {
         return "Amigo{" +
                 "id=" + id +

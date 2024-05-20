@@ -1,4 +1,14 @@
 package visao;
+
+import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;
+
+import controle.AmigoControle;
+import modelo.Amigo;
+import dao.ExceptionDAO;
+
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
@@ -10,6 +20,9 @@ package visao;
  */
 public class DialogAmigos extends javax.swing.JDialog {
 
+    private boolean modoEdicao = false;
+    private int id;
+
     /**
      * Creates new form DialogAmigos
      */
@@ -19,26 +32,55 @@ public class DialogAmigos extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
     }
     
-    public void setTitleDialog(String texto){
+    public boolean getModoEdicao(){
+        return modoEdicao;
+    }
+    
+    public void setModoEdicao(boolean modoEdicao){
+        this.modoEdicao = modoEdicao;
+    }
+
+    public void setTitleDialog(String texto) {
         jLabelTitleDialog.setText(texto);
     }
-    
-    public void setTextButtonSalvar(String texto){
+
+    public void setTextButtonSalvar(String texto) {
         jButtonSalvar.setText(texto);
     }
+
+    public void setId(int id){
+        this.id = id;
+    }
     
-    public void setNome(String nome){
+    public int getId(){
+        return this.id;
+    }
+    
+    
+    public void setNome(String nome) {
         jTextFieldNome.setText(nome);
     }
-    
-    public void setApelido (String apelido){
+
+    public String getNome() {
+        return jTextFieldNome.getText();
+    }
+
+    public void setApelido(String apelido) {
         jTextFieldApelido.setText(apelido);
     }
-    
+
+    public String getApelido() {
+        return jTextFieldApelido.getText();
+    }
+
     public void setTelefone(String telefone) {
         jTextFieldTelefone.setText(telefone);
     }
-    
+
+    public String getTelefone() {
+        return jTextFieldTelefone.getText();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,6 +105,11 @@ public class DialogAmigos extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(550, 350));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         BG.setBackground(new java.awt.Color(64, 64, 64));
 
@@ -180,18 +227,54 @@ public class DialogAmigos extends javax.swing.JDialog {
     private void jButtonCalcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        
+
     }//GEN-LAST:event_jButtonCalcelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
         if (jButtonSalvar.getText().equals("Salvar")) {
-        // Lógica para cadastrar nova ferramenta
-        }else if (jButtonSalvar.getText().equals("Editar")) {
-        // Lógica para editar ferramenta
+            cadastrarAmigo();
+            
+            this.dispose();
+        } else if (jButtonSalvar.getText().equals("Editar")) {
+            // Lógica para editar ferramenta
+            editarAmigo();
+            this.dispose();
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
+
+    public void cadastrarAmigo(){
+        try {
+            String nome = getNome();
+            String apelido = getApelido();
+            String telefone = getTelefone();
+            
+            AmigoControle.cadastrar(nome,apelido,telefone);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Deu Ruim");
+        }
+    }
+    
+        public void editarAmigo(){
+        try {
+            int id = getId();
+            String nome = getNome();
+            String apelido = getApelido();
+            String telefone = getTelefone();
+            Amigo amigo = new Amigo(id,nome,apelido,telefone);
+            AmigoControle.alterar(amigo);
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    
     /**
      * @param args the command line arguments
      */
