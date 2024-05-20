@@ -1,11 +1,13 @@
 package visao;
+
+import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;
+
 import controle.AmigoControle;
 import modelo.Amigo;
-import javax.swing.JOptionPane;
 import dao.ExceptionDAO;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -252,7 +254,6 @@ public class DialogAmigos extends javax.swing.JDialog {
             String telefone = getTelefone();
             
             AmigoControle.cadastrar(nome,apelido,telefone);
-            JOptionPane.showMessageDialog(null, nome + apelido + telefone);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Deu Ruim");
         }
