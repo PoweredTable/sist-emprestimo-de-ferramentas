@@ -347,6 +347,9 @@
                       <Color blue="73" green="73" red="73" type="rgb"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableFerramentasMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -550,6 +553,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Excluir"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonExcluirActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

@@ -216,6 +216,11 @@ public class TelaFerramenta extends javax.swing.JFrame {
             }
         });
         jTableFerramentas.setSelectionForeground(new java.awt.Color(115, 115, 115));
+        jTableFerramentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableFerramentasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableFerramentas);
 
         jPanel1.setBackground(new java.awt.Color(156, 156, 156));
@@ -321,6 +326,11 @@ public class TelaFerramenta extends javax.swing.JFrame {
         jButtonExcluir.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButtonExcluir.setForeground(new java.awt.Color(64, 64, 64));
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
         jPanel12.add(jButtonExcluir);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -452,7 +462,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
         }
     }
     
-    public void excluirAmigo() {
+    public void excluirFerramenta() {
         int id = dialog.getId();
         try {
             FerramentaControle.excluir(id);
@@ -479,6 +489,32 @@ public class TelaFerramenta extends javax.swing.JFrame {
         dialog.setPreco(precoFerramenta);
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jTableFerramentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFerramentasMouseClicked
+        // TODO add your handling code here:
+        System.out.println("Clique efetuado");
+        if (evt.getClickCount() == 1) { // Verifica se o clique foi único
+            int index = jTableFerramentas.getSelectedRow();
+            if (index != -1) { // Verifica se uma linha está selecionada
+                int id = Integer.parseInt(jTableFerramentas.getValueAt(index, 0).toString());
+                String nome = jTableFerramentas.getValueAt(index, 1).toString();
+                String marca = jTableFerramentas.getValueAt(index, 2).toString();
+                String preco = jTableFerramentas.getValueAt(index, 3).toString();
+
+                dialog.setId(id);
+                dialog.setNome(nome);
+                dialog.setMarca(marca);
+                dialog.setPreco(preco);
+
+            }
+        }
+    }//GEN-LAST:event_jTableFerramentasMouseClicked
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        // TODO add your handling code here:
+        excluirFerramenta();
+        carregaTabelaFerramentas();
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     /**
      * @param args the command line arguments
