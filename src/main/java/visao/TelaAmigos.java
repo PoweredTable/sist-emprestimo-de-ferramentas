@@ -4,11 +4,28 @@
  */
 package visao;
 
+import java.util.Collections;
+import java.util.Comparator;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Optional;
+
+import modelo.Amigo;
+import controle.AmigoControle;
+import dao.ExceptionDAO;
+
+
 /**
  *
  * @author waldy
  */
+
 public class TelaAmigos extends javax.swing.JFrame {
+
+    private DialogAmigos dialog;
 
     /**
      * Creates new form TelaAmigos1
@@ -16,6 +33,13 @@ public class TelaAmigos extends javax.swing.JFrame {
     public TelaAmigos() {
         setLocationRelativeTo(null);
         initComponents();
+        this.dialog = new DialogAmigos(this, true);
+        dialog.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                // Código para atualizar a tabela na tela principal
+                carregaTabelaAmigos();
+            }
+        });
     }
 
     /**
@@ -41,12 +65,12 @@ public class TelaAmigos extends javax.swing.JFrame {
         jButtonCadastrar = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable1Amigos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelMaiorUtiizador = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelQuantidadeAmigos = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jButtonVoltar = new javax.swing.JButton();
@@ -77,7 +101,6 @@ public class TelaAmigos extends javax.swing.JFrame {
         jTextFieldPesquisar.setBackground(new java.awt.Color(156, 156, 156));
         jTextFieldPesquisar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextFieldPesquisar.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldPesquisar.setText("jTextField1");
         jTextFieldPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPesquisarActionPerformed(evt);
@@ -92,6 +115,11 @@ public class TelaAmigos extends javax.swing.JFrame {
         jButtonPesquisar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButtonPesquisar.setForeground(new java.awt.Color(64, 64, 64));
         jButtonPesquisar.setText("Pesquisar");
+        jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButtonPesquisar);
 
         jPanel7.setBackground(new java.awt.Color(64, 64, 64));
@@ -173,20 +201,33 @@ public class TelaAmigos extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(156, 156, 156));
 
-        jTable1.setBackground(new java.awt.Color(89, 89, 89));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1Amigos.setBackground(new java.awt.Color(89, 89, 89));
+        jTable1Amigos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "Apelido", "Telefone"
+                "ID", "Nome", "Apelido", "Telefone"
             }
-        ));
-        jTable1.setSelectionForeground(new java.awt.Color(115, 115, 115));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1Amigos.setSelectionForeground(new java.awt.Color(115, 115, 115));
+        jTable1Amigos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1AmigosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1Amigos);
 
         jPanel1.setBackground(new java.awt.Color(156, 156, 156));
 
@@ -194,17 +235,17 @@ public class TelaAmigos extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Maior utilitário:");
 
-        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 187, 0));
-        jLabel5.setText("Lucas");
+        jLabelMaiorUtiizador.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabelMaiorUtiizador.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelMaiorUtiizador.setText("-");
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Quantidade de total:");
+        jLabel2.setText("Quantidade total:");
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 187, 0));
-        jLabel3.setText("12");
+        jLabelQuantidadeAmigos.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabelQuantidadeAmigos.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelQuantidadeAmigos.setText("-");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -214,11 +255,11 @@ public class TelaAmigos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(jLabelQuantidadeAmigos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelMaiorUtiizador, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -227,10 +268,10 @@ public class TelaAmigos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
+                        .addComponent(jLabelQuantidadeAmigos))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabelMaiorUtiizador)))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
@@ -291,6 +332,11 @@ public class TelaAmigos extends javax.swing.JFrame {
         jButtonExcluir.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButtonExcluir.setForeground(new java.awt.Color(64, 64, 64));
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
         jPanel12.add(jButtonExcluir);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -353,15 +399,47 @@ public class TelaAmigos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void apresentaMaiorUtilizador() {
+        try {
+            Optional<Amigo> optionalAmigo = AmigoControle.buscarMaiorUtilizador();
+            if (optionalAmigo.isPresent()) {
+                Amigo amigo = optionalAmigo.get();
+                // Now you can use the amigo object
+                String nome = amigo.getNome();
+                jLabelMaiorUtiizador.setText(nome);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public void apresentaQuantidadeAmigos() {
+        try {
+            String quantidade = String.valueOf(AmigoControle.quantidadeAmigos());
+            jLabelQuantidadeAmigos.setText(quantidade);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+
     private void jTextFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPesquisarActionPerformed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         // TODO add your handling code here:
-        DialogAmigos dialog = new DialogAmigos(this, true);
+        //DialogAmigos dialog = new DialogAmigos(this, true);
+        dialog.setTitleDialog("Cadastro");
+        dialog.setTextButtonSalvar("Salvar");
+        dialog.setNome("");
+        dialog.setApelido("");
+        dialog.setTelefone("");
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
+
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
@@ -373,56 +451,163 @@ public class TelaAmigos extends javax.swing.JFrame {
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         // TODO add your handling code here:
-        DialogAmigos dialog = new DialogAmigos(this, true);
-        
+        //DialogAmigos dialog = new DialogAmigos(this, true);
+
         dialog.setTitleDialog("Editar");
         dialog.setTextButtonSalvar("Editar");
 
-    // Preencher os campos com as informações da ferramenta a ser editada
-        String nomeAmigo = "nome do amigo"; // Substitua isso com o nome da ferramenta que você deseja editar
-        String apelidoAmigo = "apelido do amigo"; // Substitua isso com a descrição da ferramenta que você deseja editar
-        String telefoneAmigo = "telefone do Amigo"; // Substitua isso com a categoria da ferramenta que você deseja editar
+        // Preencher os campos com as informações da ferramenta a ser editada
+        String nomeAmigo = dialog.getNome(); // Substitua isso com o nome da ferramenta que você deseja editar
+        String apelidoAmigo = dialog.getApelido(); // Substitua isso com a descrição da ferramenta que você deseja editar
+        String telefoneAmigo = dialog.getTelefone(); // Substitua isso com a categoria da ferramenta que você deseja editar
 
         dialog.setNome(nomeAmigo);
         dialog.setApelido(apelidoAmigo);
         dialog.setTelefone(telefoneAmigo);
         dialog.setVisible(true);
+        dialog.setModoEdicao(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jTable1AmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1AmigosMouseClicked
+        // TODO add your handling code here:
+        System.out.println("Clique efetuado");
+        if (evt.getClickCount() == 1) { // Verifica se o clique foi único
+            int index = jTable1Amigos.getSelectedRow();
+            if (index != -1) { // Verifica se uma linha está selecionada
+                int id = Integer.parseInt(jTable1Amigos.getValueAt(index, 0).toString());
+                String nome = jTable1Amigos.getValueAt(index, 1).toString();
+                String apelido = jTable1Amigos.getValueAt(index, 2).toString();
+                String telefone = jTable1Amigos.getValueAt(index, 3).toString();
+
+                dialog.setId(id);
+                dialog.setNome(nome);
+                dialog.setApelido(apelido);
+                dialog.setTelefone(telefone);
+                //dialog.setVisible(true); // Torna a dialog visível após configurar os campos
+            }
+        }
+    }//GEN-LAST:event_jTable1AmigosMouseClicked
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        // TODO add your handling code here:
+        excluirAmigo();
+        carregaTabelaAmigos();
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+        // TODO add your handling code here:
+        if (jTextFieldPesquisar.getText().equals("")) {
+            carregaTabelaAmigos();
+        } else {
+            try {
+                String nome = jTextFieldPesquisar.getText();
+                System.err.println(AmigoControle.buscarNome(nome));
+                carregaTabelaFiltrada();
+            } catch (Exception e) {
+
+            }
+        }
+
+    }//GEN-LAST:event_jButtonPesquisarActionPerformed
+
+    public void carregaTabelaAmigos() {
+    DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
+
+    modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+    //Carrega a lista de objetos aluno
+    //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+    //jTable1Amigos.setRowSorter(sorter);
+    try {
+        ArrayList<Amigo> lista = AmigoControle.buscarTudo();
+
+        Collections.sort(lista, new Comparator<Amigo>() {
+            @Override
+            public int compare(Amigo a1, Amigo a2) {
+                return Long.compare(a1.getId(), a2.getId());
+            }
+        });
+
+        for (Amigo f : lista) {
+            modelo.addRow(new Object[]{
+                f.getId(),
+                f.getNome(),
+                f.getApelido(),
+                f.getTelefone()
+            });
+        }
+    } catch (ExceptionDAO e) {
+        JOptionPane.showMessageDialog(null, e);
+    }
+}
+
+    public void carregaTabelaFiltrada() {
+    DefaultTableModel modelo = (DefaultTableModel) this.jTable1Amigos.getModel();
+
+    modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+    //Carrega a lista de objetos aluno
+    //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+    //jTable1Amigos.setRowSorter(sorter);
+    try {
+        String nome = jTextFieldPesquisar.getText();
+        ArrayList<Amigo> lista = AmigoControle.buscarNome(nome);
+
+        for (Amigo f : lista) {
+            modelo.addRow(new Object[]{
+                f.getId(),
+                f.getNome(),
+                f.getApelido(),
+                f.getTelefone()
+            });
+        }
+    } catch (ExceptionDAO e) {
+        JOptionPane.showMessageDialog(null, e);
+    }
+}
+
+    public void excluirAmigo() {
+    int id = dialog.getId();
+    try {
+        AmigoControle.excluir(id);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
+    }
+
+}
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+     */
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaAmigos().setVisible(true);
-            }
-        });
+    } catch (ClassNotFoundException ex) {
+        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new TelaAmigos().setVisible(true);
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BG;
@@ -433,9 +618,9 @@ public class TelaAmigos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelMaiorUtiizador;
+    private javax.swing.JLabel jLabelQuantidadeAmigos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -449,7 +634,7 @@ public class TelaAmigos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable1Amigos;
     private javax.swing.JTextField jTextFieldPesquisar;
     // End of variables declaration//GEN-END:variables
 }
