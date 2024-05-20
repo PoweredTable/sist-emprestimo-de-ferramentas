@@ -4,6 +4,11 @@
  */
 package visao;
 
+import javax.swing.JOptionPane;
+
+import modelo.Ferramenta;
+import controle.FerramentaControle;
+import dao.ExceptionDAO;
 /**
  *
  * @author waldy
@@ -22,7 +27,7 @@ public class DialogFerramenta extends javax.swing.JDialog {
         jLabelTitleDialog.setText(texto);
     }
     
-    public void setSalvarButtonText(String text) {
+    public void setSalvarButtonSalvar(String text) {
         jButtonSalvar.setText(text);
     }
     
@@ -204,12 +209,25 @@ public class DialogFerramenta extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (jButtonSalvar.getText().equals("Salvar")) {
         // Lógica para cadastrar nova ferramenta
+        cadastrarFerramenta();
+        this.dispose();
+        
         }else if (jButtonSalvar.getText().equals("Editar")) {
         // Lógica para editar ferramenta
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
     
-    
+    public void cadastrarFerramenta() {
+        try {
+            String nome = getNome();
+            String marca = getMarca();
+            Double preco = Double.parseDouble(getPreco());
+
+            FerramentaControle.cadastrar(nome, marca, preco);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     
     
     /**

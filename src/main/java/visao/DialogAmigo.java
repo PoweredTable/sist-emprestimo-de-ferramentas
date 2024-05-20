@@ -1,7 +1,6 @@
 package visao;
 
 import javax.swing.JOptionPane;
-import javax.swing.JOptionPane;
 
 import controle.AmigoControle;
 import modelo.Amigo;

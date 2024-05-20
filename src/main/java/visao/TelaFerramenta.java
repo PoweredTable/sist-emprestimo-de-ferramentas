@@ -397,7 +397,11 @@ public class TelaFerramenta extends javax.swing.JFrame {
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         // TODO add your handling code here:
-        DialogFerramenta dialog = new DialogFerramenta(this, true);
+        dialog.setTitleDialog("Cadastro");
+        dialog.setSalvarButtonSalvar("Salvar");
+        dialog.setNome("");
+        dialog.setMarca("");
+        dialog.setPreco("");
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
@@ -461,6 +465,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    
     
     public void excluirFerramenta() {
         int id = dialog.getId();
