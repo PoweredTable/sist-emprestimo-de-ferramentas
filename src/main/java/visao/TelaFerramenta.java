@@ -114,6 +114,11 @@ public class TelaFerramenta extends javax.swing.JFrame {
         jButtonPesquisar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButtonPesquisar.setForeground(new java.awt.Color(64, 64, 64));
         jButtonPesquisar.setText("Pesquisar");
+        jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButtonPesquisar);
 
         jPanel7.setBackground(new java.awt.Color(64, 64, 64));
@@ -393,6 +398,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
 
     private void jTextFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisarActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextFieldPesquisarActionPerformed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
@@ -474,7 +480,6 @@ public class TelaFerramenta extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
     }
     
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -518,6 +523,19 @@ public class TelaFerramenta extends javax.swing.JFrame {
         excluirFerramenta();
         carregaTabelaFerramentas();
     }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+        // TODO add your handling code here:
+        if (jTextFieldPesquisar.getText().equals("")) {
+            carregaTabelaFerramentas();
+        } else {
+            try {
+                carregaTabelaFiltrada();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
