@@ -499,7 +499,6 @@ public class TelaAmigo extends javax.swing.JFrame {
             carregaTabelaAmigos();
         } else {
             try {
-                String nome = jTextFieldPesquisar.getText();
                 carregaTabelaFiltrada();
             } catch (Exception e) {
 

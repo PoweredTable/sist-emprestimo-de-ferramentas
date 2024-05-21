@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Optional;
 
 import modelo.Ferramenta;
 import controle.FerramentaControle;
@@ -66,9 +65,9 @@ public class TelaFerramenta extends javax.swing.JFrame {
         jTableFerramentas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelPrecoTotal = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelQuantidadeFerramentas = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jButtonVoltar = new javax.swing.JButton();
@@ -234,17 +233,17 @@ public class TelaFerramenta extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Valor total gasto:");
 
-        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 187, 0));
-        jLabel5.setText("R$200");
+        jLabelPrecoTotal.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabelPrecoTotal.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelPrecoTotal.setText("R$200");
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Quantidade total:");
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 187, 0));
-        jLabel3.setText("12");
+        jLabelQuantidadeFerramentas.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabelQuantidadeFerramentas.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelQuantidadeFerramentas.setText("12");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -254,11 +253,11 @@ public class TelaFerramenta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(jLabelQuantidadeFerramentas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -267,10 +266,10 @@ public class TelaFerramenta extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
+                        .addComponent(jLabelQuantidadeFerramentas))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabelPrecoTotal)))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
@@ -398,7 +397,6 @@ public class TelaFerramenta extends javax.swing.JFrame {
 
     private void jTextFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisarActionPerformed
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_jTextFieldPesquisarActionPerformed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
@@ -419,7 +417,25 @@ public class TelaFerramenta extends javax.swing.JFrame {
         principal.toFront();
         
     }//GEN-LAST:event_jButtonVoltarActionPerformed
-
+    
+    public void apresentaTotalFerramentas(){
+        try {
+            String quantidadeFerramentas = String.valueOf(FerramentaControle.quantidadeFerramentas());
+            jLabelQuantidadeFerramentas.setText(quantidadeFerramentas);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void apresentaPrecoTotal(){
+        try {
+            String precoTotal = String.valueOf(FerramentaControle.getCustoTotal());
+            jLabelPrecoTotal.setText(precoTotal);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
     public void carregaTabelaFerramentas() {
         DefaultTableModel modelo = (DefaultTableModel) this.jTableFerramentas.getModel();
 
@@ -581,9 +597,9 @@ public class TelaFerramenta extends javax.swing.JFrame {
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelPrecoTotal;
+    private javax.swing.JLabel jLabelQuantidadeFerramentas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

@@ -352,6 +352,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ferramentas.carregaTabelaFerramentas();
         setEnabled(false);
         ferramentas.setLocationRelativeTo(null);
+        ferramentas.apresentaPrecoTotal();
+        ferramentas.apresentaTotalFerramentas();
 
         ferramentas.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
