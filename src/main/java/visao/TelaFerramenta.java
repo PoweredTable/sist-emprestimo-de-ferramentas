@@ -479,15 +479,13 @@ public class TelaFerramenta extends javax.swing.JFrame {
     
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         // TODO add your handling code here:
-        DialogFerramenta dialog = new DialogFerramenta(this, true);
-        
         dialog.setTitleDialog("Editar");
-        dialog.setSalvarButtonText("Editar");
+        dialog.setSalvarButtonSalvar("Editar");
 
     // Preencher os campos com as informações da ferramenta a ser editada
-        String nomeFerramenta = "Nome da Ferramenta"; // Substitua isso com o nome da ferramenta que você deseja editar
-        String marcaFerramenta = "Marca da Ferramenta"; // Substitua isso com a descrição da ferramenta que você deseja editar
-        String precoFerramenta = "Preco da Ferramenta"; // Substitua isso com a categoria da ferramenta que você deseja editar
+        String nomeFerramenta = dialog.getNome(); // Substitua isso com o nome da ferramenta que você deseja editar
+        String marcaFerramenta = dialog.getMarca(); // Substitua isso com a descrição da ferramenta que você deseja editar
+        String precoFerramenta = dialog.getPreco(); // Substitua isso com a categoria da ferramenta que você deseja editar
 
         dialog.setNome(nomeFerramenta);
         dialog.setMarca(marcaFerramenta);

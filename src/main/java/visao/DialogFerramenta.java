@@ -214,6 +214,8 @@ public class DialogFerramenta extends javax.swing.JDialog {
         
         }else if (jButtonSalvar.getText().equals("Editar")) {
         // Lógica para editar ferramenta
+        editarFerramenta();
+        this.dispose();
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
     
@@ -224,6 +226,20 @@ public class DialogFerramenta extends javax.swing.JDialog {
             Double preco = Double.parseDouble(getPreco());
 
             FerramentaControle.cadastrar(nome, marca, preco);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void editarFerramenta() {
+        try {
+            int id = getId();
+            String nome = getNome();
+            String marca = getMarca();
+            Double preco = Double.parseDouble(getPreco());
+            Ferramenta ferramenta = new Ferramenta(id, nome, marca, preco);
+            FerramentaControle.alterar(ferramenta);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
