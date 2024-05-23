@@ -28,21 +28,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         BG = new javax.swing.JPanel();
         jContainerPrincipal = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jBotoes = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel4 = new javax.swing.JPanel();
+        jAbaTodos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
+        jAbaEmDia = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel6 = new javax.swing.JPanel();
+        jAbaAtrasados = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
-        jPanel7 = new javax.swing.JPanel();
+        jAbaAtivos = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jContaienrInformativos = new javax.swing.JPanel();
@@ -54,27 +56,52 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setBackground(java.awt.Color.white);
         setMaximumSize(new java.awt.Dimension(1000, 800));
         setMinimumSize(new java.awt.Dimension(1000, 800));
-        setPreferredSize(new java.awt.Dimension(1000, 600));
+        setPreferredSize(new java.awt.Dimension(1280, 900));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        BG.setBackground(new java.awt.Color(46, 46, 46));
+        BG.setBackground(new java.awt.Color(194, 194, 194));
         BG.setPreferredSize(new java.awt.Dimension(1000, 800));
         BG.setRequestFocusEnabled(false);
         BG.setVerifyInputWhenFocusTarget(false);
 
-        jContainerPrincipal.setBackground(new java.awt.Color(46, 46, 46));
+        jContainerPrincipal.setBackground(new java.awt.Color(194, 194, 194));
         jContainerPrincipal.setMaximumSize(new java.awt.Dimension(332767, 332767));
 
-        jBotoes.setBackground(new java.awt.Color(46, 46, 46));
+        jButton4.setBackground(new java.awt.Color(46, 46, 46));
+        jButton4.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(229, 164, 11));
+        jButton4.setText("Limpar");
+        jButton4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
+
+        jButton5.setBackground(new java.awt.Color(46, 46, 46));
+        jButton5.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(229, 164, 11));
+        jButton5.setText("Confirmar");
+        jButton5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
+
+        jBotoes.setBackground(new java.awt.Color(194, 194, 194));
+        jBotoes.setForeground(new java.awt.Color(194, 194, 194));
         jBotoes.setLayout(new java.awt.GridLayout(3, 3, 0, 50));
 
-        jButton1.setText("Adicionar Empréstimos");
+        jButton1.setBackground(new java.awt.Color(46, 46, 46));
+        jButton1.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(229, 164, 11));
+        jButton1.setText("Add Empréstimos");
+        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
         jBotoes.add(jButton1);
 
+        jButton2.setBackground(new java.awt.Color(46, 46, 46));
+        jButton2.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(229, 164, 11));
         jButton2.setText("Ferramentas");
+        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
         jBotoes.add(jButton2);
 
+        jButton3.setBackground(new java.awt.Color(46, 46, 46));
+        jButton3.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(229, 164, 11));
         jButton3.setText("Amigos");
+        jButton3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
         jBotoes.add(jButton3);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -90,18 +117,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
+        javax.swing.GroupLayout jAbaTodosLayout = new javax.swing.GroupLayout(jAbaTodos);
+        jAbaTodos.setLayout(jAbaTodosLayout);
+        jAbaTodosLayout.setHorizontalGroup(
+            jAbaTodosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+        jAbaTodosLayout.setVerticalGroup(
+            jAbaTodosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Todos", jPanel4);
+        jTabbedPane1.addTab("Todos", jAbaTodos);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -116,20 +143,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
+        javax.swing.GroupLayout jAbaEmDiaLayout = new javax.swing.GroupLayout(jAbaEmDia);
+        jAbaEmDia.setLayout(jAbaEmDiaLayout);
+        jAbaEmDiaLayout.setHorizontalGroup(
+            jAbaEmDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+        jAbaEmDiaLayout.setVerticalGroup(
+            jAbaEmDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jAbaEmDiaLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Em Dia", jPanel5);
+        jTabbedPane1.addTab("Em Dia", jAbaEmDia);
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -144,18 +171,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable3);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
+        javax.swing.GroupLayout jAbaAtrasadosLayout = new javax.swing.GroupLayout(jAbaAtrasados);
+        jAbaAtrasados.setLayout(jAbaAtrasadosLayout);
+        jAbaAtrasadosLayout.setHorizontalGroup(
+            jAbaAtrasadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+        jAbaAtrasadosLayout.setVerticalGroup(
+            jAbaAtrasadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Atrasados", jPanel6);
+        jTabbedPane1.addTab("Atrasados", jAbaAtrasados);
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -170,28 +197,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(jTable4);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
+        javax.swing.GroupLayout jAbaAtivosLayout = new javax.swing.GroupLayout(jAbaAtivos);
+        jAbaAtivos.setLayout(jAbaAtivosLayout);
+        jAbaAtivosLayout.setHorizontalGroup(
+            jAbaAtivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+        jAbaAtivosLayout.setVerticalGroup(
+            jAbaAtivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jAbaAtivosLayout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Ativos", jPanel7);
+        jTabbedPane1.addTab("Ativos", jAbaAtivos);
 
         javax.swing.GroupLayout jContainerPrincipalLayout = new javax.swing.GroupLayout(jContainerPrincipal);
         jContainerPrincipal.setLayout(jContainerPrincipalLayout);
         jContainerPrincipalLayout.setHorizontalGroup(
             jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jContainerPrincipalLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jContainerPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 815, Short.MAX_VALUE)
+                .addGroup(jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jContainerPrincipalLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1))
                 .addGap(18, 18, 18)
                 .addComponent(jBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10))
@@ -199,54 +232,64 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jContainerPrincipalLayout.setVerticalGroup(
             jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jContainerPrincipalLayout.createSequentialGroup()
-                .addGroup(jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jContainerPrincipalLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jContainerPrincipalLayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jTabbedPane1)))
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addGroup(jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBotoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
-        jContaienrInformativos.setBackground(new java.awt.Color(46, 46, 46));
+        jContaienrInformativos.setBackground(new java.awt.Color(194, 194, 194));
         jContaienrInformativos.setLayout(new java.awt.GridLayout(1, 3, 50, 0));
+
+        jPanel10.setBackground(new java.awt.Color(46, 46, 46));
+        jPanel10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 164, 11), 2, true));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 283, Short.MAX_VALUE)
+            .addGap(0, 279, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 96, Short.MAX_VALUE)
         );
 
         jContaienrInformativos.add(jPanel10);
+
+        jPanel9.setBackground(new java.awt.Color(46, 46, 46));
+        jPanel9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 164, 11), 2, true));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 283, Short.MAX_VALUE)
+            .addGap(0, 279, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 96, Short.MAX_VALUE)
         );
 
         jContaienrInformativos.add(jPanel9);
+
+        jPanel11.setBackground(new java.awt.Color(46, 46, 46));
+        jPanel11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 164, 11), 2, true));
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 283, Short.MAX_VALUE)
+            .addGap(0, 279, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 96, Short.MAX_VALUE)
         );
 
         jContaienrInformativos.add(jPanel11);
@@ -257,22 +300,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BGLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jContaienrInformativos, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
+                .addComponent(jContaienrInformativos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
-            .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jContainerPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(BGLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jContainerPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         BGLayout.setVerticalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BGLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jContaienrInformativos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(676, Short.MAX_VALUE))
-            .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BGLayout.createSequentialGroup()
-                    .addContainerGap(276, Short.MAX_VALUE)
-                    .addComponent(jContainerPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(jContainerPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(BG);
@@ -317,18 +358,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BG;
+    private javax.swing.JPanel jAbaAtivos;
+    private javax.swing.JPanel jAbaAtrasados;
+    private javax.swing.JPanel jAbaEmDia;
+    private javax.swing.JPanel jAbaTodos;
     private javax.swing.JPanel jBotoes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JPanel jContaienrInformativos;
     private javax.swing.JPanel jContainerPrincipal;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
