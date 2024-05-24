@@ -327,7 +327,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButtonNewAmigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewAmigosActionPerformed
         // TODO add your handling code here:
-        TelaAmigos amigos = new TelaAmigos();
+        TelaAmigo amigos = new TelaAmigo();
         amigos.setVisible(true);
         setEnabled(false);
         amigos.setLocationRelativeTo(null);
@@ -347,10 +347,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButtonNewFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewFerramentaActionPerformed
         // TODO add your handling code here:
-        TelaFerramentas ferramentas = new TelaFerramentas();
+        TelaFerramenta ferramentas = new TelaFerramenta();
         ferramentas.setVisible(true);
+        ferramentas.carregaTabelaFerramentas();
         setEnabled(false);
         ferramentas.setLocationRelativeTo(null);
+        ferramentas.apresentaPrecoTotal();
+        ferramentas.apresentaTotalFerramentas();
 
         ferramentas.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
