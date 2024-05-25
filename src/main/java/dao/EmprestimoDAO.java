@@ -40,7 +40,7 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
                  "JOIN ferramentas f ON e.id_ferramenta = f.id " +
                  "JOIN amigos a ON e.id_amigo = a.id " +
                  "WHERE e.id =?;";
-    
+   
         try (Connection conn = new DBConexao().getConexao();
              PreparedStatement pStatement = conn.prepareStatement(sql);
              ResultSet rs = pStatement.executeQuery()) {
