@@ -437,7 +437,6 @@ public class TelaFerramenta extends javax.swing.JFrame {
     }
     
     public void carregaTabelaFerramentas() {
-        System.out.println("desgareça");
         DefaultTableModel modelo = (DefaultTableModel) this.jTableFerramentas.getModel();
 
         modelo.setNumRows(0); //Posiciona na primeira linha da tabela
@@ -517,7 +516,6 @@ public class TelaFerramenta extends javax.swing.JFrame {
 
     private void jTableFerramentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFerramentasMouseClicked
         // TODO add your handling code here:
-        System.out.println("Clique efetuado");
         if (evt.getClickCount() == 1) { // Verifica se o clique foi único
             int index = jTableFerramentas.getSelectedRow();
             if (index != -1) { // Verifica se uma linha está selecionada

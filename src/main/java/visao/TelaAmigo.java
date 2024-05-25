@@ -469,7 +469,6 @@ public class TelaAmigo extends javax.swing.JFrame {
 
     private void jTable1AmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1AmigosMouseClicked
         // TODO add your handling code here:
-        System.out.println("Clique efetuado");
         if (evt.getClickCount() == 1) { // Verifica se o clique foi único
             int index = jTable1Amigos.getSelectedRow();
             if (index != -1) { // Verifica se uma linha está selecionada
