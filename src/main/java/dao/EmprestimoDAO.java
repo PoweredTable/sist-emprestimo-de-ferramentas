@@ -36,11 +36,11 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta FROM emprestimos, amigos.nome AS nome_amigo" +
-                     "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
-                     "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
-                     "WHERE emprestimos.id =?;";
-    
+        String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone FROM emprestimos " +
+                 "JOIN ferramentas f ON emprestimos.id_ferramenta = ferramentas.id " +
+                 "JOIN amigos a ON emprestimos.id_amigo = amigos.id " +
+                 "WHERE emprestimos.id =?;";
+      
         try (Connection conn = new DBConexao().getConexao();
              PreparedStatement pStatement = conn.prepareStatement(sql);
              ResultSet rs = pStatement.executeQuery()) {
@@ -125,7 +125,8 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public ArrayList<Emprestimo> buscarTudo() throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta, amigos.nome AS nome_amigo FROM emprestimos " +
+        String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone " +
+                "FROM emprestimos " +
                 "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
                 "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
                 "ORDER BY data_prazo ASC;";
@@ -133,7 +134,7 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public ArrayList<Emprestimo> buscarAtivos() throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta, amigos.nome AS nome_amigo " +
+        String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone  " +
                 "FROM emprestimos " +
                 "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
                 "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
@@ -142,7 +143,7 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public ArrayList<Emprestimo> buscarEmDia() throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta, amigos.nome AS nome_amigo " +
+        String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone  " +
                 "FROM emprestimos " +
                 "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
                 "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
@@ -152,7 +153,7 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public ArrayList<Emprestimo> buscarAtrasados() throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta, amigos.nome AS nome_amigo " +
+        String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone  " +
                 "FROM emprestimos " +
                 "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
                 "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
@@ -326,7 +327,7 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public int quantidadeEmprestimos() throws ExceptionDAO {
-        String sql = "SELECT COUNT(*) FROM emprestimos;";
+        String sql = "SELECT COUNT(id) FROM emprestimos;";
         int quantidade = 0;
 
         try (Connection conn = new DBConexao().getConexao();

@@ -29,7 +29,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     public ArrayList<Ferramenta> buscarTudo() throws ExceptionDAO {
-        String sql = "SELECT * FROM ferramentas ORDER BY nome ASC;";
+        String sql = "SELECT id, nome, marca, custo FROM ferramentas ORDER BY nome ASC;";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
 
         try (Connection conn = new DBConexao().getConexao();
@@ -125,7 +125,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     public ArrayList<Ferramenta> buscarFerramentasDisponiveis() throws ExceptionDAO {
-        String sql = "SELECT f.* FROM emprestimos e " +
+        String sql = "SELECT f.id, f.nome, f.marca, f.custo FROM emprestimos e " +
                      "RIGHT JOIN ferramentas f ON e.id_ferramenta = f.id " +
                      "WHERE data_devolucao IS NOT NULL OR id_ferramenta IS NULL;";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
@@ -151,7 +151,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
     
     public ArrayList<Ferramenta> buscarNome(String nome) throws ExceptionDAO {
-        String sql = "SELECT * FROM ferramentas WHERE UPPER(nome) LIKE UPPER(?)";
+        String sql = "SELECT id, nome, marca, custo FROM ferramentas WHERE UPPER(nome) LIKE UPPER(?)";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
     
         try (Connection conn = new DBConexao().getConexao();
@@ -177,7 +177,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     public int quantidadeFerramentas() throws ExceptionDAO {
-        String sql = "SELECT COUNT(*) FROM ferramentas";
+        String sql = "SELECT COUNT(id) FROM ferramentas";
         int quantidade = 0;
 
         try (Connection conn = new DBConexao().getConexao();

@@ -1,12 +1,12 @@
 package modelo;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Optional;
 
 import dao.EmprestimoDAO;
 import dao.ExceptionDAO;
-// 
 
 public class Emprestimo {
     private Integer id;
@@ -39,7 +39,7 @@ public class Emprestimo {
     }
 
     public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
-    LocalDate dataDevolucao) {
+                      LocalDate dataDevolucao) {
         this.idFerramenta = idFerramenta;
         this.idAmigo = idAmigo;
         this.dataInicial = dataInicial;
@@ -48,7 +48,7 @@ public class Emprestimo {
     }
 
     public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
-    LocalDate dataDevolucao) {
+                      LocalDate dataDevolucao) {
         this.id = id;
         this.idFerramenta = idFerramenta;
         this.idAmigo = idAmigo;
@@ -58,7 +58,7 @@ public class Emprestimo {
     }
 
     public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
-    LocalDate dataDevolucao, Amigo amigo, Ferramenta ferramenta) {
+                      LocalDate dataDevolucao, Amigo amigo, Ferramenta ferramenta) {
         this.id = id;
         this.idFerramenta = idFerramenta;
         this.idAmigo = idAmigo;
@@ -68,6 +68,7 @@ public class Emprestimo {
         this.amigo = amigo;
         this.ferramenta = ferramenta;
     }
+  
     public Integer getId() {
         return id;
     }
@@ -132,6 +133,37 @@ public class Emprestimo {
         this.ferramenta = ferramenta;
     }
 
+    private String getDataFormatada(LocalDate data, String formato) {
+        if (data == null) {
+            return "";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formato);
+        return data.format(formatter);
+    }
+
+    public String getDataInicialFormatada(String formato) {
+        return getDataFormatada(dataInicial, formato);
+    }
+
+    public String getDataPrazoFormatada(String formato) {
+        return getDataFormatada(dataPrazo, formato);
+    }
+
+    public String getDataDevolucaoFormatada(String formato) {
+        return getDataFormatada(dataDevolucao, formato);
+    }
+
+    public String getDataInicialFormatada() {
+        return getDataInicialFormatada("dd/MM/yyyy");
+    }
+
+    public String getDataPrazoFormatada() {
+        return getDataPrazoFormatada("dd/MM/yyyy");
+    }
+
+    public String getDataDevolucaoFormatada() {
+        return getDataDevolucaoFormatada("dd/MM/yyyy");
+    }
     public static Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
         return DAO.buscar(id);
     }

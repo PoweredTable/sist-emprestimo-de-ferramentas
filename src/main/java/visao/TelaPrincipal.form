@@ -6,6 +6,9 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
     </Property>
+    <Property name="location" type="java.awt.Point" editor="org.netbeans.beaninfo.editors.PointEditor">
+      <Point value="[0, 0]"/>
+    </Property>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1000, 800]"/>
     </Property>
@@ -54,7 +57,7 @@
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="jContaienrInformativos" pref="0" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              </Group>
+              </Group>        
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jContainerPrincipal" max="32767" attributes="0"/>
@@ -167,6 +170,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNewFerramentaActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jBotoes">
               <Properties>
@@ -177,7 +183,6 @@
                   <Color blue="c2" green="c2" red="c2" type="rgb"/>
                 </Property>
               </Properties>
-
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                 <Property name="columns" type="int" value="3"/>
                 <Property name="rows" type="int" value="3"/>
@@ -505,7 +510,6 @@
                   </Border>
                 </Property>
               </Properties>
-
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">

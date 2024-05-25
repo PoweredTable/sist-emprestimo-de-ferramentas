@@ -15,6 +15,7 @@
                 <exec.appArgs></exec.appArgs>
                 <exec.mainClass>principal.Principal</exec.mainClass>
                 <exec.executable>java</exec.executable>
+                <exec.workingdir></exec.workingdir>
             </properties>
         </action>
         <action>
@@ -33,6 +34,7 @@
                 <exec.mainClass>principal.Principal</exec.mainClass>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
+                <exec.workingdir></exec.workingdir>
             </properties>
         </action>
         <action>
@@ -50,6 +52,7 @@
                 <exec.mainClass>principal.Principal</exec.mainClass>
                 <exec.executable>java</exec.executable>
                 <exec.appArgs></exec.appArgs>
+                <exec.workingdir></exec.workingdir>
             </properties>
         </action>
     </actions>

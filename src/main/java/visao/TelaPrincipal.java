@@ -78,6 +78,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.white);
+        setLocation(new java.awt.Point(0, 0));
         setMaximumSize(new java.awt.Dimension(1000, 800));
         setMinimumSize(new java.awt.Dimension(1000, 800));
         setPreferredSize(new java.awt.Dimension(1280, 900));
@@ -550,6 +551,50 @@ public class TelaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, e);
     }
 }
+
+    private void jButtonEmDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmDiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEmDiaActionPerformed
+
+    private void jButtonNewAmigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewAmigosActionPerformed
+        // TODO add your handling code here:
+        TelaAmigo amigos = new TelaAmigo();
+        amigos.setVisible(true);
+        setEnabled(false);
+        amigos.setLocationRelativeTo(null);
+        amigos.carregaTabelaAmigos();
+        amigos.apresentaMaiorUtilizador();
+        amigos.apresentaQuantidadeAmigos();
+        
+        amigos.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            // Quando a tela de ferramentas for fechada, reative a tela principal
+                setEnabled(true);
+                toFront();
+            };
+        });
+    }//GEN-LAST:event_jButtonNewAmigosActionPerformed
+
+    private void jButtonNewFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewFerramentaActionPerformed
+        // TODO add your handling code here:
+        TelaFerramenta ferramentas = new TelaFerramenta();
+        ferramentas.setVisible(true);
+        ferramentas.carregaTabelaFerramentas();
+        setEnabled(false);
+        ferramentas.setLocationRelativeTo(null);
+        ferramentas.apresentaPrecoTotal();
+        ferramentas.apresentaTotalFerramentas();
+
+        ferramentas.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            // Quando a tela de ferramentas for fechada, reative a tela principal
+                setEnabled(true);
+                toFront();
+            };
+        });
+    }//GEN-LAST:event_jButtonNewFerramentaActionPerformed
 
     /**
      * @param args the command line arguments
