@@ -8,7 +8,6 @@ import java.util.Optional;
 import dao.EmprestimoDAO;
 import dao.ExceptionDAO;
 
-
 public class Emprestimo {
     private Integer id;
     private Integer idFerramenta;
@@ -69,7 +68,7 @@ public class Emprestimo {
         this.amigo = amigo;
         this.ferramenta = ferramenta;
     }
-
+  
     public Integer getId() {
         return id;
     }
@@ -165,7 +164,6 @@ public class Emprestimo {
     public String getDataDevolucaoFormatada() {
         return getDataDevolucaoFormatada("dd/MM/yyyy");
     }
-
     public static Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
         return DAO.buscar(id);
     }

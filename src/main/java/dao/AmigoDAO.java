@@ -123,6 +123,7 @@ public class AmigoDAO implements DAO<Amigo> {
 
     private boolean amigoPossuiEmprestimo(Integer id) throws ExceptionDAO {
         String sql = "SELECT COUNT(id) FROM emprestimos WHERE id_amigo = ?";
+
         return amigoPossuiEmprestimo(sql, id);
     }
 
