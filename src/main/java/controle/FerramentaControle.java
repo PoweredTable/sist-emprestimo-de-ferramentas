@@ -97,3 +97,4 @@ public class FerramentaControle {
         return Ferramenta.quantidadeFerramentas();
     }
 }
+
