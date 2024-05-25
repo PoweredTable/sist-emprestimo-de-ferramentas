@@ -387,10 +387,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        TelaFerramentas ferramentas = new TelaFerramentas();
+        TelaFerramenta ferramentas = new TelaFerramenta();
         ferramentas.setVisible(true);
         setEnabled(false);
+
         ferramentas.setLocationRelativeTo(null);
+        ferramentas.carregaTabelaFerramentas();
+        ferramentas.apresentaPrecoTotal();
+        ferramentas.apresentaTotalFerramentas();
 
         ferramentas.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
