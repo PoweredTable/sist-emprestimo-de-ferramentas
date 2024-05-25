@@ -437,6 +437,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
     }
     
     public void carregaTabelaFerramentas() {
+        System.out.println("desgareça");
         DefaultTableModel modelo = (DefaultTableModel) this.jTableFerramentas.getModel();
 
         modelo.setNumRows(0); //Posiciona na primeira linha da tabela
