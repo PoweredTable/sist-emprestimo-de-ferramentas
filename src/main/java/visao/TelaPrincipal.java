@@ -160,6 +160,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTabbedDash.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jTabbedDashStateChanged(evt);
+                statusMudança(evt);
             }
         });
 
@@ -378,6 +379,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().add(BG);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAmigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAmigosActionPerformed
@@ -447,12 +449,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (tabelaAtiva != null) {
             int selectedRow = tabelaAtiva.getSelectedRow();
             if (selectedRow != -1) {
-               
+                DialogConfirmado dialog = new DialogConfirmado();
+                dialog.setVisible(true);
+                
                 Object idObjeto = tabelaAtiva.getValueAt(selectedRow, 0);
                 int id = Integer.parseInt(idObjeto.toString());
 
                 try {
-                    EmprestimoControle.confirmarDevolucao(id);
+                    boolean confirmado = dialog.isConfirmado();
+                    
+                    if(confirmado == true){
+                        EmprestimoControle.confirmarDevolucao(id);  
+                    }
+                    
+                    dialog.setConfirmado(false);
                 } catch (ExceptionDAO ex) {
                     Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -615,6 +625,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
             };
         });
     }//GEN-LAST:event_jButtonNewAmigosActionPerformed
+
+    private void statusMudança(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_statusMudança
+        
+        if (jTabbedDash.getSelectedIndex() == 0) { // Se "Todos" é a primeira guia
+            // Desabilite o botão "Confirmar" quando a guia "Todos" estiver ativa
+            jBConfirmar.setEnabled(false);
+        } else {
+            // Caso contrário, habilite o botão "Confirmar"
+            jBConfirmar.setEnabled(true);
+        }
+    }//GEN-LAST:event_statusMudança
 
     /**
      * @param args the command line arguments
