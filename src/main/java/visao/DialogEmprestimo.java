@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package visao;
+
 import java.awt.*;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionEvent;
@@ -12,20 +13,19 @@ import java.util.Locale;
 import java.util.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.LocalDate;
-import java.text.SimpleDateFormat;
+import javax.swing.*;
+import com.toedter.calendar.JDateChooser;
 
 import dao.ExceptionDAO;
 import modelo.Ferramenta;
 import modelo.Amigo;
-import javax.swing.*;
 import controle.AmigoControle;
 import controle.FerramentaControle;
 import controle.EmprestimoControle;
 import visao.swingcomponents.CheckableModelItem;
 import visao.swingcomponents.CheckedComboBox;
 import visao.swingcomponents.ModelItem;
-import com.toedter.calendar.JDateChooser;
+
 
 /**
  *

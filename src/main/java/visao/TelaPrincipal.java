@@ -6,20 +6,15 @@ package visao;
 
 import java.util.Collections;
 import java.util.Comparator;
-import controle.AmigoControle;
-import controle.EmprestimoControle;
-import dao.ExceptionDAO;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import javax.swing.JOptionPane;
-import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
-import modelo.Amigo;
-import modelo.Emprestimo;
 
+import modelo.Emprestimo;
+import controle.EmprestimoControle;
+import dao.ExceptionDAO;
 /**
  *
  * @author LUCAS PEIXER
