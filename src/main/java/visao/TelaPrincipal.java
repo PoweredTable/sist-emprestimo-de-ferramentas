@@ -108,6 +108,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton5.setForeground(new java.awt.Color(229, 164, 11));
         jButton5.setText("Confirmar");
         jButton5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNewFerramentaActionPerformed(evt);
+            }
+        });
 
         jBotoes.setBackground(new java.awt.Color(194, 194, 194));
         jBotoes.setForeground(new java.awt.Color(194, 194, 194));
@@ -118,6 +123,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(229, 164, 11));
         jButton1.setText("Add Empréstimos");
         jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jBotoes.add(jButton1);
 
         jButton2.setBackground(new java.awt.Color(46, 46, 46));
@@ -599,6 +609,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             };
         });
     }//GEN-LAST:event_jButtonNewFerramentaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DialogEmprestimo dialog = new DialogEmprestimo(this, true);
+        dialog.carregaFerramenta();
+        dialog.carregaAmigo();
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
