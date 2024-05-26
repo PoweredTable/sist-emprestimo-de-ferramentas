@@ -19,6 +19,11 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import modelo.Amigo;
 import modelo.Emprestimo;
+import controle.EmprestimoControle;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
 
 /**
  *
@@ -26,19 +31,22 @@ import modelo.Emprestimo;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaPrincipal
-     */
+    private JTable tabelaAtiva;
+    
+    private void setTabelaAtiva(JTable tabela){
+        this.tabelaAtiva = tabela;
+    }
+    
     public TelaPrincipal() {
         initComponents();
-        
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-            
+             carregaTabelaTodos();
+             
             }
         });
-        
     }
 
     /**
@@ -53,11 +61,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         BG = new javax.swing.JPanel();
         jContainerPrincipal = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jBConfirmar = new javax.swing.JButton();
         jBotoes = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jBFerramentas = new javax.swing.JButton();
+        jBAmigos = new javax.swing.JButton();
         jTabbedDash = new javax.swing.JTabbedPane();
         jAbaTodos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -103,11 +111,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(46, 46, 46));
-        jButton5.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(229, 164, 11));
-        jButton5.setText("Confirmar");
-        jButton5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
+        jBConfirmar.setBackground(new java.awt.Color(46, 46, 46));
+        jBConfirmar.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
+        jBConfirmar.setForeground(new java.awt.Color(229, 164, 11));
+        jBConfirmar.setText("Confirmar");
+        jBConfirmar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
+        jBConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConfirmarActionPerformed(evt);
+            }
+        });
 
         jBotoes.setBackground(new java.awt.Color(194, 194, 194));
         jBotoes.setForeground(new java.awt.Color(194, 194, 194));
@@ -120,29 +133,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
         jBotoes.add(jButton1);
 
-        jButton2.setBackground(new java.awt.Color(46, 46, 46));
-        jButton2.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(229, 164, 11));
-        jButton2.setText("Ferramentas");
-        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBFerramentas.setBackground(new java.awt.Color(46, 46, 46));
+        jBFerramentas.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
+        jBFerramentas.setForeground(new java.awt.Color(229, 164, 11));
+        jBFerramentas.setText("Ferramentas");
+        jBFerramentas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
+        jBFerramentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBFerramentasActionPerformed(evt);
             }
         });
-        jBotoes.add(jButton2);
+        jBotoes.add(jBFerramentas);
 
-        jButton3.setBackground(new java.awt.Color(46, 46, 46));
-        jButton3.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(229, 164, 11));
-        jButton3.setText("Amigos");
-        jButton3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jBAmigos.setBackground(new java.awt.Color(46, 46, 46));
+        jBAmigos.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
+        jBAmigos.setForeground(new java.awt.Color(229, 164, 11));
+        jBAmigos.setText("Amigos");
+        jBAmigos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
+        jBAmigos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jBAmigosActionPerformed(evt);
             }
         });
-        jBotoes.add(jButton3);
+        jBotoes.add(jBAmigos);
 
         jTabbedDash.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -171,7 +184,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         jAbaTodosLayout.setVerticalGroup(
             jAbaTodosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jTabbedDash.addTab("Todos", jAbaTodos);
@@ -264,12 +277,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jContainerPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jContainerPrincipalLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTabbedDash))
                 .addGap(18, 18, 18)
                 .addComponent(jBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -281,7 +294,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedDash, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,7 +380,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jBAmigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAmigosActionPerformed
         TelaAmigo amigos = new TelaAmigo();
         amigos.setVisible(true);
         setEnabled(false);
@@ -375,18 +388,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         amigos.carregaTabelaAmigos();
         amigos.apresentaMaiorUtilizador();
         amigos.apresentaQuantidadeAmigos();
-        
+
         amigos.addWindowListener(new java.awt.event.WindowAdapter() {
-        @Override
+            @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-            // Quando a tela de ferramentas for fechada, reative a tela principal
+                // Quando a tela de ferramentas for fechada, reative a tela principal
                 setEnabled(true);
                 toFront();
-            };
-        });// TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+            }
+        ;
+    });// TODO add your handling code here:
+    }//GEN-LAST:event_jBAmigosActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jBFerramentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFerramentasActionPerformed
         TelaFerramenta ferramentas = new TelaFerramenta();
         ferramentas.setVisible(true);
         setEnabled(false);
@@ -397,14 +411,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ferramentas.apresentaTotalFerramentas();
 
         ferramentas.addWindowListener(new java.awt.event.WindowAdapter() {
-        @Override
+            @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-            // Quando a tela de ferramentas for fechada, reative a tela principal
+                // Quando a tela de ferramentas for fechada, reative a tela principal
                 setEnabled(true);
                 toFront();
-            };
-        });  // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+            }
+        ;
+    });  // TODO add your handling code here:
+    }//GEN-LAST:event_jBFerramentasActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -413,7 +428,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jTabbedDashStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedDashStateChanged
         int selectedIndex = jTabbedDash.getSelectedIndex();
         switch (selectedIndex) {
-            case 0: 
+            case 0:
                 carregaTabelaTodos();
                 break;
             case 1:
@@ -428,133 +443,154 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTabbedDashStateChanged
 
-    
+    private void jBConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConfirmarActionPerformed
+        if (tabelaAtiva != null) {
+            int selectedRow = tabelaAtiva.getSelectedRow();
+            if (selectedRow != -1) {
+               
+                Object idObjeto = tabelaAtiva.getValueAt(selectedRow, 0);
+                int id = Integer.parseInt(idObjeto.toString());
+
+                try {
+                    EmprestimoControle.confirmarDevolucao(id);
+                } catch (ExceptionDAO ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhuma tabela selecionada!");
+        }
+    }//GEN-LAST:event_jBConfirmarActionPerformed
+
     public void carregaTabelaTodos() {
-    DefaultTableModel modelo = (DefaultTableModel) this.jTableTodos.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableTodos.getModel();
+        setTabelaAtiva(jTableTodos);
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+        //Carrega a lista de objetos aluno
+        //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        //jTable1Amigos.setRowSorter(sorter);
+        try {
+            ArrayList<Emprestimo> lista = EmprestimoControle.buscarTudo();
 
-    modelo.setNumRows(0); //Posiciona na primeira linha da tabela
-    //Carrega a lista de objetos aluno
-    //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-    //jTable1Amigos.setRowSorter(sorter);
-    try {
-        ArrayList<Emprestimo> lista = EmprestimoControle.buscarTudo();
-
-        Collections.sort(lista, new Comparator<Emprestimo>() {
-            @Override
-            public int compare(Emprestimo a1, Emprestimo a2) {
-                return Long.compare(a1.getId(), a2.getId());
-            }
-        });
-
-        for (Emprestimo f : lista) {
-            modelo.addRow(new Object[]{
-                f.getId(),
-                f.getDataInicial(),
-                f.getDataPrazo(),
-                f.getAmigo().getNome(),
-                f.getFerramenta().getNome(),
-                f.getDataDevolucao()                                    
+            Collections.sort(lista, new Comparator<Emprestimo>() {
+                @Override
+                public int compare(Emprestimo a1, Emprestimo a2) {
+                    return Long.compare(a1.getId(), a2.getId());
+                }
             });
+
+            for (Emprestimo f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getDataInicial(),
+                    f.getDataPrazo(),
+                    f.getAmigo().getNome(),
+                    f.getFerramenta().getNome(),
+                    f.getDataDevolucao()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-    } catch (ExceptionDAO e) {
-        JOptionPane.showMessageDialog(null, e);
     }
-}
+
     public void carregaTabelaEmDia() {
-    DefaultTableModel modelo = (DefaultTableModel) this.jTableEmDia.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableEmDia.getModel();
+         setTabelaAtiva(jTableEmDia);
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+        //Carrega a lista de objetos aluno
+        //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        //jTable1Amigos.setRowSorter(sorter);
+        try {
+            ArrayList<Emprestimo> lista = EmprestimoControle.buscarEmDia();
 
-    modelo.setNumRows(0); //Posiciona na primeira linha da tabela
-    //Carrega a lista de objetos aluno
-    //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-    //jTable1Amigos.setRowSorter(sorter);
-    try {
-        ArrayList<Emprestimo> lista = EmprestimoControle.buscarEmDia();
-
-        Collections.sort(lista, new Comparator<Emprestimo>() {
-            @Override
-            public int compare(Emprestimo a1, Emprestimo a2) {
-                return Long.compare(a1.getId(), a2.getId());
-            }
-        });
-
-        for (Emprestimo f : lista) {
-            modelo.addRow(new Object[]{
-                f.getId(),
-                f.getDataInicial(),
-                f.getDataPrazo(),
-                f.getAmigo().getNome(),
-                f.getFerramenta().getNome(),
-                f.getDataDevolucao()                                    
+            Collections.sort(lista, new Comparator<Emprestimo>() {
+                @Override
+                public int compare(Emprestimo a1, Emprestimo a2) {
+                    return Long.compare(a1.getId(), a2.getId());
+                }
             });
+
+            for (Emprestimo f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getDataInicial(),
+                    f.getDataPrazo(),
+                    f.getAmigo().getNome(),
+                    f.getFerramenta().getNome(),
+                    f.getDataDevolucao()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-    } catch (ExceptionDAO e) {
-        JOptionPane.showMessageDialog(null, e);
     }
-}
-    
+
     public void carregaTabelaAtrasados() {
-    DefaultTableModel modelo = (DefaultTableModel) this.jTableAtrasados.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableAtrasados.getModel();
+         setTabelaAtiva(jTableAtrasados);
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+        //Carrega a lista de objetos aluno
+        //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        //jTable1Amigos.setRowSorter(sorter);
+        try {
+            ArrayList<Emprestimo> lista = EmprestimoControle.buscarAtrasados();
 
-    modelo.setNumRows(0); //Posiciona na primeira linha da tabela
-    //Carrega a lista de objetos aluno
-    //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-    //jTable1Amigos.setRowSorter(sorter);
-    try {
-        ArrayList<Emprestimo> lista = EmprestimoControle.buscarAtrasados();
-
-        Collections.sort(lista, new Comparator<Emprestimo>() {
-            @Override
-            public int compare(Emprestimo a1, Emprestimo a2) {
-                return Long.compare(a1.getId(), a2.getId());
-            }
-        });
-
-        for (Emprestimo f : lista) {
-            modelo.addRow(new Object[]{
-                f.getId(),
-                f.getDataInicial(),
-                f.getDataPrazo(),
-                f.getAmigo().getNome(),
-                f.getFerramenta().getNome(),
-                f.getDataDevolucao()                                    
+            Collections.sort(lista, new Comparator<Emprestimo>() {
+                @Override
+                public int compare(Emprestimo a1, Emprestimo a2) {
+                    return Long.compare(a1.getId(), a2.getId());
+                }
             });
+
+            for (Emprestimo f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getDataInicial(),
+                    f.getDataPrazo(),
+                    f.getAmigo().getNome(),
+                    f.getFerramenta().getNome(),
+                    f.getDataDevolucao()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-    } catch (ExceptionDAO e) {
-        JOptionPane.showMessageDialog(null, e);
     }
-}
-    
+
     public void carregaTabelaAtivos() {
-    DefaultTableModel modelo = (DefaultTableModel) this.jTableAtivos.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableAtivos.getModel();
+         setTabelaAtiva(jTableAtivos);
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+        //Carrega a lista de objetos aluno
+        //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        //jTable1Amigos.setRowSorter(sorter);
+        try {
+            ArrayList<Emprestimo> lista = EmprestimoControle.buscarAtivos();
 
-    modelo.setNumRows(0); //Posiciona na primeira linha da tabela
-    //Carrega a lista de objetos aluno
-    //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-    //jTable1Amigos.setRowSorter(sorter);
-    try {
-        ArrayList<Emprestimo> lista = EmprestimoControle.buscarAtivos();
-
-        Collections.sort(lista, new Comparator<Emprestimo>() {
-            @Override
-            public int compare(Emprestimo a1, Emprestimo a2) {
-                return Long.compare(a1.getId(), a2.getId());
-            }
-        });
-
-        for (Emprestimo f : lista) {
-            modelo.addRow(new Object[]{
-                f.getId(),
-                f.getDataInicial(),
-                f.getDataPrazo(),
-                f.getAmigo().getNome(),
-                f.getFerramenta().getNome(),
-                f.getDataDevolucao()                                    
+            Collections.sort(lista, new Comparator<Emprestimo>() {
+                @Override
+                public int compare(Emprestimo a1, Emprestimo a2) {
+                    return Long.compare(a1.getId(), a2.getId());
+                }
             });
+
+            for (Emprestimo f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getDataInicial(),
+                    f.getDataPrazo(),
+                    f.getAmigo().getNome(),
+                    f.getFerramenta().getNome(),
+                    f.getDataDevolucao()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-    } catch (ExceptionDAO e) {
-        JOptionPane.showMessageDialog(null, e);
     }
-}
 
     private void jButtonEmDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmDiaActionPerformed
         // TODO add your handling code here:
@@ -579,26 +615,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             };
         });
     }//GEN-LAST:event_jButtonNewAmigosActionPerformed
-
-    private void jButtonNewFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewFerramentaActionPerformed
-        // TODO add your handling code here:
-        TelaFerramenta ferramentas = new TelaFerramenta();
-        ferramentas.setVisible(true);
-        ferramentas.carregaTabelaFerramentas();
-        setEnabled(false);
-        ferramentas.setLocationRelativeTo(null);
-        ferramentas.apresentaPrecoTotal();
-        ferramentas.apresentaTotalFerramentas();
-
-        ferramentas.addWindowListener(new java.awt.event.WindowAdapter() {
-        @Override
-            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-            // Quando a tela de ferramentas for fechada, reative a tela principal
-                setEnabled(true);
-                toFront();
-            };
-        });
-    }//GEN-LAST:event_jButtonNewFerramentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -641,12 +657,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jAbaAtrasados;
     private javax.swing.JPanel jAbaEmDia;
     private javax.swing.JPanel jAbaTodos;
+    private javax.swing.JButton jBAmigos;
+    private javax.swing.JButton jBConfirmar;
+    private javax.swing.JButton jBFerramentas;
     private javax.swing.JPanel jBotoes;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JPanel jContaienrInformativos;
     private javax.swing.JPanel jContainerPrincipal;
     private javax.swing.JPanel jPanel10;
