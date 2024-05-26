@@ -4,10 +4,7 @@
  */
 package visao;
 
-import java.util.Collections;
-import java.util.Comparator;
 import controle.AmigoControle;
-import controle.EmprestimoControle;
 import dao.ExceptionDAO;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -15,12 +12,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JOptionPane;
-import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
-import modelo.Amigo;
 import modelo.Emprestimo;
 import controle.EmprestimoControle;
-import java.time.LocalDate;
+import controle.FerramentaControle;
+import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
@@ -32,19 +28,25 @@ import javax.swing.JTable;
 public class TelaPrincipal extends javax.swing.JFrame {
 
     private JTable tabelaAtiva;
-    
-    private void setTabelaAtiva(JTable tabela){
+
+    private void setTabelaAtiva(JTable tabela) {
         this.tabelaAtiva = tabela;
     }
-    
+
     public TelaPrincipal() {
         initComponents();
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-             carregaTabelaTodos();
-             
+                carregaTabelaTodos();
+                try {
+                    atualizarLabelQuantidadeDeAmigos();
+                    atualizarLabelQuantidadeDeFerramentas();
+                    atualizarLabelQuantidadeDeEmprestimos();
+                } catch (ExceptionDAO ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -60,7 +62,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         BG = new javax.swing.JPanel();
         jContainerPrincipal = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        jBExcluir = new javax.swing.JButton();
         jBConfirmar = new javax.swing.JButton();
         jBotoes = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -80,9 +82,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableAtivos = new javax.swing.JTable();
         jContaienrInformativos = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
+        jPEmprestimos = new javax.swing.JPanel();
+        jLEmprestimos = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPFerramentas = new javax.swing.JPanel();
+        jLFerramentas = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPAmigos = new javax.swing.JPanel();
+        jLAmigos = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.white);
@@ -100,14 +108,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jContainerPrincipal.setBackground(new java.awt.Color(194, 194, 194));
         jContainerPrincipal.setMaximumSize(new java.awt.Dimension(332767, 332767));
 
-        jButton4.setBackground(new java.awt.Color(46, 46, 46));
-        jButton4.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(229, 164, 11));
-        jButton4.setText("Excluir");
-        jButton4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jBExcluir.setBackground(new java.awt.Color(46, 46, 46));
+        jBExcluir.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
+        jBExcluir.setForeground(new java.awt.Color(229, 164, 11));
+        jBExcluir.setText("Excluir");
+        jBExcluir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
+        jBExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jBExcluirActionPerformed(evt);
             }
         });
 
@@ -281,7 +289,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jContainerPrincipalLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTabbedDash))
@@ -292,9 +300,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jContainerPrincipalLayout.setVerticalGroup(
             jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jContainerPrincipalLayout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addGroup(jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jContainerPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,53 +314,109 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jContaienrInformativos.setBackground(new java.awt.Color(194, 194, 194));
         jContaienrInformativos.setLayout(new java.awt.GridLayout(1, 3, 50, 0));
 
-        jPanel10.setBackground(new java.awt.Color(46, 46, 46));
-        jPanel10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 164, 11), 2, true));
+        jPEmprestimos.setBackground(new java.awt.Color(46, 46, 46));
+        jPEmprestimos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 164, 11), 2, true));
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+        jLEmprestimos.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLEmprestimos.setForeground(new java.awt.Color(229, 164, 11));
+        jLEmprestimos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLEmprestimos.setFocusable(false);
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(229, 164, 11));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("N° Emprestimos");
+
+        javax.swing.GroupLayout jPEmprestimosLayout = new javax.swing.GroupLayout(jPEmprestimos);
+        jPEmprestimos.setLayout(jPEmprestimosLayout);
+        jPEmprestimosLayout.setHorizontalGroup(
+            jPEmprestimosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPEmprestimosLayout.createSequentialGroup()
+                .addGroup(jPEmprestimosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPEmprestimosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+                    .addComponent(jLEmprestimos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 96, Short.MAX_VALUE)
-        );
-
-        jContaienrInformativos.add(jPanel10);
-
-        jPanel9.setBackground(new java.awt.Color(46, 46, 46));
-        jPanel9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 164, 11), 2, true));
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 96, Short.MAX_VALUE)
-        );
-
-        jContaienrInformativos.add(jPanel9);
-
-        jPanel11.setBackground(new java.awt.Color(46, 46, 46));
-        jPanel11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 164, 11), 2, true));
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 96, Short.MAX_VALUE)
+        jPEmprestimosLayout.setVerticalGroup(
+            jPEmprestimosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPEmprestimosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLEmprestimos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jContaienrInformativos.add(jPanel11);
+        jContaienrInformativos.add(jPEmprestimos);
+
+        jPFerramentas.setBackground(new java.awt.Color(46, 46, 46));
+        jPFerramentas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 164, 11), 2, true));
+
+        jLFerramentas.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLFerramentas.setForeground(new java.awt.Color(229, 164, 11));
+        jLFerramentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(229, 164, 11));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("N° Ferramentas");
+
+        javax.swing.GroupLayout jPFerramentasLayout = new javax.swing.GroupLayout(jPFerramentas);
+        jPFerramentas.setLayout(jPFerramentasLayout);
+        jPFerramentasLayout.setHorizontalGroup(
+            jPFerramentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLFerramentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPFerramentasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPFerramentasLayout.setVerticalGroup(
+            jPFerramentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPFerramentasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jContaienrInformativos.add(jPFerramentas);
+
+        jPAmigos.setBackground(new java.awt.Color(46, 46, 46));
+        jPAmigos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 164, 11), 2, true));
+
+        jLAmigos.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLAmigos.setForeground(new java.awt.Color(229, 164, 11));
+        jLAmigos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(229, 164, 11));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("N° Amigos");
+
+        javax.swing.GroupLayout jPAmigosLayout = new javax.swing.GroupLayout(jPAmigos);
+        jPAmigos.setLayout(jPAmigosLayout);
+        jPAmigosLayout.setHorizontalGroup(
+            jPAmigosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLAmigos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPAmigosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPAmigosLayout.setVerticalGroup(
+            jPAmigosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPAmigosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jContaienrInformativos.add(jPAmigos);
 
         javax.swing.GroupLayout BGLayout = new javax.swing.GroupLayout(BG);
         BG.setLayout(BGLayout);
@@ -372,7 +436,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BGLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jContaienrInformativos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jContainerPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -381,7 +445,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    private void atualizarLabelQuantidadeDeAmigos() throws ExceptionDAO {
+        int quantidade = AmigoControle.quantidadeAmigos();
+        jLAmigos.setText(String.valueOf(quantidade));
+    }
 
+    private void atualizarLabelQuantidadeDeFerramentas() throws ExceptionDAO {
+        int quantidade = FerramentaControle.quantidadeFerramentas();
+        jLFerramentas.setText(String.valueOf(quantidade));
+    }
+
+    private void atualizarLabelQuantidadeDeEmprestimos() throws ExceptionDAO {
+        int quantidade = EmprestimoControle.quantidadeEmprestimos();
+        jLEmprestimos.setText(String.valueOf(quantidade));
+    }
     private void jBAmigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAmigosActionPerformed
         TelaAmigo amigos = new TelaAmigo();
         amigos.setVisible(true);
@@ -399,7 +476,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 toFront();
             }
         ;
-    });// TODO add your handling code here:
+    });
     }//GEN-LAST:event_jBAmigosActionPerformed
 
     private void jBFerramentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFerramentasActionPerformed
@@ -420,12 +497,38 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 toFront();
             }
         ;
-    });  // TODO add your handling code here:
+    }); 
     }//GEN-LAST:event_jBFerramentasActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+        if (tabelaAtiva != null) {
+            int selectedRow = tabelaAtiva.getSelectedRow();
+            if (selectedRow != -1) {
+                DialogExclucao dialog = new DialogExclucao();
+                dialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        boolean exclusao = dialog.Exclusao();
+                        if (exclusao) {
+                            Object idObjeto = tabelaAtiva.getValueAt(selectedRow, 0);
+                            int id = Integer.parseInt(idObjeto.toString());
+                            try {
+                                EmprestimoControle.excluir(id);
+                                atualizarLabelQuantidadeDeEmprestimos();
+                            } catch (ExceptionDAO ex) {
+                                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
+                });
+                dialog.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhuma tabela selecionada!");
+        }
+    }//GEN-LAST:event_jBExcluirActionPerformed
 
     private void jTabbedDashStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedDashStateChanged
         int selectedIndex = jTabbedDash.getSelectedIndex();
@@ -450,22 +553,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
             int selectedRow = tabelaAtiva.getSelectedRow();
             if (selectedRow != -1) {
                 DialogConfirmado dialog = new DialogConfirmado();
-                dialog.setVisible(true);
-                
-                Object idObjeto = tabelaAtiva.getValueAt(selectedRow, 0);
-                int id = Integer.parseInt(idObjeto.toString());
 
-                try {
-                    boolean confirmado = dialog.isConfirmado();
-                    
-                    if(confirmado == true){
-                        EmprestimoControle.confirmarDevolucao(id);  
+                dialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        boolean confirmado = dialog.isConfirmado();
+                        if (confirmado) {
+                            Object idObjeto = tabelaAtiva.getValueAt(selectedRow, 0);
+                            int id = Integer.parseInt(idObjeto.toString());
+
+                            try {
+                                EmprestimoControle.confirmarDevolucao(id);
+                            } catch (ExceptionDAO ex) {
+                                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
                     }
-                    
-                    dialog.setConfirmado(false);
-                } catch (ExceptionDAO ex) {
-                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                });
+                dialog.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela!");
             }
@@ -508,7 +613,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public void carregaTabelaEmDia() {
         DefaultTableModel modelo = (DefaultTableModel) this.jTableEmDia.getModel();
-         setTabelaAtiva(jTableEmDia);
+        setTabelaAtiva(jTableEmDia);
         modelo.setNumRows(0); //Posiciona na primeira linha da tabela
         //Carrega a lista de objetos aluno
         //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
@@ -540,7 +645,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public void carregaTabelaAtrasados() {
         DefaultTableModel modelo = (DefaultTableModel) this.jTableAtrasados.getModel();
-         setTabelaAtiva(jTableAtrasados);
+        setTabelaAtiva(jTableAtrasados);
         modelo.setNumRows(0); //Posiciona na primeira linha da tabela
         //Carrega a lista de objetos aluno
         //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
@@ -572,7 +677,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public void carregaTabelaAtivos() {
         DefaultTableModel modelo = (DefaultTableModel) this.jTableAtivos.getModel();
-         setTabelaAtiva(jTableAtivos);
+        setTabelaAtiva(jTableAtivos);
         modelo.setNumRows(0); //Posiciona na primeira linha da tabela
         //Carrega a lista de objetos aluno
         //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
@@ -615,25 +720,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
         amigos.carregaTabelaAmigos();
         amigos.apresentaMaiorUtilizador();
         amigos.apresentaQuantidadeAmigos();
-        
+
         amigos.addWindowListener(new java.awt.event.WindowAdapter() {
-        @Override
+            @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-            // Quando a tela de ferramentas for fechada, reative a tela principal
+                // Quando a tela de ferramentas for fechada, reative a tela principal
                 setEnabled(true);
                 toFront();
-            };
-        });
+            }
+        ;
+    });
     }//GEN-LAST:event_jButtonNewAmigosActionPerformed
 
     private void statusMudança(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_statusMudança
-        
+
         if (jTabbedDash.getSelectedIndex() == 0) { // Se "Todos" é a primeira guia
             // Desabilite o botão "Confirmar" quando a guia "Todos" estiver ativa
             jBConfirmar.setEnabled(false);
+            jBExcluir.setEnabled(false);
         } else {
             // Caso contrário, habilite o botão "Confirmar"
             jBConfirmar.setEnabled(true);
+            jBExcluir.setEnabled(true);
         }
     }//GEN-LAST:event_statusMudança
 
@@ -680,15 +788,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jAbaTodos;
     private javax.swing.JButton jBAmigos;
     private javax.swing.JButton jBConfirmar;
+    private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBFerramentas;
     private javax.swing.JPanel jBotoes;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
     private javax.swing.JPanel jContaienrInformativos;
     private javax.swing.JPanel jContainerPrincipal;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel jLAmigos;
+    private javax.swing.JLabel jLEmprestimos;
+    private javax.swing.JLabel jLFerramentas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPAmigos;
+    private javax.swing.JPanel jPEmprestimos;
+    private javax.swing.JPanel jPFerramentas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

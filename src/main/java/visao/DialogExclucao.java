@@ -4,25 +4,23 @@
  */
 package visao;
 
-
-
 /**
  *
  * @author LUCAS PEIXER
  */
-public class DialogConfirmado extends javax.swing.JFrame {
+public class DialogExclucao extends javax.swing.JFrame {
 
-    private boolean confirmado = false;
+    private boolean exclusao = false;
     
-     public boolean isConfirmado() {
-        return confirmado;
+     public boolean Exclusao() {
+        return exclusao;
     }
      
-    public void setConfirmado(boolean confirmado) {
-        this.confirmado = confirmado;
+    public void setExclusao(boolean exclusao) {
+        this.exclusao = exclusao;
     }
     
-    public DialogConfirmado() {
+    public DialogExclucao() {
         initComponents();
     }
 
@@ -37,42 +35,39 @@ public class DialogConfirmado extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        DCConfirmar = new java.awt.Button();
-        DCCancelar = new java.awt.Button();
+        DEConfirmar = new java.awt.Button();
+        DECancelar = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setLocation(new java.awt.Point(0, 0));
-        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(64, 64, 64));
         jPanel1.setMaximumSize(new java.awt.Dimension(450, 300));
         jPanel1.setMinimumSize(new java.awt.Dimension(450, 300));
-        jPanel1.setPreferredSize(new java.awt.Dimension(450, 300));
 
         jLabel1.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(229, 164, 11));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Tem certeza de que deseja confirmar a devolução deste item?");
+        jLabel1.setText("Tem certeza de que deseja excluir este item?");
 
-        DCConfirmar.setActionCommand("Button1");
-        DCConfirmar.setBackground(new java.awt.Color(255, 187, 0));
-        DCConfirmar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        DCConfirmar.setForeground(new java.awt.Color(64, 64, 64));
-        DCConfirmar.setLabel("Confirmar");
-        DCConfirmar.setName(""); // NOI18N
-        DCConfirmar.addActionListener(new java.awt.event.ActionListener() {
+        DEConfirmar.setActionCommand("Button1");
+        DEConfirmar.setBackground(new java.awt.Color(255, 187, 0));
+        DEConfirmar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        DEConfirmar.setForeground(new java.awt.Color(64, 64, 64));
+        DEConfirmar.setLabel("Confirmar");
+        DEConfirmar.setName(""); // NOI18N
+        DEConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DCConfirmarActionPerformed(evt);
+                DEConfirmarActionPerformed(evt);
             }
         });
 
-        DCCancelar.setBackground(new java.awt.Color(64, 64, 64));
-        DCCancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        DCCancelar.setForeground(new java.awt.Color(255, 187, 0));
-        DCCancelar.setLabel("Cancelar");
-        DCCancelar.addActionListener(new java.awt.event.ActionListener() {
+        DECancelar.setBackground(new java.awt.Color(64, 64, 64));
+        DECancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        DECancelar.setForeground(new java.awt.Color(255, 187, 0));
+        DECancelar.setLabel("Cancelar");
+        DECancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DCCancelarActionPerformed(evt);
+                DECancelarActionPerformed(evt);
             }
         });
 
@@ -82,11 +77,11 @@ public class DialogConfirmado extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(DCCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(DECancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
-                .addComponent(DCConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(DEConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -94,12 +89,12 @@ public class DialogConfirmado extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addContainerGap(89, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addGap(64, 64, 64)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(DCConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DCCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                    .addComponent(DEConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DECancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addGap(56, 56, 56))
         );
 
@@ -111,23 +106,22 @@ public class DialogConfirmado extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void DCConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DCConfirmarActionPerformed
-        setConfirmado(true);
+    private void DEConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DEConfirmarActionPerformed
+        setExclusao(true);
         dispose();
-      
-    }//GEN-LAST:event_DCConfirmarActionPerformed
+    }//GEN-LAST:event_DEConfirmarActionPerformed
 
-    private void DCCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DCCancelarActionPerformed
-       setConfirmado(false);
-       dispose();
-    }//GEN-LAST:event_DCCancelarActionPerformed
+    private void DECancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DECancelarActionPerformed
+        setExclusao(false);
+        dispose();
+    }//GEN-LAST:event_DECancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,27 +140,27 @@ public class DialogConfirmado extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogConfirmado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogExclucao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogConfirmado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogExclucao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogConfirmado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogExclucao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogConfirmado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogExclucao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DialogConfirmado().setVisible(true);
+                new DialogExclucao().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button DCCancelar;
-    private java.awt.Button DCConfirmar;
+    private java.awt.Button DECancelar;
+    private java.awt.Button DEConfirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
