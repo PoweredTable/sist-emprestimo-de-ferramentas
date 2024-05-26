@@ -259,6 +259,7 @@ public class DialogEmprestimo extends javax.swing.JDialog {
                 System.out.println(ferramenta.toString());
                 try {
                     EmprestimoControle.cadastrar(ferramenta.getId(),amigo.getId(),LocalDate.now(),localDate);
+                    this.dispose();
                 }catch (Exception e){
                     JOptionPane.showMessageDialog(null, e);
                 }
