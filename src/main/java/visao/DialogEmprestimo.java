@@ -3,9 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package visao;
-
+import java.awt.*;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import modelo.Ferramenta;
 import modelo.Amigo;
 import javax.swing.*;
@@ -14,6 +18,7 @@ import controle.FerramentaControle;
 import visao.swingcomponents.CheckableModelItem;
 import visao.swingcomponents.CheckedComboBox;
 import visao.swingcomponents.ModelItem;
+import com.toedter.calendar.JDateChooser;
 
 /**
  *
@@ -23,7 +28,8 @@ public class DialogEmprestimo extends javax.swing.JDialog {
 
     private DefaultComboBoxModel<CheckableModelItem<Ferramenta>> modeloFerramenta;
     private DefaultComboBoxModel<ModelItem<Amigo>> modeloAmigo;
-    
+    private JDateChooser dateChooser;
+
 
     /**
      * Creates new form DialogEmprestimo
@@ -32,6 +38,7 @@ public class DialogEmprestimo extends javax.swing.JDialog {
         super(parent, modal);
         this.modeloFerramenta = new DefaultComboBoxModel<>();
         this.modeloAmigo = new DefaultComboBoxModel<>();
+        this.dateChooser = new JDateChooser();
         initComponents();
     }
 
@@ -58,7 +65,7 @@ public class DialogEmprestimo extends javax.swing.JDialog {
             }
 
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -71,118 +78,138 @@ public class DialogEmprestimo extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        BG = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabelTitleDialog = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jButtonCalcelar = new javax.swing.JButton();
-        jButtonSalvar = new javax.swing.JButton();
+        BG = new JPanel();
+        jPanel1 = new JPanel();
+        jLabelTitleDialog = new JLabel();
+        jPanel4 = new JPanel();
+        jPanel2 = new JPanel();
+        jPanel3 = new JPanel();
+        jButtonCalcelar = new JButton();
+        jButtonSalvar = new JButton();
 
         CheckedComboBox<CheckableModelItem<Ferramenta>> comboBoxFerramenta = new CheckedComboBox<>(modeloFerramenta);
-        
+
         jPanel2.add(comboBoxFerramenta);
         JComboBox<ModelItem<Amigo>> comboboxAmigo = new JComboBox<>(modeloAmigo);
         jPanel2.add(comboboxAmigo);
+        jPanel2.add(dateChooser);
 
-        
+        dateChooser.setLocale(Locale.forLanguageTag("pt-BR"));
+        dateChooser.setFont(new Font("Arial", Font.PLAIN, 14));
+        dateChooser.getJCalendar().setWeekOfYearVisible(false);
+        dateChooser.getJCalendar().setTodayButtonVisible(true);
+        dateChooser.getJCalendar().setTodayButtonText("Hoje");
+        dateChooser.getJCalendar().setDecorationBackgroundVisible(true);
+        dateChooser.getJCalendar().setDecorationBordersVisible(true);
+
+        // Customizing colors
+        dateChooser.setBackground(new Color(255, 255, 255));
+        dateChooser.setForeground(new Color(0, 0, 0));
+        dateChooser.getJCalendar().setBackground(new Color(245, 245, 245));
+        dateChooser.getJCalendar().setSundayForeground(new Color(255, 99, 71));
+        dateChooser.getJCalendar().setWeekdayForeground(new Color(70, 130, 180));
 
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(550, 350));
-        setPreferredSize(new java.awt.Dimension(550, 350));
+        // Customizing the date editor
+        dateChooser.getDateEditor().getUiComponent().setBackground(new Color(255, 255, 255));
+        dateChooser.getDateEditor().getUiComponent().setForeground(new Color(0, 0, 0));
+        dateChooser.getDateEditor().getUiComponent().setFont(new Font("Arial", Font.PLAIN, 14));
+
+
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(550, 350));
+        setPreferredSize(new Dimension(550, 350));
         setResizable(false);
 
-        BG.setBackground(new java.awt.Color(64, 64, 64));
+        BG.setBackground(new Color(64, 64, 64));
 
-        jPanel1.setBackground(new java.awt.Color(64, 64, 64));
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setBackground(new Color(64, 64, 64));
+        jPanel1.setLayout(new GridLayout());
 
-        jLabelTitleDialog.setBackground(new java.awt.Color(64, 64, 64));
-        jLabelTitleDialog.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabelTitleDialog.setForeground(new java.awt.Color(255, 187, 0));
-        jLabelTitleDialog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitleDialog.setBackground(new Color(64, 64, 64));
+        jLabelTitleDialog.setFont(new Font("Arial Black", 1, 24)); // NOI18N
+        jLabelTitleDialog.setForeground(new Color(255, 187, 0));
+        jLabelTitleDialog.setHorizontalAlignment(SwingConstants.CENTER);
         jLabelTitleDialog.setText("Cadastro");
         jPanel1.add(jLabelTitleDialog);
 
-        jPanel4.setBackground(new java.awt.Color(64, 64, 64));
+        jPanel4.setBackground(new Color(64, 64, 64));
 
-        jPanel2.setBackground(new java.awt.Color(64, 64, 64));
-        jPanel2.setLayout(new java.awt.GridLayout(3, 0, 0, 20));
+        jPanel2.setBackground(new Color(64, 64, 64));
+        jPanel2.setLayout(new GridLayout(3, 0, 0, 20));
 
-        jPanel3.setBackground(new java.awt.Color(64, 64, 64));
-        jPanel3.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
+        jPanel3.setBackground(new Color(64, 64, 64));
+        jPanel3.setLayout(new GridLayout(1, 0, 30, 0));
 
-        jButtonCalcelar.setBackground(new java.awt.Color(156, 156, 156));
-        jButtonCalcelar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jButtonCalcelar.setForeground(new java.awt.Color(64, 64, 64));
+        jButtonCalcelar.setBackground(new Color(156, 156, 156));
+        jButtonCalcelar.setFont(new Font("Arial Black", 1, 14)); // NOI18N
+        jButtonCalcelar.setForeground(new Color(64, 64, 64));
         jButtonCalcelar.setText("Cancelar");
-        jButtonCalcelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonCalcelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jButtonCalcelarActionPerformed(evt);
             }
         });
         jPanel3.add(jButtonCalcelar);
 
-        jButtonSalvar.setBackground(new java.awt.Color(156, 156, 156));
-        jButtonSalvar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jButtonSalvar.setForeground(new java.awt.Color(64, 64, 64));
+        jButtonSalvar.setBackground(new Color(156, 156, 156));
+        jButtonSalvar.setFont(new Font("Arial Black", 1, 14)); // NOI18N
+        jButtonSalvar.setForeground(new Color(64, 64, 64));
         jButtonSalvar.setText("Salvar");
-        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonSalvar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jButtonSalvarActionPerformed(evt);
             }
         });
         jPanel3.add(jButtonSalvar);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        GroupLayout jPanel4Layout = new GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(115, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE))
                 .addGap(105, 105, 105))
         );
         jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+            jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout BGLayout = new javax.swing.GroupLayout(BG);
+        GroupLayout BGLayout = new GroupLayout(BG);
         BG.setLayout(BGLayout);
         BGLayout.setHorizontalGroup(
-            BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BGLayout.createSequentialGroup()
+            BGLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, BGLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         BGLayout.setVerticalGroup(
-            BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            BGLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(BGLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(BG, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(BG, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -213,7 +240,7 @@ public class DialogEmprestimo extends javax.swing.JDialog {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
