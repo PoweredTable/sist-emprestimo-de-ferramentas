@@ -123,11 +123,13 @@ public class FerramentaDAO implements DAO<Ferramenta> {
 
         return isEmprestada;
     }
-
+    
     public ArrayList<Ferramenta> buscarFerramentasDisponiveis() throws ExceptionDAO {
-        String sql = "SELECT f.id, f.nome, f.marca, f.custo FROM emprestimos e " +
-                     "RIGHT JOIN ferramentas f ON e.id_ferramenta = f.id " +
-                     "WHERE data_devolucao IS NOT NULL OR id_ferramenta IS NULL;";
+        String sql = "SELECT f.id, f.nome, f.marca, f.custo " +
+                     "FROM ferramentas f " +
+                     "LEFT JOIN emprestimos e ON f.id = e.id_ferramenta " +
+                     "AND e.data_devolucao IS NULL " +
+                     "WHERE e.id_ferramenta IS NULL";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
     
         try (Connection conn = new DBConexao().getConexao();
