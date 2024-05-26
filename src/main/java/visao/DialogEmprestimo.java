@@ -9,12 +9,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 
+import dao.ExceptionDAO;
 import modelo.Ferramenta;
 import modelo.Amigo;
 import javax.swing.*;
 import controle.AmigoControle;
 import controle.FerramentaControle;
+import controle.EmprestimoControle;
 import visao.swingcomponents.CheckableModelItem;
 import visao.swingcomponents.CheckedComboBox;
 import visao.swingcomponents.ModelItem;
@@ -222,15 +229,48 @@ public class DialogEmprestimo extends javax.swing.JDialog {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
-        if (jButtonSalvar.getText().equals("Salvar")) {
-            //cadastrarAmigo();
-
-            this.dispose();
-        } else if (jButtonSalvar.getText().equals("Editar")) {
-            // Lógica para editar ferramenta
-            //editarAmigo();
-            this.dispose();
+        ModelItem<Amigo> amigoModelItem = (ModelItem<Amigo>) modeloAmigo.getSelectedItem();
+        Amigo amigo = amigoModelItem.getItem();
+        int resposta = JOptionPane.showConfirmDialog(null,"Amigo já possue um emprestimo ativo, deseja continuar");
+        try {
+            if(AmigoControle.amigoPossuiEmprestimoAtivo(amigo) && resposta == JOptionPane.NO_OPTION){
+                return;
+            }
+            AmigoControle.amigoPossuiEmprestimoAtivo(amigo);
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
         }
+
+
+        Date dataSelecionada = dateChooser.getDate();
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        //String dataFormatada = sdf.format(dataSelecionada);
+
+        LocalDate localDate = dataSelecionada.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
+        for (int i = 0; i < modeloFerramenta.getSize(); i++) {
+            // retorna o item utilizando o index
+            CheckableModelItem<Ferramenta> item = modeloFerramenta.getElementAt(i);
+            // verifica se o item está selecionado
+            if (item.isSelected()) {
+                Ferramenta ferramenta = item.getItem();
+                System.out.println(ferramenta.toString());
+                try {
+                    EmprestimoControle.cadastrar(ferramenta.getId(),amigo.getId(),LocalDate.now(),localDate);
+                }catch (Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+
+            }
+        }
+
+
+        System.out.println(amigoModelItem.getItem());
+        System.out.println("Data selecionada: " + dataSelecionada);
+
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
