@@ -580,11 +580,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 });
                 dialog.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela!");
+                DialogErroTabela SelecioneLinha = new DialogErroTabela();
+                SelecioneLinha.setVisible(true);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Nenhuma tabela selecionada!");
-        }
+        } 
     }//GEN-LAST:event_jBConfirmarActionPerformed
 
     public void carregaTabelaTodos() {
