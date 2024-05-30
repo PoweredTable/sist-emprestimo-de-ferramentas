@@ -437,6 +437,8 @@ public class TelaAmigo extends javax.swing.JFrame {
         dialog.setApelido("");
         dialog.setTelefone("");
         dialog.setVisible(true);
+        apresentaMaiorUtilizador();
+        apresentaQuantidadeAmigos();
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
 
@@ -487,6 +489,8 @@ public class TelaAmigo extends javax.swing.JFrame {
         // TODO add your handling code here:
         excluirAmigo();
         carregaTabelaAmigos();
+        apresentaMaiorUtilizador();
+        apresentaQuantidadeAmigos();
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
