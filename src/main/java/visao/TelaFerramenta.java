@@ -16,6 +16,7 @@ import modelo.Ferramenta;
 import controle.FerramentaControle;
 import dao.ExceptionDAO;
 
+
 /**
  *
  * @author waldy
@@ -412,10 +413,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        TelaPrincipal principal = new TelaPrincipal();
-        principal.setEnabled(true);
-        principal.toFront();
-        
+
     }//GEN-LAST:event_jButtonVoltarActionPerformed
     
     public void apresentaTotalFerramentas(){
