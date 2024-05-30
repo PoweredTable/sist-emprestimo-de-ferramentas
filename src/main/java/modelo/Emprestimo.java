@@ -8,6 +8,9 @@ import java.util.Optional;
 import dao.EmprestimoDAO;
 import dao.ExceptionDAO;
 
+/**
+ * Classe Emprestimo representa um empréstimo com seus atributos e métodos de manipulação.
+ */
 public class Emprestimo {
     private Integer id;
     private Integer idFerramenta;
@@ -20,13 +23,16 @@ public class Emprestimo {
 
     private static final EmprestimoDAO DAO = EmprestimoDAO.getInstance();
 
-    /* Construtor sem parâmetros que inicializa todos os atributos com valores nulos ou objetos vazios */
+    /**
+     * Construtor sem parâmetros que inicializa todos os atributos com valores nulos ou objetos vazios.
+     */
     public Emprestimo() {
         this(null, null ,null, null);
     }
 
-    /* Construtor que inicializa um empréstimo sem data de devolução */
     /**
+     * Construtor que inicializa um empréstimo sem data de devolução.
+     * 
      * @param idFerramenta ID da ferramenta
      * @param idAmigo ID do amigo
      * @param dataInicial Data inicial do empréstimo
@@ -36,8 +42,9 @@ public class Emprestimo {
         this(idFerramenta, idAmigo, dataInicial, dataPrazo, null);
     }
 
-    /* Construtor que inicializa um empréstimo com data de devolução */
     /**
+     * Construtor que inicializa um empréstimo com data de devolução.
+     * 
      * @param idFerramenta ID da ferramenta
      * @param idAmigo ID do amigo
      * @param dataInicial Data inicial do empréstimo
@@ -49,8 +56,9 @@ public class Emprestimo {
         this(null, idFerramenta, idAmigo, dataInicial, dataPrazo, dataDevolucao);
     }
 
-    /* Construtor que inicializa todos os atributos do empréstimo, incluindo o id */
     /**
+     * Construtor que inicializa todos os atributos do empréstimo, incluindo o id.
+     * 
      * @param id ID do empréstimo
      * @param idFerramenta ID da ferramenta
      * @param idAmigo ID do amigo
@@ -63,8 +71,9 @@ public class Emprestimo {
         this(id, idFerramenta, idAmigo, dataInicial, dataPrazo, dataDevolucao, new Amigo(), new Ferramenta());
     }
 
-    /* Construtor completo que inicializa todos os atributos do empréstimo, incluindo objetos Amigo e Ferramenta */
     /**
+     * Construtor completo que inicializa todos os atributos do empréstimo, incluindo objetos Amigo e Ferramenta.
+     * 
      * @param id ID do empréstimo
      * @param idFerramenta ID da ferramenta
      * @param idAmigo ID do amigo
@@ -86,128 +95,144 @@ public class Emprestimo {
         this.ferramenta = ferramenta;
     }
 
-    /* Retorna o id do empréstimo */
     /**
+     * Retorna o id do empréstimo.
+     * 
      * @return ID do empréstimo
      */
     public Integer getId() {
         return id;
     }
 
-    /* Define o id do empréstimo */
     /**
+     * Define o id do empréstimo.
+     * 
      * @param id ID do empréstimo
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
-    /* Retorna o id da ferramenta associada ao empréstimo */
     /**
+     * Retorna o id da ferramenta associada ao empréstimo.
+     * 
      * @return ID da ferramenta
      */
     public Integer getIdFerramenta() {
         return idFerramenta;
     }
 
-    /* Define o id da ferramenta associada ao empréstimo */
     /**
+     * Define o id da ferramenta associada ao empréstimo.
+     * 
      * @param idFerramenta ID da ferramenta
      */
     public void setIdFerramenta(Integer idFerramenta) {
         this.idFerramenta = idFerramenta;
     }
 
-    /* Retorna o id do amigo associado ao empréstimo */
     /**
+     * Retorna o id do amigo associado ao empréstimo.
+     * 
      * @return ID do amigo
      */
     public Integer getIdAmigo() {
         return idAmigo;
     }
 
-    /* Define o id do amigo associado ao empréstimo */
     /**
+     * Define o id do amigo associado ao empréstimo.
+     * 
      * @param idAmigo ID do amigo
      */
     public void setIdAmigo(Integer idAmigo) {
         this.idAmigo = idAmigo;
     }
 
-    /* Retorna a data inicial do empréstimo */
     /**
+     * Retorna a data inicial do empréstimo.
+     * 
      * @return Data inicial do empréstimo
      */
     public LocalDate getDataInicial() {
         return dataInicial;
     }
 
-    /* Define a data inicial do empréstimo */
     /**
+     * Define a data inicial do empréstimo.
+     * 
      * @param dataInicial Data inicial do empréstimo
      */
     public void setDataInicial(LocalDate dataInicial) {
         this.dataInicial = dataInicial;
     }
 
-    /* Retorna a data de prazo do empréstimo */
     /**
+     * Retorna a data de prazo do empréstimo.
+     * 
      * @return Data de prazo do empréstimo
      */
     public LocalDate getDataPrazo() {
         return dataPrazo;
     }
 
-    /* Define a data de prazo do empréstimo */
     /**
+     * Define a data de prazo do empréstimo.
+     * 
      * @param dataPrazo Data de prazo do empréstimo
      */
     public void setDataPrazo(LocalDate dataPrazo) {
         this.dataPrazo = dataPrazo;
     }
 
-    /* Retorna a data de devolução do empréstimo */
     /**
+     * Retorna a data de devolução do empréstimo.
+     * 
      * @return Data de devolução do empréstimo
      */
     public LocalDate getDataDevolucao() {
         return dataDevolucao;
     }
 
-    /* Define a data de devolução do empréstimo */
     /**
+     * Define a data de devolução do empréstimo.
+     * 
      * @param dataDevolucao Data de devolução do empréstimo
      */
     public void setDataDevolucao(LocalDate dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
 
-    /* Retorna o objeto Amigo associado ao empréstimo */
     /**
+     * Retorna o objeto Amigo associado ao empréstimo.
+     * 
      * @return Objeto Amigo associado ao empréstimo
      */
     public Amigo getAmigo() {
         return amigo;
     }
 
-    /* Define o objeto Amigo associado ao empréstimo */
     /**
+     * Define o objeto Amigo associado ao empréstimo.
+     * 
      * @param amigo Objeto Amigo associado ao empréstimo
      */
     public void setAmigo(Amigo amigo) {
         this.amigo = amigo;
     }
 
-    /* Retorna o objeto Ferramenta associado ao empréstimo */
     /**
+     * Retorna o objeto Ferramenta associado ao empréstimo.
+     * 
      * @return Objeto Ferramenta associado ao empréstimo
      */
     public Ferramenta getFerramenta() {
         return ferramenta;
     }
 
-    /* Define o objeto Ferramenta associado ao empréstimo */
     /**
+     * Define o objeto Ferramenta associado ao empréstimo.
+     * 
      * @param ferramenta Objeto Ferramenta associado ao empréstimo
      */
     public void setFerramenta(Ferramenta ferramenta) {
@@ -222,32 +247,66 @@ public class Emprestimo {
         return data.format(formatter);
     }
 
+    /**
+     * Retorna a data inicial do empréstimo formatada.
+     * 
+     * @param formato Formato da data
+     * @return Data inicial formatada
+     */
     public String getDataInicialFormatada(String formato) {
         return getDataFormatada(dataInicial, formato);
     }
 
+    /**
+     * Retorna a data de prazo do empréstimo formatada.
+     * 
+     * @param formato Formato da data
+     * @return Data de prazo formatada
+     */
     public String getDataPrazoFormatada(String formato) {
         return getDataFormatada(dataPrazo, formato);
     }
 
+    /**
+     * Retorna a data de devolução do empréstimo formatada.
+     * 
+     * @param formato Formato da data
+     * @return Data de devolução formatada
+     */
     public String getDataDevolucaoFormatada(String formato) {
         return getDataFormatada(dataDevolucao, formato);
     }
 
+    /**
+     * Retorna a data inicial do empréstimo formatada no padrão "dd/MM/yyyy".
+     * 
+     * @return Data inicial formatada
+     */
     public String getDataInicialFormatada() {
         return getDataInicialFormatada("dd/MM/yyyy");
     }
 
+    /**
+     * Retorna a data de prazo do empréstimo formatada no padrão "dd/MM/yyyy".
+     * 
+     * @return Data de prazo formatada
+     */
     public String getDataPrazoFormatada() {
         return getDataPrazoFormatada("dd/MM/yyyy");
     }
 
+    /**
+     * Retorna a data de devolução do empréstimo formatada no padrão "dd/MM/yyyy".
+     * 
+     * @return Data de devolução formatada
+     */
     public String getDataDevolucaoFormatada() {
         return getDataDevolucaoFormatada("dd/MM/yyyy");
     }
 
-    /* Busca um empréstimo pelo id */
     /**
+     * Busca um empréstimo pelo id.
+     * 
      * @param id ID do empréstimo
      * @return Optional contendo o empréstimo, se encontrado
      * @throws ExceptionDAO Exceção da camada DAO
@@ -256,8 +315,9 @@ public class Emprestimo {
         return DAO.buscar(id);
     }
 
-    /* Busca todos os empréstimos */
     /**
+     * Busca todos os empréstimos.
+     * 
      * @return Lista de todos os empréstimos
      * @throws ExceptionDAO Exceção da camada DAO
      */
@@ -265,8 +325,9 @@ public class Emprestimo {
         return DAO.buscarTudo();
     }
 
-    /* Cadastra um novo empréstimo */
     /**
+     * Cadastra um novo empréstimo.
+     * 
      * @param emprestimo Empréstimo a ser cadastrado
      * @throws ExceptionDAO Exceção da camada DAO
      */
@@ -274,8 +335,9 @@ public class Emprestimo {
         DAO.cadastrar(emprestimo);
     }
 
-    /* Altera um empréstimo existente */
     /**
+     * Altera um empréstimo existente.
+     * 
      * @param emprestimo Empréstimo a ser alterado
      * @return Número de linhas afetadas
      * @throws ExceptionDAO Exceção da camada DAO
@@ -284,8 +346,9 @@ public class Emprestimo {
         return DAO.alterar(emprestimo);
     }
 
-    /* Exclui um empréstimo pelo id */
     /**
+     * Exclui um empréstimo pelo id.
+     * 
      * @param id ID do empréstimo a ser excluído
      * @return Número de linhas afetadas
      * @throws ExceptionDAO Exceção da camada DAO
@@ -294,8 +357,9 @@ public class Emprestimo {
         return DAO.excluir(id);
     }
 
-    /* Busca todos os empréstimos ativos */
     /**
+     * Busca todos os empréstimos ativos.
+     * 
      * @return Lista de empréstimos ativos
      * @throws ExceptionDAO Exceção da camada DAO
      */
@@ -303,8 +367,9 @@ public class Emprestimo {
         return DAO.buscarAtivos();
     }
 
-    /* Busca todos os empréstimos em dia */
     /**
+     * Busca todos os empréstimos em dia.
+     * 
      * @return Lista de empréstimos em dia
      * @throws ExceptionDAO Exceção da camada DAO
      */
@@ -312,8 +377,9 @@ public class Emprestimo {
         return DAO.buscarEmDia();
     }
 
-    /* Busca todos os empréstimos atrasados */
     /**
+     * Busca todos os empréstimos atrasados.
+     * 
      * @return Lista de empréstimos atrasados
      * @throws ExceptionDAO Exceção da camada DAO
      */
@@ -321,6 +387,12 @@ public class Emprestimo {
         return DAO.buscarAtrasados();
     }
 
+    /**
+     * Retorna a quantidade de empréstimos cadastrados.
+     * 
+     * @return Quantidade de empréstimos
+     * @throws ExceptionDAO Exceção da camada DAO
+     */
     public static int quantidadeEmprestimos() throws ExceptionDAO {
         return DAO.quantidadeEmprestimos();
     }
