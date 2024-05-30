@@ -19,7 +19,6 @@ import javax.swing.table.DefaultTableModel;
 
 import controle.FerramentaControle;
 import controle.EmprestimoControle;
-import controle.EmprestimoControle;
 import controle.AmigoControle;
 import modelo.Emprestimo;
 import dao.ExceptionDAO;
