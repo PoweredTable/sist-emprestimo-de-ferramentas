@@ -559,6 +559,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             int selectedRow = tabelaAtiva.getSelectedRow();
             if (selectedRow != -1) {
                 DialogConfirmado dialog = new DialogConfirmado();
+                DialogErroConfirmacao erro = new DialogErroConfirmacao();
 
                 dialog.addWindowListener(new WindowAdapter() {
                     @Override
@@ -571,6 +572,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             try {
                                 EmprestimoControle.confirmarDevolucao(id);
                             } catch (ExceptionDAO ex) {
+                                erro.setVisible(true);
                                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
