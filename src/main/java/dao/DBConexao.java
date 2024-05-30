@@ -8,9 +8,9 @@ import java.sql.SQLException;
 public class DBConexao {
     
     public Connection getConexao(){
-        String url = System.getenv("URL");
-        String user = System.getenv("USER");
-        String password = System.getenv("PASSWORD");
+        String url = "jdbc:mysql://localhost:3306/emprestimo_ferramenta";
+        String user = "root";
+        String password = "Senha1234.";
         
         Connection conn = null;
         
