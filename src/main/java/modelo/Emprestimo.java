@@ -1,12 +1,12 @@
 package modelo;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Optional;
 
 import dao.EmprestimoDAO;
 import dao.ExceptionDAO;
-// 
 
 public class Emprestimo {
     private Integer id;
@@ -22,14 +22,7 @@ public class Emprestimo {
 
     /* Construtor sem parâmetros que inicializa todos os atributos com valores nulos ou objetos vazios */
     public Emprestimo() {
-        this.id = null;
-        this.idFerramenta = null;
-        this.idAmigo = null;
-        this.dataInicial = null;
-        this.dataPrazo = null;
-        this.dataDevolucao = null;
-        this.amigo = new Amigo();
-        this.ferramenta = new Ferramenta();
+        this(null, null ,null, null);
     }
 
     /* Construtor que inicializa um empréstimo sem data de devolução */
@@ -40,10 +33,7 @@ public class Emprestimo {
      * @param dataPrazo Data de prazo do empréstimo
      */
     public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo) {
-        this.idFerramenta = idFerramenta;
-        this.idAmigo = idAmigo;
-        this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
+        this(idFerramenta, idAmigo, dataInicial, dataPrazo, null);
     }
 
     /* Construtor que inicializa um empréstimo com data de devolução */
@@ -55,12 +45,8 @@ public class Emprestimo {
      * @param dataDevolucao Data de devolução do empréstimo
      */
     public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
-    LocalDate dataDevolucao) {
-        this.idFerramenta = idFerramenta;
-        this.idAmigo = idAmigo;
-        this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
-        this.dataDevolucao = dataDevolucao;
+                      LocalDate dataDevolucao) {
+        this(null, idFerramenta, idAmigo, dataInicial, dataPrazo, dataDevolucao);
     }
 
     /* Construtor que inicializa todos os atributos do empréstimo, incluindo o id */
@@ -73,13 +59,8 @@ public class Emprestimo {
      * @param dataDevolucao Data de devolução do empréstimo
      */
     public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
-    LocalDate dataDevolucao) {
-        this.id = id;
-        this.idFerramenta = idFerramenta;
-        this.idAmigo = idAmigo;
-        this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
-        this.dataDevolucao = dataDevolucao;
+                      LocalDate dataDevolucao) {
+        this(id, idFerramenta, idAmigo, dataInicial, dataPrazo, dataDevolucao, new Amigo(), new Ferramenta());
     }
 
     /* Construtor completo que inicializa todos os atributos do empréstimo, incluindo objetos Amigo e Ferramenta */
@@ -94,7 +75,7 @@ public class Emprestimo {
      * @param ferramenta Objeto Ferramenta associado ao empréstimo
      */
     public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
-    LocalDate dataDevolucao, Amigo amigo, Ferramenta ferramenta) {
+                      LocalDate dataDevolucao, Amigo amigo, Ferramenta ferramenta) {
         this.id = id;
         this.idFerramenta = idFerramenta;
         this.idAmigo = idAmigo;
@@ -231,6 +212,38 @@ public class Emprestimo {
      */
     public void setFerramenta(Ferramenta ferramenta) {
         this.ferramenta = ferramenta;
+    }
+
+    private String getDataFormatada(LocalDate data, String formato) {
+        if (data == null) {
+            return "";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formato);
+        return data.format(formatter);
+    }
+
+    public String getDataInicialFormatada(String formato) {
+        return getDataFormatada(dataInicial, formato);
+    }
+
+    public String getDataPrazoFormatada(String formato) {
+        return getDataFormatada(dataPrazo, formato);
+    }
+
+    public String getDataDevolucaoFormatada(String formato) {
+        return getDataFormatada(dataDevolucao, formato);
+    }
+
+    public String getDataInicialFormatada() {
+        return getDataInicialFormatada("dd/MM/yyyy");
+    }
+
+    public String getDataPrazoFormatada() {
+        return getDataPrazoFormatada("dd/MM/yyyy");
+    }
+
+    public String getDataDevolucaoFormatada() {
+        return getDataDevolucaoFormatada("dd/MM/yyyy");
     }
 
     /* Busca um empréstimo pelo id */

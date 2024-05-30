@@ -21,10 +21,7 @@ public class Amigo {
      * Construtor padrão que inicializa os atributos com valores nulos.
      */
     public Amigo(){
-        this.id = null;
-        this.nome = null;
-        this.apelido = null;
-        this.telefone = null;
+        this("","","");
     }
 
     /**
@@ -35,9 +32,7 @@ public class Amigo {
      * @param telefone o telefone do amigo
      */
     public Amigo(String nome, String apelido, String telefone) {
-        this.nome = nome;
-        this.apelido = apelido;
-        this.telefone = telefone;
+        this(null, nome, apelido, telefone);
     }
 
     /**

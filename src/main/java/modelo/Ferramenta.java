@@ -18,10 +18,7 @@ public class Ferramenta {
      * Construtor padrão que inicializa todos os atributos com valores nulos.
      */
     public Ferramenta() {
-        this.id = null;
-        this.nome = null;
-        this.marca = null;
-        this.preco = null;
+        this("","",0.0);
     }
 
     /**
@@ -32,9 +29,7 @@ public class Ferramenta {
      * @param preco Preço da ferramenta.
      */
     public Ferramenta(String nome, String marca, Double preco) {
-        this.nome = nome;
-        this.marca = marca;
-        this.preco = preco;
+        this(null, nome, marca, preco);
     }
 
     /**
@@ -45,7 +40,7 @@ public class Ferramenta {
      * @param marca Marca da ferramenta.
      * @param preco Preço da ferramenta.
      */
-    public Ferramenta(int id, String nome, String marca, Double preco) {
+    public Ferramenta(Integer id, String nome, String marca, Double preco) {
         this.id = id;
         this.nome = nome;
         this.marca = marca;
@@ -209,14 +204,10 @@ public class Ferramenta {
         return DAO.buscarNome(nome);
     }
 
-<<<<<<< HEAD
-    @Override
-=======
     public static int quantidadeFerramentas() throws ExceptionDAO {
         return DAO.quantidadeFerramentas();
     }
 
->>>>>>> dev
     public String toString() {
         return "Ferramenta{" +
                 "id=" + id +

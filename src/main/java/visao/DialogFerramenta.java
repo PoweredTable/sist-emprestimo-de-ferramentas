@@ -1,53 +1,36 @@
-package visao;
-
-import javax.swing.JOptionPane;
-import javax.swing.JOptionPane;
-
-import controle.AmigoControle;
-import modelo.Amigo;
-import dao.ExceptionDAO;
-
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
+package visao;
 
+import javax.swing.JOptionPane;
+
+import modelo.Ferramenta;
+import controle.FerramentaControle;
+import dao.ExceptionDAO;
 /**
  *
  * @author waldy
  */
-public class DialogAmigos extends javax.swing.JDialog {
-
-    private boolean modoEdicao = false;
+public class DialogFerramenta extends javax.swing.JDialog {
     private int id;
-
     /**
-     * Creates new form DialogAmigos
+     * Creates new form DialogFerramentas
      */
-    public DialogAmigos(java.awt.Frame parent, boolean modal) {
+    public DialogFerramenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
     }
-    
-    public boolean getModoEdicao(){
-        return modoEdicao;
-    }
-    
-    public void setModoEdicao(boolean modoEdicao){
-        this.modoEdicao = modoEdicao;
-    }
-
-    public void setTitleDialog(String texto) {
+    public void setTitleDialog(String texto){
         jLabelTitleDialog.setText(texto);
     }
-
-    public void setTextButtonSalvar(String texto) {
-        jButtonSalvar.setText(texto);
+    
+    public void setSalvarButtonSalvar(String text) {
+        jButtonSalvar.setText(text);
     }
-
+    
     public void setId(int id){
         this.id = id;
     }
@@ -55,30 +38,28 @@ public class DialogAmigos extends javax.swing.JDialog {
     public int getId(){
         return this.id;
     }
-    
-    
+     
     public void setNome(String nome) {
         jTextFieldNome.setText(nome);
     }
-
-    public String getNome() {
+    
+    public String getNome(){
         return jTextFieldNome.getText();
     }
-
-    public void setApelido(String apelido) {
-        jTextFieldApelido.setText(apelido);
+    
+    public void setMarca(String marca) {
+        jTextFieldMarca.setText(marca);
+    }
+    
+    public String getMarca(){
+        return jTextFieldMarca.getText();
     }
 
-    public String getApelido() {
-        return jTextFieldApelido.getText();
+    public void setPreco(String preco) {
+        jTextFieldPreco.setText(preco);
     }
-
-    public void setTelefone(String telefone) {
-        jTextFieldTelefone.setText(telefone);
-    }
-
-    public String getTelefone() {
-        return jTextFieldTelefone.getText();
+    public String getPreco(){
+        return jTextFieldPreco.getText();
     }
 
     /**
@@ -96,8 +77,8 @@ public class DialogAmigos extends javax.swing.JDialog {
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jTextFieldNome = new javax.swing.JTextField();
-        jTextFieldApelido = new javax.swing.JTextField();
-        jTextFieldTelefone = new javax.swing.JTextField();
+        jTextFieldMarca = new javax.swing.JTextField();
+        jTextFieldPreco = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButtonCalcelar = new javax.swing.JButton();
         jButtonSalvar = new javax.swing.JButton();
@@ -105,11 +86,6 @@ public class DialogAmigos extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(550, 350));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         BG.setBackground(new java.awt.Color(64, 64, 64));
 
@@ -135,17 +111,17 @@ public class DialogAmigos extends javax.swing.JDialog {
         jTextFieldNome.setToolTipText("");
         jPanel2.add(jTextFieldNome);
 
-        jTextFieldApelido.setBackground(new java.awt.Color(156, 156, 156));
-        jTextFieldApelido.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextFieldApelido.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldApelido.setText("Apelido");
-        jPanel2.add(jTextFieldApelido);
+        jTextFieldMarca.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldMarca.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldMarca.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldMarca.setText("Marca");
+        jPanel2.add(jTextFieldMarca);
 
-        jTextFieldTelefone.setBackground(new java.awt.Color(156, 156, 156));
-        jTextFieldTelefone.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextFieldTelefone.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldTelefone.setText("Telefone");
-        jPanel2.add(jTextFieldTelefone);
+        jTextFieldPreco.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldPreco.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldPreco.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldPreco.setText("Preço");
+        jPanel2.add(jTextFieldPreco);
 
         jPanel3.setBackground(new java.awt.Color(64, 64, 64));
         jPanel3.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
@@ -227,53 +203,48 @@ public class DialogAmigos extends javax.swing.JDialog {
     private void jButtonCalcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-
     }//GEN-LAST:event_jButtonCalcelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
         if (jButtonSalvar.getText().equals("Salvar")) {
-            cadastrarAmigo();
-            
-            this.dispose();
-        } else if (jButtonSalvar.getText().equals("Editar")) {
-            // Lógica para editar ferramenta
-            editarAmigo();
-            this.dispose();
+        // Lógica para cadastrar nova ferramenta
+        cadastrarFerramenta();
+        this.dispose();
+        
+        }else if (jButtonSalvar.getText().equals("Editar")) {
+        // Lógica para editar ferramenta
+        editarFerramenta();
+        this.dispose();
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowClosed
-
-    public void cadastrarAmigo(){
-        try {
-            String nome = getNome();
-            String apelido = getApelido();
-            String telefone = getTelefone();
-            
-            AmigoControle.cadastrar(nome,apelido,telefone);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Deu Ruim");
-        }
-    }
     
-        public void editarAmigo(){
+    public void cadastrarFerramenta() {
         try {
-            int id = getId();
             String nome = getNome();
-            String apelido = getApelido();
-            String telefone = getTelefone();
-            Amigo amigo = new Amigo(id,nome,apelido,telefone);
-            AmigoControle.alterar(amigo);
-            
-            
+            String marca = getMarca();
+            Double preco = Double.parseDouble(getPreco());
+
+            FerramentaControle.cadastrar(nome, marca, preco);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    
+    public void editarFerramenta() {
+        try {
+            int id = getId();
+            String nome = getNome();
+            String marca = getMarca();
+            Double preco = Double.parseDouble(getPreco());
+            Ferramenta ferramenta = new Ferramenta(id, nome, marca, preco);
+            FerramentaControle.alterar(ferramenta);
 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
     
     /**
      * @param args the command line arguments
@@ -292,20 +263,20 @@ public class DialogAmigos extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogAmigos dialog = new DialogAmigos(new javax.swing.JFrame(), true);
+                DialogFerramenta dialog = new DialogFerramenta(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -326,8 +297,8 @@ public class DialogAmigos extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextFieldApelido;
+    private javax.swing.JTextField jTextFieldMarca;
     private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldTelefone;
+    private javax.swing.JTextField jTextFieldPreco;
     // End of variables declaration//GEN-END:variables
 }

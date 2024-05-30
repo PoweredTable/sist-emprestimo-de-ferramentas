@@ -36,50 +36,53 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta FROM emprestimos, amigos.nome AS nome_amigo" +
-                     "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
-                     "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
-                     "WHERE emprestimos.id =?;";
+        String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, " +
+                     "f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone " +
+                     "FROM emprestimos e " +
+                     "JOIN ferramentas f ON e.id_ferramenta = f.id " +
+                     "JOIN amigos a ON e.id_amigo = a.id " +
+                     "WHERE e.id = ?;";
     
         try (Connection conn = new DBConexao().getConexao();
-             PreparedStatement pStatement = conn.prepareStatement(sql);
-             ResultSet rs = pStatement.executeQuery()) {
+             PreparedStatement pStatement = conn.prepareStatement(sql)) {
     
-            pStatement.setInt(1, id);
+            pStatement.setInt(1, id);  // Definir o valor do parâmetro antes de executar a consulta
     
-            if (rs.next()) {
-                Emprestimo emprestimo = new Emprestimo();
-                
-                emprestimo.setId(rs.getInt("id"));
-                emprestimo.setIdFerramenta(rs.getInt("id_ferramenta"));
-                emprestimo.setIdAmigo(rs.getInt("id_amigo"));
-                emprestimo.setDataInicial(toLocalDate(rs.getDate("data_inicial")));
-                emprestimo.setDataPrazo(toLocalDate(rs.getDate("data_prazo")));
-                emprestimo.setDataDevolucao(toLocalDate(rs.getDate("data_devolucao")));
-
-                Ferramenta ferramenta = new Ferramenta();
-                ferramenta.setId(rs.getInt("id_ferramenta"));
-                ferramenta.setNome(rs.getString("nome_ferramenta"));
-                ferramenta.setMarca(rs.getString("marca"));
-                ferramenta.setPreco(rs.getDouble("custo"));
-                emprestimo.setFerramenta(ferramenta);
-                
-                Amigo amigo = new Amigo();
-                amigo.setId(rs.getInt("id_amigo"));
-                amigo.setNome(rs.getString("nome_amigo"));
-                amigo.setApelido(rs.getString("apelido"));
-                amigo.setTelefone(rs.getString("telefone"));
-                emprestimo.setAmigo(amigo);
+            try (ResultSet rs = pStatement.executeQuery()) {
+                if (rs.next()) {
+                    Emprestimo emprestimo = new Emprestimo();
     
-                return Optional.of(emprestimo);
-            } else {
-                return Optional.empty();
+                    emprestimo.setId(rs.getInt("id"));
+                    emprestimo.setIdFerramenta(rs.getInt("id_ferramenta"));
+                    emprestimo.setIdAmigo(rs.getInt("id_amigo"));
+                    emprestimo.setDataInicial(toLocalDate(rs.getDate("data_inicial")));
+                    emprestimo.setDataPrazo(toLocalDate(rs.getDate("data_prazo")));
+                    emprestimo.setDataDevolucao(toLocalDate(rs.getDate("data_devolucao")));
+    
+                    Ferramenta ferramenta = new Ferramenta();
+                    ferramenta.setId(rs.getInt("id_ferramenta"));
+                    ferramenta.setNome(rs.getString("nome_ferramenta"));
+                    ferramenta.setMarca(rs.getString("marca"));
+                    ferramenta.setPreco(rs.getDouble("custo"));
+                    emprestimo.setFerramenta(ferramenta);
+    
+                    Amigo amigo = new Amigo();
+                    amigo.setId(rs.getInt("id_amigo"));
+                    amigo.setNome(rs.getString("nome_amigo"));
+                    amigo.setApelido(rs.getString("apelido"));
+                    amigo.setTelefone(rs.getString("telefone"));
+                    emprestimo.setAmigo(amigo);
+    
+                    return Optional.of(emprestimo);
+                } else {
+                    return Optional.empty();
+                }
             }
-    
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao consultar emprestimo: " + e);
         }
     }
+    
 
     private ArrayList<Emprestimo> buscarEmprestimos(String sql) throws ExceptionDAO {
         ArrayList<Emprestimo> emprestimos = new ArrayList<>();
@@ -125,37 +128,38 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public ArrayList<Emprestimo> buscarTudo() throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta, amigos.nome AS nome_amigo FROM emprestimos " +
-                "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
-                "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
+        String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone " +
+                "FROM emprestimos e " +
+                "JOIN ferramentas f ON e.id_ferramenta = f.id " +
+                "JOIN amigos a ON e.id_amigo = a.id " +
                 "ORDER BY data_prazo ASC;";
         return buscarEmprestimos(sql);
     }
 
     public ArrayList<Emprestimo> buscarAtivos() throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta, amigos.nome AS nome_amigo " +
-                "FROM emprestimos " +
-                "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
-                "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
+        String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone  " +
+                "FROM emprestimos e " +
+                "JOIN ferramentas f ON e.id_ferramenta = f.id " +
+                "JOIN amigos a ON e.id_amigo = a.id " +
                 "WHERE data_devolucao IS NULL;";
         return buscarEmprestimos(sql);
     }
 
     public ArrayList<Emprestimo> buscarEmDia() throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta, amigos.nome AS nome_amigo " +
-                "FROM emprestimos " +
-                "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
-                "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
+        String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone  " +
+                "FROM emprestimos e " +
+                "JOIN ferramentas f ON e.id_ferramenta = f.id " +
+                "JOIN amigos a ON e.id_amigo = a.id " +
                 "WHERE data_prazo >= CURRENT_DATE AND data_devolucao IS NULL " +
                 "ORDER BY data_prazo ASC;";
         return buscarEmprestimos(sql);
     }
 
     public ArrayList<Emprestimo> buscarAtrasados() throws ExceptionDAO {
-        String sql = "SELECT *, ferramentas.nome AS nome_ferramenta, amigos.nome AS nome_amigo " +
-                "FROM emprestimos " +
-                "JOIN ferramentas ON emprestimos.id_ferramenta = ferramentas.id " +
-                "JOIN amigos ON emprestimos.id_amigo = amigos.id " +
+        String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone  " +
+                "FROM emprestimos e " +
+                "JOIN ferramentas f ON e.id_ferramenta = f.id " +
+                "JOIN amigos a ON e.id_amigo = a.id " +
                 "WHERE data_prazo < CURRENT_DATE AND data_devolucao IS NULL " +
                 "ORDER BY data_prazo ASC;";
         return buscarEmprestimos(sql);
@@ -326,7 +330,7 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     }
 
     public int quantidadeEmprestimos() throws ExceptionDAO {
-        String sql = "SELECT COUNT(*) FROM emprestimos;";
+        String sql = "SELECT COUNT(id) FROM emprestimos;";
         int quantidade = 0;
 
         try (Connection conn = new DBConexao().getConexao();
