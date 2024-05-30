@@ -511,6 +511,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             int selectedRow = tabelaAtiva.getSelectedRow();
             if (selectedRow != -1) {
                 DialogExclucao dialog = new DialogExclucao();
+                DialogErroConfirmacao erro = new DialogErroConfirmacao();
                 dialog.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosed(WindowEvent e) {
@@ -522,6 +523,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                 EmprestimoControle.excluir(id);
                                 atualizarLabelQuantidadeDeEmprestimos();
                             } catch (ExceptionDAO ex) {
+                                erro.setVisible(true);
                                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
@@ -529,10 +531,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 });
                 dialog.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela!");
+                DialogErroTabela SelecioneLinha = new DialogErroTabela();
+                SelecioneLinha.setVisible(true);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Nenhuma tabela selecionada!");
         }
     }//GEN-LAST:event_jBExcluirActionPerformed
 
