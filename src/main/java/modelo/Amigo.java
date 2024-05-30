@@ -21,7 +21,7 @@ public class Amigo {
      * Construtor padrão que inicializa os atributos com valores nulos.
      */
     public Amigo(){
-        this("","","");
+        this("", "", "");
     }
 
     /**
@@ -52,34 +52,74 @@ public class Amigo {
 
     // Métodos getters e setters
 
+    /**
+     * Obtém o ID do amigo.
+     * 
+     * @return o ID do amigo
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Define o ID do amigo.
+     * 
+     * @param id o ID do amigo
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Obtém o nome do amigo.
+     * 
+     * @return o nome do amigo
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Define o nome do amigo.
+     * 
+     * @param nome o nome do amigo
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * Obtém o apelido do amigo.
+     * 
+     * @return o apelido do amigo
+     */
     public String getApelido() {
         return apelido;
     }
 
+    /**
+     * Define o apelido do amigo.
+     * 
+     * @param apelido o apelido do amigo
+     */
     public void setApelido(String apelido) {
         this.apelido = apelido;
     }
 
+    /**
+     * Obtém o telefone do amigo.
+     * 
+     * @return o telefone do amigo
+     */
     public String getTelefone() {
         return telefone;
     }
 
+    /**
+     * Define o telefone do amigo.
+     * 
+     * @param telefone o telefone do amigo
+     */
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
@@ -169,19 +209,22 @@ public class Amigo {
         return DAO.buscarNome(nome);
     }
 
-<<<<<<< HEAD
+    /**
+     * Retorna a quantidade de amigos cadastrados.
+     * 
+     * @return a quantidade de amigos
+     * @throws ExceptionDAO se ocorrer um erro na contagem
+     */
+    public static int quantidadeAmigos() throws ExceptionDAO {
+        return DAO.quantidadeAmigos();
+    }
+
     /**
      * Retorna uma representação em string do amigo.
      * 
      * @return uma string representando o amigo
      */
     @Override
-=======
-    public static int quantidadeAmigos() throws ExceptionDAO {
-        return DAO.quantidadeAmigos();
-    }
-
->>>>>>> dev
     public String toString() {
         return "Amigo{" +
                 "id=" + id +
