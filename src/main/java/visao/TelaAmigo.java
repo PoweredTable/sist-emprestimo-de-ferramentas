@@ -443,9 +443,6 @@ public class TelaAmigo extends javax.swing.JFrame {
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        TelaPrincipal principal = new TelaPrincipal();
-        principal.setEnabled(true);
-        principal.toFront();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed

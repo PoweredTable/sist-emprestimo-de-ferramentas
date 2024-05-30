@@ -21,40 +21,21 @@ public class Emprestimo {
     private static final EmprestimoDAO DAO = EmprestimoDAO.getInstance();
 
     public Emprestimo() {
-        this.id = null;
-        this.idFerramenta = null;
-        this.idAmigo = null;
-        this.dataInicial = null;
-        this.dataPrazo = null;
-        this.dataDevolucao = null;
-        this.amigo = new Amigo();
-        this.ferramenta = new Ferramenta();
+        this(null, null ,null, null);
     }
 
     public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo) {
-        this.idFerramenta = idFerramenta;
-        this.idAmigo = idAmigo;
-        this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
+        this(idFerramenta, idAmigo, dataInicial, dataPrazo, null);
     }
 
     public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
                       LocalDate dataDevolucao) {
-        this.idFerramenta = idFerramenta;
-        this.idAmigo = idAmigo;
-        this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
-        this.dataDevolucao = dataDevolucao;
+        this(null, idFerramenta, idAmigo, dataInicial, dataPrazo, dataDevolucao);
     }
 
     public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
                       LocalDate dataDevolucao) {
-        this.id = id;
-        this.idFerramenta = idFerramenta;
-        this.idAmigo = idAmigo;
-        this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
-        this.dataDevolucao = dataDevolucao;
+        this(id, idFerramenta, idAmigo, dataInicial, dataPrazo, dataDevolucao, new Amigo(), new Ferramenta());
     }
 
     public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
