@@ -6,6 +6,9 @@ import java.util.Optional;
 import dao.ExceptionDAO;
 import dao.FerramentaDAO;
 
+/**
+ * Classe que representa uma ferramenta no sistema.
+ */
 public class Ferramenta {
     private Integer id;
     private String nome;
@@ -204,10 +207,21 @@ public class Ferramenta {
         return DAO.buscarNome(nome);
     }
 
+    /**
+     * Obtém a quantidade total de ferramentas.
+     *
+     * @return Quantidade de ferramentas.
+     * @throws ExceptionDAO Exceção lançada pela camada DAO.
+     */
     public static int quantidadeFerramentas() throws ExceptionDAO {
         return DAO.quantidadeFerramentas();
     }
 
+    /**
+     * Retorna a representação em string da ferramenta.
+     *
+     * @return String representando a ferramenta.
+     */
     public String toString() {
         return "Ferramenta{" +
                 "id=" + id +
