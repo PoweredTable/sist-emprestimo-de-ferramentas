@@ -24,17 +24,35 @@ import dao.ExceptionDAO;
 public class TelaFerramenta extends javax.swing.JFrame {
     
     private DialogFerramenta dialog;
+    private DialogConfirmarExclusao dialogEx;
     /**
      * Creates new form TelaFerramentas
      */
     public TelaFerramenta() {
         setLocationRelativeTo(null);
-        initComponents();
         this.dialog = new DialogFerramenta(this, true);
+        this.dialogEx = new DialogConfirmarExclusao(this, true);
+        initComponents();
+        
+
         dialog.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent e) {
                 // Código para atualizar a tabela na tela principal
                 carregaTabelaFerramentas();
+            }
+        });
+
+        dialogEx.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                // Código para atualizar a tabela na tela principal
+
+                if (dialogEx.getConfirmarExclusaoF()){
+                    excluirFerramenta();
+                    carregaTabelaFerramentas();
+                    apresentaPrecoTotal();
+                    apresentaTotalFerramentas();
+                }
+
             }
         });
         
@@ -491,6 +509,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
         int id = dialog.getId();
         try {
             FerramentaControle.excluir(id);
+            System.out.println("fumegou");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -533,8 +552,8 @@ public class TelaFerramenta extends javax.swing.JFrame {
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
-        excluirFerramenta();
-        carregaTabelaFerramentas();
+        dialogEx.setVisible(true);
+
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
