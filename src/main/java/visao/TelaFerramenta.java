@@ -24,17 +24,31 @@ import dao.ExceptionDAO;
 public class TelaFerramenta extends javax.swing.JFrame {
     
     private DialogFerramenta dialog;
+    private DialogConfirmarExclusao dialogEx;
     /**
      * Creates new form TelaFerramentas
      */
     public TelaFerramenta() {
         setLocationRelativeTo(null);
-        initComponents();
         this.dialog = new DialogFerramenta(this, true);
+        this.dialogEx = new DialogConfirmarExclusao(this, true);
+        initComponents();
+
+        //Espera a dialog fechar para atualizar a tabela de ferramentas
         dialog.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent e) {
-                // Código para atualizar a tabela na tela principal
                 carregaTabelaFerramentas();
+            }
+        });
+        //Espera a dialog fechar para efetuar a exclusão de uma ferramenta
+        dialogEx.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                if (dialogEx.getConfirmarExclusaoF()){
+                    excluirFerramenta();
+                    carregaTabelaFerramentas();
+                    apresentaPrecoTotal();
+                    apresentaTotalFerramentas();
+                }
             }
         });
         
@@ -495,9 +509,11 @@ public class TelaFerramenta extends javax.swing.JFrame {
             FerramentaControle.excluir(id);
             apresentaTotalFerramentas();
             apresentaPrecoTotal();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        dialogEx.setConfirmarExclusaoF(false);
     }
     
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -537,8 +553,8 @@ public class TelaFerramenta extends javax.swing.JFrame {
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
-        excluirFerramenta();
-        carregaTabelaFerramentas();
+        dialogEx.setVisible(true);
+
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
