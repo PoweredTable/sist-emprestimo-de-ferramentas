@@ -35,13 +35,15 @@ public class TelaAmigo extends javax.swing.JFrame {
         initComponents();
         this.dialog = new DialogAmigo(this, true);
         this.dialogEx = new DialogConfirmarExclusao(this, true);
+
+        //Espera a dialog fechar para atualizar a tabela de ferramentas
         dialog.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent e) {
                 // Código para atualizar a tabela na tela principal
                 carregaTabelaAmigos();
             }
         });
-
+        //Espera a dialog fechar para efetuar a exclusão de uma ferramenta
         dialogEx.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent e) {
                 // Código para atualizar a tabela na tela principal

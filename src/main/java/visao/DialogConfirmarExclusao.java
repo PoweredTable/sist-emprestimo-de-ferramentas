@@ -171,7 +171,6 @@ public class DialogConfirmarExclusao extends javax.swing.JDialog {
     private void jButtonExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluir1ActionPerformed
         // TODO add your handling code here:
         setConfirmarExclusaoF(true);
-        System.out.println("setou");
         this.dispose();
     }//GEN-LAST:event_jButtonExcluir1ActionPerformed
 
