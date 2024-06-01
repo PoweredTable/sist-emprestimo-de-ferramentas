@@ -408,6 +408,8 @@ public class TelaFerramenta extends javax.swing.JFrame {
         dialog.setMarca("");
         dialog.setPreco("");
         dialog.setVisible(true);
+        apresentaPrecoTotal();
+        apresentaTotalFerramentas();
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
@@ -491,6 +493,8 @@ public class TelaFerramenta extends javax.swing.JFrame {
         int id = dialog.getId();
         try {
             FerramentaControle.excluir(id);
+            apresentaTotalFerramentas();
+            apresentaPrecoTotal();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
