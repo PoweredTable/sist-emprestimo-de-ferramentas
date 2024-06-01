@@ -92,8 +92,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPAmigos = new javax.swing.JPanel();
         jLAmigos = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Relatório de Empréstimos");
         setBackground(java.awt.Color.white);
         setLocation(new java.awt.Point(0, 0));
         setMaximumSize(new java.awt.Dimension(1000, 800));
@@ -101,12 +103,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1280, 900));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        BG.setBackground(new java.awt.Color(194, 194, 194));
+        BG.setBackground(new java.awt.Color(46, 46, 46));
         BG.setPreferredSize(new java.awt.Dimension(1000, 800));
         BG.setRequestFocusEnabled(false);
         BG.setVerifyInputWhenFocusTarget(false);
 
-        jContainerPrincipal.setBackground(new java.awt.Color(194, 194, 194));
+        jContainerPrincipal.setBackground(new java.awt.Color(46, 46, 46));
         jContainerPrincipal.setMaximumSize(new java.awt.Dimension(332767, 332767));
 
         jBExcluir.setBackground(new java.awt.Color(46, 46, 46));
@@ -131,7 +133,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jBotoes.setBackground(new java.awt.Color(194, 194, 194));
+        jBotoes.setBackground(new java.awt.Color(46, 46, 46));
         jBotoes.setForeground(new java.awt.Color(194, 194, 194));
         jBotoes.setLayout(new java.awt.GridLayout(3, 3, 0, 50));
 
@@ -171,6 +173,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jBotoes.add(jBAmigos);
 
+        jTabbedDash.setForeground(new java.awt.Color(229, 164, 11));
+        jTabbedDash.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
         jTabbedDash.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jTabbedDashStateChanged(evt);
@@ -180,15 +184,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTableTodos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Data Empréstimo", "Data Prazo", "Nome", "Ferramenta"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableTodos.setSelectionBackground(new java.awt.Color(197, 131, 0));
+        jTableTodos.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setViewportView(jTableTodos);
 
         javax.swing.GroupLayout jAbaTodosLayout = new javax.swing.GroupLayout(jAbaTodos);
@@ -206,15 +220,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTableEmDia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Data Empréstimo", "Data Prazo", "Nome", "Ferramenta"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableEmDia.setSelectionBackground(new java.awt.Color(197, 131, 0));
+        jTableEmDia.setSelectionForeground(new java.awt.Color(201, 201, 201));
         jScrollPane1.setViewportView(jTableEmDia);
 
         javax.swing.GroupLayout jAbaEmDiaLayout = new javax.swing.GroupLayout(jAbaEmDia);
@@ -226,7 +250,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jAbaEmDiaLayout.setVerticalGroup(
             jAbaEmDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jAbaEmDiaLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -234,15 +258,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTableAtrasados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Data Empréstimo", "Data Prazo", "Nome", "Ferramenta"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableAtrasados.setSelectionBackground(new java.awt.Color(197, 131, 0));
+        jTableAtrasados.setSelectionForeground(new java.awt.Color(201, 201, 201));
         jScrollPane3.setViewportView(jTableAtrasados);
 
         javax.swing.GroupLayout jAbaAtrasadosLayout = new javax.swing.GroupLayout(jAbaAtrasados);
@@ -253,22 +287,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         jAbaAtrasadosLayout.setVerticalGroup(
             jAbaAtrasadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
         );
 
         jTabbedDash.addTab("Atrasados", jAbaAtrasados);
 
         jTableAtivos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Data Empréstimo", "Data Prazo", "Nome", "Ferramenta"
             }
         ));
+        jTableAtivos.setSelectionBackground(new java.awt.Color(197, 131, 0));
+        jTableAtivos.setSelectionForeground(new java.awt.Color(201, 201, 201));
         jScrollPane4.setViewportView(jTableAtivos);
 
         javax.swing.GroupLayout jAbaAtivosLayout = new javax.swing.GroupLayout(jAbaAtivos);
@@ -280,7 +316,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jAbaAtivosLayout.setVerticalGroup(
             jAbaAtivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jAbaAtivosLayout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -317,7 +353,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        jContaienrInformativos.setBackground(new java.awt.Color(194, 194, 194));
+        jContaienrInformativos.setBackground(new java.awt.Color(46, 46, 46));
         jContaienrInformativos.setLayout(new java.awt.GridLayout(1, 3, 50, 0));
 
         jPEmprestimos.setBackground(new java.awt.Color(46, 46, 46));
@@ -341,7 +377,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPEmprestimosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPEmprestimosLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
                     .addComponent(jLEmprestimos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -376,7 +412,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addComponent(jLFerramentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPFerramentasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPFerramentasLayout.setVerticalGroup(
@@ -409,7 +445,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addComponent(jLAmigos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPAmigosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPAmigosLayout.setVerticalGroup(
@@ -424,25 +460,32 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jContaienrInformativos.add(jPAmigos);
 
+        jLabel4.setFont(new java.awt.Font("Fira Sans", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(229, 164, 11));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Relatório de Empréstimos");
+        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout BGLayout = new javax.swing.GroupLayout(BG);
         BG.setLayout(BGLayout);
         BGLayout.setHorizontalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BGLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jContaienrInformativos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(24, 24, 24))
+            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(BGLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jContainerPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jContainerPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jContaienrInformativos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         BGLayout.setVerticalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BGLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jContaienrInformativos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jContainerPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -511,6 +554,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             int selectedRow = tabelaAtiva.getSelectedRow();
             if (selectedRow != -1) {
                 DialogExclucao dialog = new DialogExclucao();
+                DialogErroConfirmacao erro = new DialogErroConfirmacao();
                 dialog.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosed(WindowEvent e) {
@@ -522,6 +566,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                 EmprestimoControle.excluir(id);
                                 atualizarLabelQuantidadeDeEmprestimos();
                             } catch (ExceptionDAO ex) {
+                                erro.setVisible(true);
                                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
@@ -529,10 +574,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 });
                 dialog.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela!");
+                DialogErroTabela SelecioneLinha = new DialogErroTabela();
+                SelecioneLinha.setVisible(true);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Nenhuma tabela selecionada!");
         }
     }//GEN-LAST:event_jBExcluirActionPerformed
 
@@ -559,6 +603,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             int selectedRow = tabelaAtiva.getSelectedRow();
             if (selectedRow != -1) {
                 DialogConfirmado dialog = new DialogConfirmado();
+                DialogErroConfirmacao erro = new DialogErroConfirmacao();
 
                 dialog.addWindowListener(new WindowAdapter() {
                     @Override
@@ -571,6 +616,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             try {
                                 EmprestimoControle.confirmarDevolucao(id);
                             } catch (ExceptionDAO ex) {
+                                erro.setVisible(true);
                                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
@@ -578,11 +624,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 });
                 dialog.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela!");
+                DialogErroTabela SelecioneLinha = new DialogErroTabela();
+                SelecioneLinha.setVisible(true);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Nenhuma tabela selecionada!");
-        }
+        } 
     }//GEN-LAST:event_jBConfirmarActionPerformed
 
     public void carregaTabelaTodos() {
@@ -814,6 +859,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPAmigos;
     private javax.swing.JPanel jPEmprestimos;
     private javax.swing.JPanel jPFerramentas;
