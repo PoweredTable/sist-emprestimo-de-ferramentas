@@ -25,6 +25,7 @@ import dao.ExceptionDAO;
 public class TelaAmigo extends javax.swing.JFrame {
 
     private DialogAmigo dialog;
+    private DialogConfirmarExclusao dialogEx;
 
     /**
      * Creates new form TelaAmigos1
@@ -33,12 +34,27 @@ public class TelaAmigo extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         initComponents();
         this.dialog = new DialogAmigo(this, true);
+        this.dialogEx = new DialogConfirmarExclusao(this, true);
         dialog.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent e) {
                 // Código para atualizar a tabela na tela principal
                 carregaTabelaAmigos();
             }
         });
+
+        dialogEx.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                // Código para atualizar a tabela na tela principal
+
+                if(dialogEx.getConfirmarExclusaoF()){
+                    excluirAmigo();
+                    apresentaMaiorUtilizador();
+                    apresentaQuantidadeAmigos();
+                    carregaTabelaAmigos();
+                }
+            }
+        });
+
     }
 
     /**
@@ -485,8 +501,7 @@ public class TelaAmigo extends javax.swing.JFrame {
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
-        excluirAmigo();
-        carregaTabelaAmigos();
+        dialogEx.setVisible(true);
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
@@ -562,7 +577,7 @@ public class TelaAmigo extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
+        dialogEx.setConfirmarExclusaoF(false);
     }
 
     /**
