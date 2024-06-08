@@ -233,12 +233,12 @@ public class DialogEmprestimo extends javax.swing.JDialog {
         Amigo amigo = amigoModelItem.getItem();
         try {
             if(AmigoControle.amigoPossuiEmprestimoAtivo(amigo)){
-                int resposta = JOptionPane.showConfirmDialog(null,"Amigo já possui um emprestimo ativo, deseja continuar?","Atenção",JOptionPane.YES_NO_OPTION);
+                int resposta = JOptionPane.showConfirmDialog(null,"Amigo já possui um emprestimo ativo, deseja continuar?", "Selecionar uma opção", JOptionPane.YES_NO_OPTION);
                 if(resposta == JOptionPane.NO_OPTION){
                     return;
                 }
             }
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
             return;
         }
