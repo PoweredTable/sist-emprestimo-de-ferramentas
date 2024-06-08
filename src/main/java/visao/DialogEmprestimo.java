@@ -52,7 +52,6 @@ public class DialogEmprestimo extends javax.swing.JDialog {
     public void carregaFerramenta() {
         try {
             ArrayList<Ferramenta> lista = FerramentaControle.buscarFerramentasDisponiveis();
-            System.out.println(lista);
             for (Ferramenta l : lista) {
                 CheckableModelItem<Ferramenta> checkable = new CheckableModelItem<>(l.getNome(), l);
                 modeloFerramenta.addElement(checkable);
@@ -65,7 +64,6 @@ public class DialogEmprestimo extends javax.swing.JDialog {
     public void carregaAmigo() {
         try {
             ArrayList<Amigo> lista = AmigoControle.buscarTudo();
-            System.out.println(lista);
             for (Amigo l : lista) {
                 ModelItem item = new ModelItem(l.getNome(), l);
                 modeloAmigo.addElement(item);
@@ -257,7 +255,6 @@ public class DialogEmprestimo extends javax.swing.JDialog {
             // verifica se o item está selecionado
             if (item.isSelected()) {
                 Ferramenta ferramenta = item.getItem();
-                System.out.println(ferramenta.toString());
                 try {
                     EmprestimoControle.cadastrar(ferramenta.getId(),amigo.getId(),LocalDate.now(),localDate);
                     this.dispose();
@@ -267,12 +264,6 @@ public class DialogEmprestimo extends javax.swing.JDialog {
 
             }
         }
-
-
-        System.out.println(amigoModelItem.getItem());
-        System.out.println("Data selecionada: " + dataSelecionada);
-
-
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
