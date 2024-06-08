@@ -564,7 +564,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             int id = Integer.parseInt(idObjeto.toString());
                             try {
                                 EmprestimoControle.excluir(id);
+                                carregaTabelaTodos();
+                                carregaTabelaEmDia();
+                                carregaTabelaAtrasados();
+                                carregaTabelaAtivos();
                                 atualizarLabelQuantidadeDeEmprestimos();
+                                
+                                jTabbedDash.revalidate();
+                                jTabbedDash.repaint();
                             } catch (ExceptionDAO ex) {
                                 erro.setVisible(true);
                                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -615,6 +622,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
                             try {
                                 EmprestimoControle.confirmarDevolucao(id);
+                                
+                                carregaTabelaTodos();
+                                carregaTabelaEmDia();
+                                carregaTabelaAtrasados();
+                                carregaTabelaAtivos();
+                                atualizarLabelQuantidadeDeEmprestimos();
+                                
+                                jTabbedDash.revalidate();
+                                jTabbedDash.repaint();
                             } catch (ExceptionDAO ex) {
                                 erro.setVisible(true);
                                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
