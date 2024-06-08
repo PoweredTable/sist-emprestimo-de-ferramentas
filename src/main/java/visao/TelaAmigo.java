@@ -218,7 +218,7 @@ public class TelaAmigo extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(156, 156, 156));
 
-        jTable1Amigos.setBackground(new java.awt.Color(89, 89, 89));
+        jTable1Amigos.setBackground(new java.awt.Color(255, 255, 255));
         jTable1Amigos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -238,7 +238,8 @@ public class TelaAmigo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1Amigos.setSelectionForeground(new java.awt.Color(115, 115, 115));
+        jTable1Amigos.setSelectionBackground(new java.awt.Color(197, 131, 0));
+        jTable1Amigos.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jTable1Amigos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1AmigosMouseClicked(evt);

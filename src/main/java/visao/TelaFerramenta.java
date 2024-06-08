@@ -214,7 +214,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(156, 156, 156));
 
-        jTableFerramentas.setBackground(new java.awt.Color(89, 89, 89));
+        jTableFerramentas.setBackground(new java.awt.Color(255, 255, 255));
         jTableFerramentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -234,7 +234,8 @@ public class TelaFerramenta extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableFerramentas.setSelectionForeground(new java.awt.Color(115, 115, 115));
+        jTableFerramentas.setSelectionBackground(new java.awt.Color(197, 131, 0));
+        jTableFerramentas.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jTableFerramentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableFerramentasMouseClicked(evt);
@@ -250,7 +251,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
 
         jLabelPrecoTotal.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabelPrecoTotal.setForeground(new java.awt.Color(255, 187, 0));
-        jLabelPrecoTotal.setText("R$200");
+        jLabelPrecoTotal.setText("-");
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -258,7 +259,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
 
         jLabelQuantidadeFerramentas.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabelQuantidadeFerramentas.setForeground(new java.awt.Color(255, 187, 0));
-        jLabelQuantidadeFerramentas.setText("12");
+        jLabelQuantidadeFerramentas.setText("-");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
