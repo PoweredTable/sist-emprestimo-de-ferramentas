@@ -26,9 +26,6 @@ public class DBConexao {
 
     /**
      * Obtém uma conexão com o banco de dados.
-     *
-     * @return Conexão com o banco de dados.
-     * @throws SQLException se ocorrer um erro ao conectar.
      */
     public Connection getConexao() throws SQLException {
         if (URL == null || USER == null || PASSWORD == null) {
