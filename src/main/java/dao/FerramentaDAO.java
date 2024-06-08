@@ -17,15 +17,13 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     private static FerramentaDAO instance;
 
     /**
-     * Construtor privado da classe FerramentaDAO
+     * Construtor privado da classe FerramentaDAO.
      */
     private FerramentaDAO() {
     }
 
     /**
-     * Obtém a instância única da classe FerramentaDAO
-     * 
-     * @return A instância única de FerramentaDAO
+     * Obtém a instância única da classe FerramentaDAO.
      */
     public static FerramentaDAO getInstance() {
         if (instance == null) {
@@ -40,10 +38,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     /**
-     * Busca todas as ferramentas no banco de dados
-     * 
-     * @return Uma lista de todas as ferramentas
-     * @throws ExceptionDAO Se ocorrer um erro durante a busca
+     * Busca todas as ferramentas no banco de dados.
      */
     public ArrayList<Ferramenta> buscarTudo() throws ExceptionDAO {
         String sql = "SELECT id, nome, marca, custo FROM ferramentas ORDER BY nome ASC;";
@@ -70,10 +65,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     /**
-     * Cadastra uma nova ferramenta no banco de dados
-     * 
-     * @param ferramenta A ferramenta a ser cadastrada
-     * @throws ExceptionDAO Se ocorrer um erro durante o cadastro
+     * Cadastra uma nova ferramenta no banco de dados.
      */
     public void cadastrar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "INSERT INTO ferramentas (nome, marca, custo) VALUES (?, ?, ?)";
@@ -92,11 +84,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     /**
-     * Altera uma ferramenta existente no banco de dados
-     * 
-     * @param ferramenta A ferramenta a ser alterada
-     * @return O número de linhas afetadas
-     * @throws ExceptionDAO Se ocorrer um erro durante a alteração
+     * Altera uma ferramenta existente no banco de dados.
      */
     public int alterar(Ferramenta ferramenta) throws ExceptionDAO {
         String sql = "UPDATE ferramentas SET nome = ?, marca = ?, custo = ? WHERE id = ?";
@@ -116,11 +104,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     /**
-     * Exclui uma ferramenta do banco de dados
-     * 
-     * @param id O ID da ferramenta a ser excluída
-     * @return O número de linhas afetadas
-     * @throws ExceptionDAO Se ocorrer um erro durante a exclusão
+     * Exclui uma ferramenta do banco de dados.
      */
     public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM ferramentas WHERE id = ?";
@@ -142,11 +126,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     /**
-     * Verifica se uma ferramenta está emprestada
-     * 
-     * @param id O ID da ferramenta a ser verificada
-     * @return true se a ferramenta estiver emprestada, false caso contrário
-     * @throws ExceptionDAO Se ocorrer um erro durante a verificação
+     * Verifica se uma ferramenta está emprestada.
      */
     public boolean ferramentaEmprestada(Integer id) throws ExceptionDAO {
         String sql = "SELECT id_ferramenta FROM emprestimos " +
@@ -169,10 +149,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     /**
-     * Busca todas as ferramentas disponíveis no banco de dados
-     * 
-     * @return Uma lista de todas as ferramentas disponíveis
-     * @throws ExceptionDAO Se ocorrer um erro durante a busca
+     * Busca todas as ferramentas disponíveis no banco de dados.
      */
     public ArrayList<Ferramenta> buscarFerramentasDisponiveis() throws ExceptionDAO {
         String sql = "SELECT f.id, f.nome, f.marca, f.custo " +
@@ -203,11 +180,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     /**
-     * Busca ferramentas pelo nome
-     * 
-     * @param nome O nome da ferramenta a ser buscada
-     * @return Uma lista de ferramentas cujo nome corresponde ao critério de busca
-     * @throws ExceptionDAO Se ocorrer um erro durante a busca
+     * Busca ferramentas pelo nome.
      */
     public ArrayList<Ferramenta> buscarNome(String nome) throws ExceptionDAO {
         String sql = "SELECT id, nome, marca, custo FROM ferramentas WHERE UPPER(nome) LIKE UPPER(?)";
@@ -236,10 +209,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     /**
-     * Obtém a quantidade total de ferramentas no banco de dados
-     * 
-     * @return A quantidade total de ferramentas
-     * @throws ExceptionDAO Se ocorrer um erro durante a consulta
+     * Obtém a quantidade total de ferramentas no banco de dados.
      */
     public int quantidadeFerramentas() throws ExceptionDAO {
         String sql = "SELECT COUNT(id) FROM ferramentas";
