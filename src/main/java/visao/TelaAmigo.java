@@ -8,10 +8,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.BorderFactory;
+import javax.swing.UIManager;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.awt.*;
 
 import modelo.Amigo;
 import controle.AmigoControle;
@@ -94,6 +97,11 @@ public class TelaAmigo extends javax.swing.JFrame {
         jPanel12 = new javax.swing.JPanel();
         jButtonEditar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
+
+        UIManager.put("ToolTip.background", new Color(0x595959)); // p1
+        UIManager.put("ToolTip.foreground", new Color(0xFFBB00)); // c8
+        UIManager.put("ToolTip.font", new Font("Arial", Font.BOLD, 14));
+        UIManager.put("ToolTip.border", BorderFactory.createLineBorder(new Color(0x595959), 2));// c8
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 900));
@@ -424,6 +432,7 @@ public class TelaAmigo extends javax.swing.JFrame {
                 // Now you can use the amigo object
                 String nome = amigo.getNome();
                 jLabelMaiorUtiizador.setText(nome);
+                jLabelMaiorUtiizador.setToolTipText(nome);
             }
 
         } catch (Exception e) {
