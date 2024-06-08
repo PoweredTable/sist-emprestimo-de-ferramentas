@@ -39,56 +39,7 @@ possuir o `Java 21` corretamente instalado.
 
 ## Equipe do projeto
 
-<div style="display: flex; flex-wrap: wrap; gap: 20px; text-align: center;">
-
-  <div style="display: inline-block;">
-    <div style="position: relative; width: 65px; height: 65px; overflow: hidden; border-radius: 50%; margin: 0 auto;">
-      <a href="https://github.com/PoweredTable">
-        <img src="https://github.com/PoweredTable.png" width="65px" alt="PoweredTable"/>
-      </a>
-    </div>
-    <div style="margin-top: 10px;">
-    </div>
-  </div>
-
-  <div style="display: inline-block;">
-    <div style="position: relative; width: 65px; height: 65px; overflow: hidden; border-radius: 50%; margin: 0 auto;">
-      <a href="https://github.com/WRbosss">
-        <img src="https://github.com/WRbosss.png" width="65px" alt="WRbosss"/>
-      </a>
-    </div>
-    <div style="margin-top: 10px;">
-    </div>
-  </div>
-
-  <div style="display: inline-block;">
-    <div style="position: relative; width: 65px; height: 65px; overflow: hidden; border-radius: 50%; margin: 0 auto;">
-      <a href="https://github.com/caetanoRoque">
-        <img src="https://github.com/caetanoRoque.png" width="65px" alt="caetanoRoque"/>
-      </a>
-    </div>
-    <div style="margin-top: 10px;">
-    </div>
-  </div>
-
-  <div style="display: inline-block;">
-    <div style="position: relative; width: 65px; height: 65px; overflow: hidden; border-radius: 50%; margin: 0 auto;">
-      <a href="https://github.com/LucasPeixer">
-        <img src="https://github.com/LucasPeixer.png" width="65px" alt="LucasPeixer"/>
-      </a>
-    </div>
-    <div style="margin-top: 10px;">
-    </div>
-  </div>
-
-  <div style="display: inline-block;">
-    <div style="position: relative; width: 65px; height: 65px; overflow: hidden; border-radius: 50%; margin: 0 auto;">
-      <a href="https://github.com/andreynaza">
-        <img src="https://github.com/andreynaza.png" width="65px" alt="andreynaza"/>
-      </a>
-    </div>
-    <div style="margin-top: 10px;">
-    </div>
-  </div>
-</div>
+<a href="https://github.com/PoweredTable/sist-emprestimo-de-ferramentas/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=PoweredTable/sist-emprestimo-de-ferramentas"/>
+</a>
 
