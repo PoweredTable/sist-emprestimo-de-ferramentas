@@ -2,6 +2,7 @@ package visao;
 
 import javax.swing.JOptionPane;
 
+import visao.swingcomponents.PlaceholderTextField;
 import controle.AmigoControle;
 import modelo.Amigo;
 import dao.ExceptionDAO;
@@ -25,10 +26,9 @@ public class DialogAmigo extends javax.swing.JDialog {
     public DialogAmigo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        initCustomComponents();
         setLocationRelativeTo(parent);
     }
-
-  
    
     public void setTitleDialog(String texto) {
         jLabelTitleDialog.setText(texto);
@@ -84,9 +84,6 @@ public class DialogAmigo extends javax.swing.JDialog {
         jLabelTitleDialog = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextFieldNome = new javax.swing.JTextField();
-        jTextFieldApelido = new javax.swing.JTextField();
-        jTextFieldTelefone = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButtonCalcelar = new javax.swing.JButton();
         jButtonSalvar = new javax.swing.JButton();
@@ -116,25 +113,6 @@ public class DialogAmigo extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(64, 64, 64));
         jPanel2.setLayout(new java.awt.GridLayout(3, 0, 0, 20));
-
-        jTextFieldNome.setBackground(new java.awt.Color(156, 156, 156));
-        jTextFieldNome.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextFieldNome.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldNome.setText("Nome");
-        jTextFieldNome.setToolTipText("");
-        jPanel2.add(jTextFieldNome);
-
-        jTextFieldApelido.setBackground(new java.awt.Color(156, 156, 156));
-        jTextFieldApelido.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextFieldApelido.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldApelido.setText("Apelido");
-        jPanel2.add(jTextFieldApelido);
-
-        jTextFieldTelefone.setBackground(new java.awt.Color(156, 156, 156));
-        jTextFieldTelefone.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextFieldTelefone.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldTelefone.setText("Telefone");
-        jPanel2.add(jTextFieldTelefone);
 
         jPanel3.setBackground(new java.awt.Color(64, 64, 64));
         jPanel3.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
@@ -213,6 +191,35 @@ public class DialogAmigo extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void initCustomComponents(){
+        jTextFieldNome = new PlaceholderTextField("");
+        jTextFieldApelido = new PlaceholderTextField("");
+        jTextFieldTelefone = new PlaceholderTextField("");
+        
+        jTextFieldNome.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldNome.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldNome.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldNome.setText("Nome");
+        jTextFieldNome.setToolTipText("");
+        jTextFieldNome.setPlaceholder("Nome");
+        jPanel2.add(jTextFieldNome);
+        
+        jTextFieldApelido.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldApelido.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldApelido.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldApelido.setText("Apelido");
+        jTextFieldApelido.setPlaceholder("Apelido");
+        jPanel2.add(jTextFieldApelido);
+        
+        jTextFieldTelefone.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldTelefone.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldTelefone.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldTelefone.setText("Telefone");
+        jTextFieldTelefone.setPlaceholder("Telefone");
+        jPanel2.add(jTextFieldTelefone);
+        
+    }
+    
     private void jButtonCalcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -313,8 +320,8 @@ public class DialogAmigo extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextFieldApelido;
-    private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldTelefone;
     // End of variables declaration//GEN-END:variables
+    private PlaceholderTextField jTextFieldApelido;
+    private PlaceholderTextField jTextFieldNome;
+    private PlaceholderTextField jTextFieldTelefone;
 }
