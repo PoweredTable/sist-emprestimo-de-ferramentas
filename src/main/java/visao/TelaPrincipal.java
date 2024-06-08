@@ -182,6 +182,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setForeground(new java.awt.Color(102, 102, 102));
+
+        jTableTodos.setBackground(new java.awt.Color(255, 255, 255));
         jTableTodos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
