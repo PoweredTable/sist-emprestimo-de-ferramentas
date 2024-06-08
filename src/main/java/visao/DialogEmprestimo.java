@@ -231,16 +231,17 @@ public class DialogEmprestimo extends javax.swing.JDialog {
         // TODO add your handling code here:
         ModelItem<Amigo> amigoModelItem = (ModelItem<Amigo>) modeloAmigo.getSelectedItem();
         Amigo amigo = amigoModelItem.getItem();
-        int resposta = JOptionPane.showConfirmDialog(null,"Amigo já possue um emprestimo ativo, deseja continuar");
         try {
-            if(AmigoControle.amigoPossuiEmprestimoAtivo(amigo) && resposta == JOptionPane.NO_OPTION){
-                return;
+            if(AmigoControle.amigoPossuiEmprestimoAtivo(amigo)){
+                int resposta = JOptionPane.showConfirmDialog(null,"Amigo já possui um emprestimo ativo, deseja continuar?", "Selecionar uma opção", JOptionPane.YES_NO_OPTION);
+                if(resposta == JOptionPane.NO_OPTION){
+                    return;
+                }
             }
-            AmigoControle.amigoPossuiEmprestimoAtivo(amigo);
         } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
+            return;
         }
-
 
         Date dataSelecionada = dateChooser.getDate();
         //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
