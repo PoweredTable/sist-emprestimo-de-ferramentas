@@ -22,10 +22,6 @@ public class EmprestimoControle {
 
     /**
      * Busca um empréstimo pelo seu ID.
-     *
-     * @param id O ID do empréstimo a ser buscado.
-     * @return Um objeto Optional contendo o empréstimo, se encontrado.
-     * @throws ExceptionDAO Se ocorrer um erro durante a busca no DAO.
      */
     public static Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
         Objects.requireNonNull(id, erroMsgIdNulo);
@@ -34,9 +30,6 @@ public class EmprestimoControle {
 
     /**
      * Busca todos os empréstimos cadastrados.
-     *
-     * @return Uma lista contendo todos os empréstimos cadastrados.
-     * @throws ExceptionDAO Se ocorrer um erro durante a busca no DAO.
      */
     public static ArrayList<Emprestimo> buscarTudo() throws ExceptionDAO {
         return Emprestimo.buscarTudo();
@@ -44,9 +37,6 @@ public class EmprestimoControle {
 
     /**
      * Cadastra um novo empréstimo.
-     *
-     * @param emprestimo O empréstimo a ser cadastrado.
-     * @throws ExceptionDAO Se ocorrer um erro durante a operação no DAO.
      */
     public static void cadastrar(Emprestimo emprestimo) throws ExceptionDAO {
         Objects.requireNonNull(emprestimo, erroMsgModeloNulo);
@@ -63,12 +53,6 @@ public class EmprestimoControle {
 
     /**
      * Cadastra um novo empréstimo com os parâmetros fornecidos.
-     *
-     * @param idFerramenta O ID da ferramenta a ser emprestada.
-     * @param idAmigo      O ID do amigo que está pegando emprestado.
-     * @param dataInicial  A data de início do empréstimo.
-     * @param dataPrazo    A data de prazo para devolução.
-     * @throws ExceptionDAO Se ocorrer um erro durante a operação no DAO.
      */
     public static void cadastrar(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo) throws ExceptionDAO {
         Emprestimo emprestimo = new Emprestimo(idFerramenta, idAmigo, dataInicial, dataPrazo);
@@ -77,9 +61,6 @@ public class EmprestimoControle {
 
     /**
      * Altera um empréstimo existente.
-     *
-     * @param emprestimo O empréstimo com as alterações a serem feitas.
-     * @throws ExceptionDAO Se ocorrer um erro durante a operação no DAO.
      */
     public static void alterar(Emprestimo emprestimo) throws ExceptionDAO {
         Objects.requireNonNull(emprestimo, erroMsgModeloNulo);
@@ -93,9 +74,6 @@ public class EmprestimoControle {
 
     /**
      * Exclui um empréstimo pelo seu ID.
-     *
-     * @param id O ID do empréstimo a ser excluído.
-     * @throws ExceptionDAO Se ocorrer um erro durante a operação no DAO.
      */
     public static void excluir(Integer id) throws ExceptionDAO {
         Objects.requireNonNull(id, erroMsgIdNulo);
@@ -107,9 +85,6 @@ public class EmprestimoControle {
 
     /**
      * Exclui um empréstimo.
-     *
-     * @param emprestimo O empréstimo a ser excluído.
-     * @throws ExceptionDAO Se ocorrer um erro durante a operação no DAO.
      */
     public static void excluir(Emprestimo emprestimo) throws ExceptionDAO {
         excluir(emprestimo.getId());
@@ -119,9 +94,6 @@ public class EmprestimoControle {
 
     /**
      * Obtém a quantidade total de empréstimos cadastrados.
-     *
-     * @return A quantidade total de empréstimos cadastrados.
-     * @throws ExceptionDAO Se ocorrer um erro durante a obtenção da quantidade no DAO.
      */
     public static int quantidadeEmprestimos() throws ExceptionDAO {
         return Emprestimo.quantidadeEmprestimos();
