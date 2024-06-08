@@ -26,10 +26,6 @@ public class Amigo {
 
     /**
      * Construtor que inicializa os atributos com os valores fornecidos.
-     * 
-     * @param nome o nome do amigo
-     * @param apelido o apelido do amigo
-     * @param telefone o telefone do amigo
      */
     public Amigo(String nome, String apelido, String telefone) {
         this(null, nome, apelido, telefone);
@@ -37,11 +33,6 @@ public class Amigo {
 
     /**
      * Construtor que inicializa todos os atributos com os valores fornecidos.
-     * 
-     * @param id o ID do amigo
-     * @param nome o nome do amigo
-     * @param apelido o apelido do amigo
-     * @param telefone o telefone do amigo
      */
     public Amigo(Integer id, String nome, String apelido, String telefone) {
         this.id = id;
@@ -63,17 +54,13 @@ public class Amigo {
 
     /**
      * Define o ID do amigo.
-     * 
-     * @param id o ID do amigo
-     */
+     */ 
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
      * Obtém o nome do amigo.
-     * 
-     * @return o nome do amigo
      */
     public String getNome() {
         return nome;
@@ -81,8 +68,6 @@ public class Amigo {
 
     /**
      * Define o nome do amigo.
-     * 
-     * @param nome o nome do amigo
      */
     public void setNome(String nome) {
         this.nome = nome;
@@ -90,8 +75,6 @@ public class Amigo {
 
     /**
      * Obtém o apelido do amigo.
-     * 
-     * @return o apelido do amigo
      */
     public String getApelido() {
         return apelido;
@@ -99,8 +82,6 @@ public class Amigo {
 
     /**
      * Define o apelido do amigo.
-     * 
-     * @param apelido o apelido do amigo
      */
     public void setApelido(String apelido) {
         this.apelido = apelido;
@@ -108,8 +89,6 @@ public class Amigo {
 
     /**
      * Obtém o telefone do amigo.
-     * 
-     * @return o telefone do amigo
      */
     public String getTelefone() {
         return telefone;
@@ -117,8 +96,6 @@ public class Amigo {
 
     /**
      * Define o telefone do amigo.
-     * 
-     * @param telefone o telefone do amigo
      */
     public void setTelefone(String telefone) {
         this.telefone = telefone;
@@ -126,10 +103,6 @@ public class Amigo {
 
     /**
      * Busca um amigo pelo ID.
-     * 
-     * @param id o ID do amigo
-     * @return um Optional contendo o amigo encontrado ou vazio se não encontrado
-     * @throws ExceptionDAO se ocorrer um erro na busca
      */
     public static Optional<Amigo> buscar(Integer id) throws ExceptionDAO {
         return DAO.buscar(id);
@@ -137,9 +110,6 @@ public class Amigo {
 
     /**
      * Busca todos os amigos.
-     * 
-     * @return uma lista de todos os amigos
-     * @throws ExceptionDAO se ocorrer um erro na busca
      */
     public static ArrayList<Amigo> buscarTudo() throws ExceptionDAO {
         return DAO.buscarTudo();
@@ -147,9 +117,6 @@ public class Amigo {
 
     /**
      * Cadastra um novo amigo.
-     * 
-     * @param amigo o amigo a ser cadastrado
-     * @throws ExceptionDAO se ocorrer um erro no cadastro
      */
     public static void cadastrar(Amigo amigo) throws ExceptionDAO {
         DAO.cadastrar(amigo);
@@ -157,10 +124,6 @@ public class Amigo {
 
     /**
      * Altera os dados de um amigo.
-     * 
-     * @param amigo o amigo com os dados alterados
-     * @return o número de registros alterados
-     * @throws ExceptionDAO se ocorrer um erro na alteração
      */
     public static int alterar(Amigo amigo) throws ExceptionDAO {
         return DAO.alterar(amigo);
@@ -168,10 +131,6 @@ public class Amigo {
 
     /**
      * Exclui um amigo pelo ID.
-     * 
-     * @param id o ID do amigo a ser excluído
-     * @return o número de registros excluídos
-     * @throws ExceptionDAO se ocorrer um erro na exclusão
      */
     public static int excluir(Integer id) throws ExceptionDAO {
         return DAO.excluir(id);
@@ -179,10 +138,6 @@ public class Amigo {
 
     /**
      * Verifica se um amigo possui empréstimo ativo.
-     * 
-     * @param id o ID do amigo
-     * @return true se o amigo possuir empréstimo ativo, false caso contrário
-     * @throws ExceptionDAO se ocorrer um erro na verificação
      */
     public static boolean amigoPossuiEmprestimoAtivo(Integer id) throws ExceptionDAO {
         return DAO.amigoPossuiEmprestimoAtivo(id);
@@ -190,9 +145,6 @@ public class Amigo {
 
     /**
      * Busca o amigo com o maior número de utilizações.
-     * 
-     * @return um Optional contendo o amigo encontrado ou vazio se não encontrado
-     * @throws ExceptionDAO se ocorrer um erro na busca
      */
     public static Optional<Amigo> buscarMaiorUtilizador() throws ExceptionDAO {
         return DAO.buscarMaiorUtilizador();
@@ -200,10 +152,6 @@ public class Amigo {
 
     /**
      * Busca amigos pelo nome.
-     * 
-     * @param nome o nome dos amigos a serem buscados
-     * @return uma lista de amigos com o nome fornecido
-     * @throws ExceptionDAO se ocorrer um erro na busca
      */
     public static ArrayList<Amigo> buscarNome(String nome) throws ExceptionDAO {
         return DAO.buscarNome(nome);
@@ -211,9 +159,6 @@ public class Amigo {
 
     /**
      * Retorna a quantidade de amigos cadastrados.
-     * 
-     * @return a quantidade de amigos
-     * @throws ExceptionDAO se ocorrer um erro na contagem
      */
     public static int quantidadeAmigos() throws ExceptionDAO {
         return DAO.quantidadeAmigos();
@@ -221,8 +166,6 @@ public class Amigo {
 
     /**
      * Retorna uma representação em string do amigo.
-     * 
-     * @return uma string representando o amigo
      */
     @Override
     public String toString() {
