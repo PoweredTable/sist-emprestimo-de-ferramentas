@@ -34,24 +34,38 @@ public class DialogExclucao extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        DEConfirmar = new java.awt.Button();
+        jPanel2 = new javax.swing.JPanel();
         DECancelar = new java.awt.Button();
+        DEConfirmar = new java.awt.Button();
+        jLabelTitleDialog4 = new javax.swing.JLabel();
+        jLabelTitleDialog5 = new javax.swing.JLabel();
+        jLabelTitleDialog3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(64, 64, 64));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(64, 64, 64));
         jPanel1.setMaximumSize(new java.awt.Dimension(450, 300));
         jPanel1.setMinimumSize(new java.awt.Dimension(450, 300));
 
-        jLabel1.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(229, 164, 11));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Tem certeza de que deseja excluir este item?");
+        jPanel2.setBackground(new java.awt.Color(64, 64, 64));
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
+
+        DECancelar.setBackground(new java.awt.Color(156, 156, 156));
+        DECancelar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        DECancelar.setForeground(new java.awt.Color(64, 64, 64));
+        DECancelar.setLabel("Cancelar");
+        DECancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DECancelarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(DECancelar);
 
         DEConfirmar.setActionCommand("Button1");
-        DEConfirmar.setBackground(new java.awt.Color(255, 187, 0));
-        DEConfirmar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        DEConfirmar.setBackground(new java.awt.Color(156, 156, 156));
+        DEConfirmar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         DEConfirmar.setForeground(new java.awt.Color(64, 64, 64));
         DEConfirmar.setLabel("Confirmar");
         DEConfirmar.setName(""); // NOI18N
@@ -60,42 +74,52 @@ public class DialogExclucao extends javax.swing.JFrame {
                 DEConfirmarActionPerformed(evt);
             }
         });
+        jPanel2.add(DEConfirmar);
 
-        DECancelar.setBackground(new java.awt.Color(64, 64, 64));
-        DECancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        DECancelar.setForeground(new java.awt.Color(255, 187, 0));
-        DECancelar.setLabel("Cancelar");
-        DECancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DECancelarActionPerformed(evt);
-            }
-        });
+        jLabelTitleDialog4.setBackground(new java.awt.Color(64, 64, 64));
+        jLabelTitleDialog4.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        jLabelTitleDialog4.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelTitleDialog4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitleDialog4.setText("Exclusão");
+
+        jLabelTitleDialog5.setBackground(new java.awt.Color(64, 64, 64));
+        jLabelTitleDialog5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabelTitleDialog5.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelTitleDialog5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelTitleDialog5.setText("Tem certeza que deseja que deseja excluir esse item?");
+
+        jLabelTitleDialog3.setBackground(new java.awt.Color(64, 64, 64));
+        jLabelTitleDialog3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabelTitleDialog3.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelTitleDialog3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelTitleDialog3.setText("Você está prestes a efetuar uma exclusão!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(DECancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
-                .addComponent(DEConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+            .addComponent(jLabelTitleDialog4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelTitleDialog3)
+                    .addComponent(jLabelTitleDialog5)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(89, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(DEConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DECancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                .addGap(56, 56, 56))
+                .addComponent(jLabelTitleDialog4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jLabelTitleDialog5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelTitleDialog3)
+                .addGap(28, 28, 28)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -161,7 +185,10 @@ public class DialogExclucao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button DECancelar;
     private java.awt.Button DEConfirmar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelTitleDialog3;
+    private javax.swing.JLabel jLabelTitleDialog4;
+    private javax.swing.JLabel jLabelTitleDialog5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
