@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class DBConexao {
     
     public Connection getConexao(){
-        String url = "jdbc:mysql://localhost:3306/emprestimo_ferramenta";
+        String url = "jdbc:mysql://localhost:3306/sistema_de_emprestimo_de_ferramenta";
         String user = "root";
         String password = "Senha1234.";
         
