@@ -4,18 +4,54 @@
  */
 package visao;
 
+import java.util.Collections;
+import java.util.Comparator;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+
+import modelo.Ferramenta;
+import controle.FerramentaControle;
+import dao.ExceptionDAO;
+
+
 /**
  *
  * @author waldy
  */
-public class TelaFerramentas extends javax.swing.JFrame {
-
+public class TelaFerramenta extends javax.swing.JFrame {
+    
+    private DialogFerramenta dialog;
+    private DialogConfirmarExclusao dialogEx;
     /**
      * Creates new form TelaFerramentas
      */
-    public TelaFerramentas() {
+    public TelaFerramenta() {
         setLocationRelativeTo(null);
+        this.dialog = new DialogFerramenta(this, true);
+        this.dialogEx = new DialogConfirmarExclusao(this, true);
         initComponents();
+
+        //Espera a dialog fechar para atualizar a tabela de ferramentas
+        dialog.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                carregaTabelaFerramentas();
+            }
+        });
+        //Espera a dialog fechar para efetuar a exclusão de uma ferramenta
+        dialogEx.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                if (dialogEx.getConfirmarExclusaoF()){
+                    excluirFerramenta();
+                    carregaTabelaFerramentas();
+                    apresentaPrecoTotal();
+                    apresentaTotalFerramentas();
+                }
+            }
+        });
+        
     }
 
     /**
@@ -41,12 +77,12 @@ public class TelaFerramentas extends javax.swing.JFrame {
         jButtonCadastrar = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableFerramentas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelPrecoTotal = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelQuantidadeFerramentas = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jButtonVoltar = new javax.swing.JButton();
@@ -61,7 +97,7 @@ public class TelaFerramentas extends javax.swing.JFrame {
         BG.setBackground(new java.awt.Color(64, 64, 64));
 
         jPanel2.setBackground(new java.awt.Color(64, 64, 64));
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setBackground(new java.awt.Color(46, 46, 46));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
@@ -78,7 +114,6 @@ public class TelaFerramentas extends javax.swing.JFrame {
         jTextFieldPesquisar.setBackground(new java.awt.Color(156, 156, 156));
         jTextFieldPesquisar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextFieldPesquisar.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldPesquisar.setText("jTextField1");
         jTextFieldPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPesquisarActionPerformed(evt);
@@ -93,6 +128,11 @@ public class TelaFerramentas extends javax.swing.JFrame {
         jButtonPesquisar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButtonPesquisar.setForeground(new java.awt.Color(64, 64, 64));
         jButtonPesquisar.setText("Pesquisar");
+        jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButtonPesquisar);
 
         jPanel7.setBackground(new java.awt.Color(64, 64, 64));
@@ -174,20 +214,33 @@ public class TelaFerramentas extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(156, 156, 156));
 
-        jTable1.setBackground(new java.awt.Color(89, 89, 89));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableFerramentas.setBackground(new java.awt.Color(89, 89, 89));
+        jTableFerramentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "Marca", "Preço"
+                "ID", "Nome", "Marca", "Preço"
             }
-        ));
-        jTable1.setSelectionForeground(new java.awt.Color(115, 115, 115));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableFerramentas.setSelectionForeground(new java.awt.Color(115, 115, 115));
+        jTableFerramentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableFerramentasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableFerramentas);
 
         jPanel1.setBackground(new java.awt.Color(156, 156, 156));
 
@@ -195,17 +248,17 @@ public class TelaFerramentas extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Valor total gasto:");
 
-        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 187, 0));
-        jLabel5.setText("R$200");
+        jLabelPrecoTotal.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabelPrecoTotal.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelPrecoTotal.setText("R$200");
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Quantidade de total:");
+        jLabel2.setText("Quantidade total:");
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 187, 0));
-        jLabel3.setText("12");
+        jLabelQuantidadeFerramentas.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabelQuantidadeFerramentas.setForeground(new java.awt.Color(255, 187, 0));
+        jLabelQuantidadeFerramentas.setText("12");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -215,11 +268,11 @@ public class TelaFerramentas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(jLabelQuantidadeFerramentas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -228,10 +281,10 @@ public class TelaFerramentas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
+                        .addComponent(jLabelQuantidadeFerramentas))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabelPrecoTotal)))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
@@ -261,7 +314,7 @@ public class TelaFerramentas extends javax.swing.JFrame {
         jPanel10.setPreferredSize(new java.awt.Dimension(1280, 900));
 
         jPanel11.setBackground(new java.awt.Color(64, 64, 64));
-        jPanel11.setLayout(new java.awt.GridLayout());
+        jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonVoltar.setBackground(new java.awt.Color(156, 156, 156));
         jButtonVoltar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
@@ -292,6 +345,11 @@ public class TelaFerramentas extends javax.swing.JFrame {
         jButtonExcluir.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButtonExcluir.setForeground(new java.awt.Color(64, 64, 64));
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
         jPanel12.add(jButtonExcluir);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -358,36 +416,159 @@ public class TelaFerramentas extends javax.swing.JFrame {
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         // TODO add your handling code here:
-        DialogFerramentas dialog = new DialogFerramentas(this, true);
+        dialog.setTitleDialog("Cadastro");
+        dialog.setSalvarButtonSalvar("Salvar");
+        dialog.setNome("");
+        dialog.setMarca("");
+        dialog.setPreco("");
         dialog.setVisible(true);
+        apresentaPrecoTotal();
+        apresentaTotalFerramentas();
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        TelaPrincipal principal = new TelaPrincipal();
-        principal.setEnabled(true);
-        principal.toFront();
-        
-    }//GEN-LAST:event_jButtonVoltarActionPerformed
 
+    }//GEN-LAST:event_jButtonVoltarActionPerformed
+    
+    public void apresentaTotalFerramentas(){
+        try {
+            String quantidadeFerramentas = String.valueOf(FerramentaControle.quantidadeFerramentas());
+            jLabelQuantidadeFerramentas.setText(quantidadeFerramentas);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void apresentaPrecoTotal(){
+        try {
+            String precoTotal = String.valueOf(FerramentaControle.getCustoTotal());
+            jLabelPrecoTotal.setText(precoTotal);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void carregaTabelaFerramentas() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableFerramentas.getModel();
+
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+        //Carrega a lista de objetos aluno
+        //TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        //jTable1Amigos.setRowSorter(sorter);
+        try {
+            ArrayList<Ferramenta> lista = FerramentaControle.buscarTudo();
+
+            Collections.sort(lista, new Comparator<Ferramenta>() {
+                @Override
+                public int compare(Ferramenta a1, Ferramenta a2) {
+                    return Long.compare(a1.getId(), a2.getId());
+                }
+            });
+
+            for (Ferramenta f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getNome(),
+                    f.getMarca(),
+                    f.getPreco()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void carregaTabelaFiltrada() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableFerramentas.getModel();
+
+        modelo.setNumRows(0); //Posiciona na primeira linha da tabela
+
+        try {
+            String nome = jTextFieldPesquisar.getText();
+            ArrayList<Ferramenta> lista = FerramentaControle.buscarNome(nome);
+
+            for (Ferramenta f : lista) {
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getNome(),
+                    f.getMarca(),
+                    f.getPreco()
+                });
+            }
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    
+    public void excluirFerramenta() {
+        int id = dialog.getId();
+        try {
+            FerramentaControle.excluir(id);
+            apresentaTotalFerramentas();
+            apresentaPrecoTotal();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        dialogEx.setConfirmarExclusaoF(false);
+    }
+    
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         // TODO add your handling code here:
-        DialogFerramentas dialog = new DialogFerramentas(this, true);
-        
         dialog.setTitleDialog("Editar");
-        dialog.setSalvarButtonText("Editar");
+        dialog.setSalvarButtonSalvar("Editar");
 
     // Preencher os campos com as informações da ferramenta a ser editada
-        String nomeFerramenta = "Nome da Ferramenta"; // Substitua isso com o nome da ferramenta que você deseja editar
-        String marcaFerramenta = "Marca da Ferramenta"; // Substitua isso com a descrição da ferramenta que você deseja editar
-        String precoFerramenta = "Preco da Ferramenta"; // Substitua isso com a categoria da ferramenta que você deseja editar
+        String nomeFerramenta = dialog.getNome(); // Substitua isso com o nome da ferramenta que você deseja editar
+        String marcaFerramenta = dialog.getMarca(); // Substitua isso com a descrição da ferramenta que você deseja editar
+        String precoFerramenta = dialog.getPreco(); // Substitua isso com a categoria da ferramenta que você deseja editar
 
         dialog.setNome(nomeFerramenta);
         dialog.setMarca(marcaFerramenta);
         dialog.setPreco(precoFerramenta);
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jTableFerramentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFerramentasMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 1) { // Verifica se o clique foi único
+            int index = jTableFerramentas.getSelectedRow();
+            if (index != -1) { // Verifica se uma linha está selecionada
+                int id = Integer.parseInt(jTableFerramentas.getValueAt(index, 0).toString());
+                String nome = jTableFerramentas.getValueAt(index, 1).toString();
+                String marca = jTableFerramentas.getValueAt(index, 2).toString();
+                String preco = jTableFerramentas.getValueAt(index, 3).toString();
+
+                dialog.setId(id);
+                dialog.setNome(nome);
+                dialog.setMarca(marca);
+                dialog.setPreco(preco);
+
+            }
+        }
+    }//GEN-LAST:event_jTableFerramentasMouseClicked
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        // TODO add your handling code here:
+        dialogEx.setVisible(true);
+
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+        // TODO add your handling code here:
+        if (jTextFieldPesquisar.getText().equals("")) {
+            carregaTabelaFerramentas();
+        } else {
+            try {
+                carregaTabelaFiltrada();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -406,20 +587,20 @@ public class TelaFerramentas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaFerramentas().setVisible(true);
+                new TelaFerramenta().setVisible(true);
             }
         });
     }
@@ -433,9 +614,9 @@ public class TelaFerramentas extends javax.swing.JFrame {
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelPrecoTotal;
+    private javax.swing.JLabel jLabelQuantidadeFerramentas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -449,7 +630,7 @@ public class TelaFerramentas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableFerramentas;
     private javax.swing.JTextField jTextFieldPesquisar;
     // End of variables declaration//GEN-END:variables
 }

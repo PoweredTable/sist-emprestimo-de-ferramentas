@@ -15,16 +15,11 @@ public class Amigo {
     private static final AmigoDAO DAO = AmigoDAO.getInstance();
 
     public Amigo(){
-        this.id = null;
-        this.nome = null;
-        this.apelido = null;
-        this.telefone = null;
+        this("","","");
     }
 
     public Amigo(String nome, String apelido, String telefone) {
-        this.nome = nome;
-        this.apelido = apelido;
-        this.telefone = telefone;
+        this(null, nome, apelido, telefone);
     }
 
     public Amigo(Integer id, String nome, String apelido, String telefone) {
@@ -96,6 +91,10 @@ public class Amigo {
 
     public static ArrayList<Amigo> buscarNome(String nome) throws ExceptionDAO {
         return DAO.buscarNome(nome);
+    }
+
+    public static int quantidadeAmigos() throws ExceptionDAO {
+        return DAO.quantidadeAmigos();
     }
 
     public String toString() {

@@ -15,19 +15,14 @@ public class Ferramenta {
     private static final FerramentaDAO DAO = FerramentaDAO.getInstance();
 
     public Ferramenta() {
-        this.id = null;
-        this.nome = null;
-        this.marca = null;
-        this.preco = null;
+        this("","",0.0);
     }
 
     public Ferramenta(String nome, String marca, Double preco) {
-        this.nome = nome;
-        this.marca = marca;
-        this.preco = preco;
+        this(null, nome, marca, preco);
     }
 
-    public Ferramenta(int id, String nome, String marca, Double preco) {
+    public Ferramenta(Integer id, String nome, String marca, Double preco) {
         this.id = id;
         this.nome = nome;
         this.marca = marca;
@@ -96,6 +91,10 @@ public class Ferramenta {
 
     public static ArrayList<Ferramenta> buscarNome(String nome) throws ExceptionDAO {
         return DAO.buscarNome(nome);
+    }
+
+    public static int quantidadeFerramentas() throws ExceptionDAO {
+        return DAO.quantidadeFerramentas();
     }
 
     public String toString() {

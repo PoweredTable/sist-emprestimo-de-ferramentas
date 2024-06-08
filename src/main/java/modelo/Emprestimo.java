@@ -1,12 +1,12 @@
 package modelo;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Optional;
 
 import dao.EmprestimoDAO;
 import dao.ExceptionDAO;
-// 
 
 public class Emprestimo {
     private Integer id;
@@ -21,44 +21,25 @@ public class Emprestimo {
     private static final EmprestimoDAO DAO = EmprestimoDAO.getInstance();
 
     public Emprestimo() {
-        this.id = null;
-        this.idFerramenta = null;
-        this.idAmigo = null;
-        this.dataInicial = null;
-        this.dataPrazo = null;
-        this.dataDevolucao = null;
-        this.amigo = new Amigo();
-        this.ferramenta = new Ferramenta();
+        this(null, null ,null, null);
     }
 
     public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo) {
-        this.idFerramenta = idFerramenta;
-        this.idAmigo = idAmigo;
-        this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
+        this(idFerramenta, idAmigo, dataInicial, dataPrazo, null);
     }
 
     public Emprestimo(Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
-    LocalDate dataDevolucao) {
-        this.idFerramenta = idFerramenta;
-        this.idAmigo = idAmigo;
-        this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
-        this.dataDevolucao = dataDevolucao;
+                      LocalDate dataDevolucao) {
+        this(null, idFerramenta, idAmigo, dataInicial, dataPrazo, dataDevolucao);
     }
 
     public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
-    LocalDate dataDevolucao) {
-        this.id = id;
-        this.idFerramenta = idFerramenta;
-        this.idAmigo = idAmigo;
-        this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
-        this.dataDevolucao = dataDevolucao;
+                      LocalDate dataDevolucao) {
+        this(id, idFerramenta, idAmigo, dataInicial, dataPrazo, dataDevolucao, new Amigo(), new Ferramenta());
     }
 
     public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, LocalDate dataInicial, LocalDate dataPrazo,
-    LocalDate dataDevolucao, Amigo amigo, Ferramenta ferramenta) {
+                      LocalDate dataDevolucao, Amigo amigo, Ferramenta ferramenta) {
         this.id = id;
         this.idFerramenta = idFerramenta;
         this.idAmigo = idAmigo;
@@ -68,6 +49,7 @@ public class Emprestimo {
         this.amigo = amigo;
         this.ferramenta = ferramenta;
     }
+  
     public Integer getId() {
         return id;
     }
@@ -132,6 +114,37 @@ public class Emprestimo {
         this.ferramenta = ferramenta;
     }
 
+    private String getDataFormatada(LocalDate data, String formato) {
+        if (data == null) {
+            return "";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formato);
+        return data.format(formatter);
+    }
+
+    public String getDataInicialFormatada(String formato) {
+        return getDataFormatada(dataInicial, formato);
+    }
+
+    public String getDataPrazoFormatada(String formato) {
+        return getDataFormatada(dataPrazo, formato);
+    }
+
+    public String getDataDevolucaoFormatada(String formato) {
+        return getDataFormatada(dataDevolucao, formato);
+    }
+
+    public String getDataInicialFormatada() {
+        return getDataInicialFormatada("dd/MM/yyyy");
+    }
+
+    public String getDataPrazoFormatada() {
+        return getDataPrazoFormatada("dd/MM/yyyy");
+    }
+
+    public String getDataDevolucaoFormatada() {
+        return getDataDevolucaoFormatada("dd/MM/yyyy");
+    }
     public static Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
         return DAO.buscar(id);
     }
@@ -162,6 +175,10 @@ public class Emprestimo {
 
     public static ArrayList<Emprestimo> buscarAtrasados() throws ExceptionDAO {
         return DAO.buscarAtrasados();
+    }
+
+    public static int quantidadeEmprestimos() throws ExceptionDAO {
+        return DAO.quantidadeEmprestimos();
     }
 
     @Override

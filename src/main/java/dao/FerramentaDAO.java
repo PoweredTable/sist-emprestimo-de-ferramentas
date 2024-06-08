@@ -29,7 +29,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
 
     public ArrayList<Ferramenta> buscarTudo() throws ExceptionDAO {
-        String sql = "SELECT * FROM ferramentas ORDER BY nome ASC;";
+        String sql = "SELECT id, nome, marca, custo FROM ferramentas ORDER BY nome ASC;";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
 
         try (Connection conn = new DBConexao().getConexao();
@@ -123,11 +123,13 @@ public class FerramentaDAO implements DAO<Ferramenta> {
 
         return isEmprestada;
     }
-
+    
     public ArrayList<Ferramenta> buscarFerramentasDisponiveis() throws ExceptionDAO {
-        String sql = "SELECT f.* FROM emprestimos e " +
-                     "RIGHT JOIN ferramentas f ON e.id_ferramenta = f.id " +
-                     "WHERE data_devolucao IS NOT NULL OR id_ferramenta IS NULL;";
+        String sql = "SELECT f.id, f.nome, f.marca, f.custo " +
+                     "FROM ferramentas f " +
+                     "LEFT JOIN emprestimos e ON f.id = e.id_ferramenta " +
+                     "AND e.data_devolucao IS NULL " +
+                     "WHERE e.id_ferramenta IS NULL";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
     
         try (Connection conn = new DBConexao().getConexao();
@@ -151,7 +153,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     }
     
     public ArrayList<Ferramenta> buscarNome(String nome) throws ExceptionDAO {
-        String sql = "SELECT * FROM ferramentas WHERE UPPER(nome) LIKE UPPER(?)";
+        String sql = "SELECT id, nome, marca, custo FROM ferramentas WHERE UPPER(nome) LIKE UPPER(?)";
         ArrayList<Ferramenta> ferramentas = new ArrayList<>();
     
         try (Connection conn = new DBConexao().getConexao();
@@ -159,7 +161,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
     
             pStatement.setString(1, "%" + nome + "%"); // Adicione os curingas diretamente aqui
             try (ResultSet rs = pStatement.executeQuery()) { // Use try-with-resources para garantir que o ResultSet seja fechado
-                if (rs.next()) {
+                while (rs.next()) {
                     Ferramenta ferramenta = new Ferramenta();
                     ferramenta.setId(rs.getInt("id"));
                     ferramenta.setNome(rs.getString("nome"));
@@ -174,6 +176,25 @@ public class FerramentaDAO implements DAO<Ferramenta> {
         }
     
         return ferramentas;
+    }
+
+    public int quantidadeFerramentas() throws ExceptionDAO {
+        String sql = "SELECT COUNT(id) FROM ferramentas";
+        int quantidade = 0;
+
+        try (Connection conn = new DBConexao().getConexao();
+                PreparedStatement pStatement = conn.prepareStatement(sql);
+                ResultSet rs = pStatement.executeQuery()) {
+
+            if (rs.next()) {
+                quantidade = rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao consultar quantidade de ferramentas: " + e);
+        }
+
+        return quantidade;
     }
 
 
