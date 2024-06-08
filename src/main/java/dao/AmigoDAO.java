@@ -24,8 +24,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Obtém a instância única da classe AmigoDAO.
-     *
-     * @return Instância da classe AmigoDAO.
      */
     public static AmigoDAO getInstance() {
         if (instance == null) {
@@ -36,10 +34,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Busca um amigo pelo ID.
-     *
-     * @param id ID do amigo.
-     * @return Optional contendo o amigo encontrado ou vazio se não encontrado.
-     * @throws ExceptionDAO Exceção lançada pela camada DAO.
      */
     public Optional<Amigo> buscar(Integer id) throws ExceptionDAO {
         return Optional.empty();
@@ -47,9 +41,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Busca todos os amigos.
-     *
-     * @return Lista de todos os amigos.
-     * @throws ExceptionDAO Exceção lançada pela camada DAO.
      */
     public ArrayList<Amigo> buscarTudo() throws ExceptionDAO {
         String sql = "SELECT id, nome, apelido, telefone FROM amigos ORDER BY nome ASC;";
@@ -77,9 +68,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Cadastra um novo amigo.
-     *
-     * @param amigo Amigo a ser cadastrado.
-     * @throws ExceptionDAO Exceção lançada pela camada DAO.
      */
     public void cadastrar(Amigo amigo) throws ExceptionDAO {
         String sql = "INSERT INTO amigos (nome, apelido, telefone) VALUES (?, ?, ?)";
@@ -99,10 +87,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Altera um amigo existente.
-     *
-     * @param amigo Amigo a ser alterado.
-     * @return Número de linhas afetadas.
-     * @throws ExceptionDAO Exceção lançada pela camada DAO.
      */
     public int alterar(Amigo amigo) throws ExceptionDAO {
         String sql = "UPDATE amigos SET nome = ?, apelido = ?, telefone = ? WHERE id = ?";
@@ -123,10 +107,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Exclui um amigo pelo ID.
-     *
-     * @param id ID do amigo a ser excluído.
-     * @return Número de linhas afetadas.
-     * @throws ExceptionDAO Exceção lançada pela camada DAO.
      */
     public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM amigos WHERE id = ?";
@@ -149,11 +129,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Verifica se um amigo possui empréstimos com base em uma consulta SQL.
-     *
-     * @param sql Consulta SQL para verificar empréstimos.
-     * @param id ID do amigo.
-     * @return true se o amigo possui empréstimos, false caso contrário.
-     * @throws ExceptionDAO Exceção lançada pela camada DAO.
      */
     private boolean amigoPossuiEmprestimo(String sql, Integer id) throws ExceptionDAO {
         try (Connection conn = new DBConexao().getConexao();
@@ -175,10 +150,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Verifica se um amigo possui empréstimos.
-     *
-     * @param id ID do amigo.
-     * @return true se o amigo possui empréstimos, false caso contrário.
-     * @throws ExceptionDAO Exceção lançada pela camada DAO.
      */
     private boolean amigoPossuiEmprestimo(Integer id) throws ExceptionDAO {
         String sql = "SELECT COUNT(id) FROM emprestimos WHERE id_amigo = ?";
@@ -188,10 +159,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Verifica se um amigo possui empréstimos ativos.
-     *
-     * @param id ID do amigo.
-     * @return true se o amigo possui empréstimos ativos, false caso contrário.
-     * @throws ExceptionDAO Exceção lançada pela camada DAO.
      */
     public boolean amigoPossuiEmprestimoAtivo(Integer id) throws ExceptionDAO {
         String sql = "SELECT COUNT(id) FROM emprestimos WHERE id_amigo = ? AND data_devolucao IS NULL";
@@ -200,9 +167,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Busca o amigo que mais utilizou o sistema de empréstimos.
-     *
-     * @return Optional contendo o amigo encontrado ou vazio se não encontrado.
-     * @throws ExceptionDAO Exceção lançada pela camada DAO.
      */
     public Optional<Amigo> buscarMaiorUtilizador() throws ExceptionDAO {
         String sql = "SELECT a.id, a.nome, a.apelido, a.telefone " +
@@ -235,10 +199,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Busca amigos pelo nome.
-     *
-     * @param nome Nome do amigo.
-     * @return Lista de amigos que correspondem ao nome.
-     * @throws ExceptionDAO Exceção lançada pela camada DAO.
      */
     public ArrayList<Amigo> buscarNome(String nome) throws ExceptionDAO {
         String sql = "SELECT id, nome, apelido, telefone FROM amigos WHERE UPPER(nome) LIKE UPPER(?)";
@@ -268,9 +228,6 @@ public class AmigoDAO implements DAO<Amigo> {
 
     /**
      * Consulta a quantidade de amigos.
-     *
-     * @return Quantidade de amigos.
-     * @throws ExceptionDAO Exceção lançada pela camada DAO.
      */
     public int quantidadeAmigos() throws ExceptionDAO {
         String sql = "SELECT COUNT(id) FROM amigos";
