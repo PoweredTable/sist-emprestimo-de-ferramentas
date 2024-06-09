@@ -16,7 +16,6 @@ import javax.swing.JTable;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 import controle.FerramentaControle;
 import controle.EmprestimoControle;
 import controle.AmigoControle;
@@ -37,25 +36,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
+                carregaTabelaTodos();
                 try {
-                   atualizaInformativos();
+                    atualizarLabelQuantidadeDeEmprestimos();
+                    atualizarLabelQuantidadeDeFerramentas();
+                    atualizarLabelQuantidadeDeAmigos();
                 } catch (ExceptionDAO ex) {
                     Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
     }
-    
-    private void atualizaInformativos() throws ExceptionDAO{
-         carregaTabelaTodos();
-         carregaTabelaEmDia();
-         carregaTabelaAtrasados();
-         carregaTabelaAtivos();
-         atualizarLabelQuantidadeDeEmprestimos();
-         atualizarLabelQuantidadeDeFerramentas();
-         atualizarLabelQuantidadeDeAmigos();
-    }
 
+    public void atualizaInformativos() throws ExceptionDAO {
+        carregaTabelaTodos();
+        carregaTabelaEmDia();
+        carregaTabelaAtrasados();
+        carregaTabelaAtivos();
+        atualizarLabelQuantidadeDeEmprestimos();
+        atualizarLabelQuantidadeDeFerramentas();
+        atualizarLabelQuantidadeDeAmigos();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -520,11 +521,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         amigos.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                // Quando a tela de ferramentas for fechada, reative a tela principal
+                // Quando a tela de amigos for fechada, atualiza o painel de amigos 
                 setEnabled(true);
                 toFront();
                 try {
-                    atualizaInformativos();
+                    atualizarLabelQuantidadeDeAmigos();
                 } catch (ExceptionDAO ex) {
                     Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -546,11 +547,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ferramentas.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                // Quando a tela de ferramentas for fechada, reative a tela principal
+                // Quando a tela de ferramentas for fechada, atualiza o painel das ferramentas
                 setEnabled(true);
                 toFront();
                 try {
-                    atualizaInformativos();
+                    atualizarLabelQuantidadeDeFerramentas();
                 } catch (ExceptionDAO ex) {
                     Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -560,92 +561,86 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBFerramentasActionPerformed
 
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
-        if (tabelaAtiva != null) {
-            int selectedRow = tabelaAtiva.getSelectedRow();
-            if (selectedRow != -1) {
-                DialogExclucao dialog = new DialogExclucao();
-                DialogErroConfirmacao erro = new DialogErroConfirmacao();
-                dialog.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosed(WindowEvent e) {
-                        boolean exclusao = dialog.Exclusao();
-                        if (exclusao) {
-                            Object idObjeto = tabelaAtiva.getValueAt(selectedRow, 0);
-                            int id = Integer.parseInt(idObjeto.toString());
-                            try {
-                                EmprestimoControle.excluir(id);
-                                atualizaInformativos();
-                                
-                                jTabbedDash.revalidate();
-                                jTabbedDash.repaint();
-                            } catch (ExceptionDAO ex) {
-                                erro.setVisible(true);
-                                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    }
-                });
-                dialog.setVisible(true);
-            } else {
-                DialogErroTabela SelecioneLinha = new DialogErroTabela();
-                SelecioneLinha.setVisible(true);
-            }
+        if (tabelaAtiva == null) {
+            return;
         }
+
+        int selectedRow = tabelaAtiva.getSelectedRow();
+        if (selectedRow == -1) {
+            DialogErroTabela SelecioneLinha = new DialogErroTabela();
+            SelecioneLinha.setVisible(true);
+        }
+
+        DialogExclucao dialog = new DialogExclucao();
+        DialogErroConfirmacao erro = new DialogErroConfirmacao();
+        dialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                boolean exclusao = dialog.Exclusao();
+                if (exclusao) {
+                    Object idObjeto = tabelaAtiva.getValueAt(selectedRow, 0);
+                    int id = Integer.parseInt(idObjeto.toString());
+                    try {
+                        EmprestimoControle.excluir(id);
+
+                        carregaTabelaSelecionada();
+
+                        atualizarLabelQuantidadeDeEmprestimos();
+                        jTabbedDash.revalidate();
+                        jTabbedDash.repaint();
+                    } catch (ExceptionDAO ex) {
+                        erro.setVisible(true);
+                        Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+        dialog.setVisible(true);
     }//GEN-LAST:event_jBExcluirActionPerformed
 
     private void jTabbedDashStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedDashStateChanged
-        int selectedIndex = jTabbedDash.getSelectedIndex();
-        switch (selectedIndex) {
-            case 0:
-                carregaTabelaTodos();
-                break;
-            case 1:
-                carregaTabelaEmDia();
-                break;
-            case 2:
-                carregaTabelaAtrasados();
-                break;
-            case 3:
-                carregaTabelaAtivos();
-                break;
-        }
+        carregaTabelaSelecionada();
     }//GEN-LAST:event_jTabbedDashStateChanged
 
 
     private void jBConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConfirmarActionPerformed
-        if (tabelaAtiva != null) {
-            int selectedRow = tabelaAtiva.getSelectedRow();
-            if (selectedRow != -1) {
-                DialogConfirmado dialog = new DialogConfirmado();
-                DialogErroConfirmacao erro = new DialogErroConfirmacao();
+        if (tabelaAtiva == null) {
+            return;
+        }
+        int selectedRow = tabelaAtiva.getSelectedRow();
 
-                dialog.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosed(WindowEvent e) {
-                        boolean confirmado = dialog.isConfirmado();
-                        if (confirmado) {
-                            Object idObjeto = tabelaAtiva.getValueAt(selectedRow, 0);
-                            int id = Integer.parseInt(idObjeto.toString());
+        if (selectedRow == -1) {
+            DialogErroTabela SelecioneLinha = new DialogErroTabela();
+            SelecioneLinha.setVisible(true);
+        }
 
-                            try {
-                                EmprestimoControle.confirmarDevolucao(id);
-                                atualizaInformativos();
-                                
-                                jTabbedDash.revalidate();
-                                jTabbedDash.repaint();
-                            } catch (ExceptionDAO ex) {
-                                erro.setVisible(true);
-                                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+        DialogConfirmado dialog = new DialogConfirmado();
+        DialogErroConfirmacao erro = new DialogErroConfirmacao();
+
+        dialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                boolean confirmado = dialog.isConfirmado();
+                if (confirmado) {
+                    Object idObjeto = tabelaAtiva.getValueAt(selectedRow, 0);
+                    int id = Integer.parseInt(idObjeto.toString());
+
+                    try {
+                        EmprestimoControle.confirmarDevolucao(id);
+                        carregaTabelaSelecionada();
+
+                        atualizarLabelQuantidadeDeEmprestimos();
+
+                        jTabbedDash.revalidate();
+                        jTabbedDash.repaint();
+                    } catch (ExceptionDAO ex) {
+                        erro.setVisible(true);
+                        Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                });
-                dialog.setVisible(true);
-            } else {
-                DialogErroTabela SelecioneLinha = new DialogErroTabela();
-                SelecioneLinha.setVisible(true);
+                }
             }
-        } 
+        });
+        dialog.setVisible(true);
     }//GEN-LAST:event_jBConfirmarActionPerformed
 
     public void carregaTabelaTodos() {
@@ -793,9 +788,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         amigos.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                // Quando a tela de ferramentas for fechada, reative a tela principal
+                // Quando a tela de amigos for fechada, atualiza o painel de amigos
                 setEnabled(true);
                 toFront();
+                try {
+                    atualizarLabelQuantidadeDeAmigos();
+                } catch (ExceptionDAO ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         ;
     });
@@ -818,13 +818,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         dialog.carregaFerramenta();
         dialog.carregaAmigo();
         dialog.setVisible(true);
-        
+
         dialog.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 try {
                     // Quando a dialog de emprestimos for fechada, atualiza as informações da tela principal
-                    atualizaInformativos();
+                    carregaTabelaSelecionada();
+                    atualizarLabelQuantidadeDeEmprestimos();
                 } catch (ExceptionDAO ex) {
                     Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -832,6 +833,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ;
     });
     }//GEN-LAST:event_jButton1ActionPerformed
+    private void carregaTabelaSelecionada() {
+        int selectedIndex = jTabbedDash.getSelectedIndex();
+        switch (selectedIndex) {
+            case 0 ->
+                carregaTabelaTodos();
+            case 1 ->
+                carregaTabelaEmDia();
+            case 2 ->
+                carregaTabelaAtrasados();
+            case 3 ->
+                carregaTabelaAtivos();
+        }
+    }
 
     /**
      * @param args the command line arguments
