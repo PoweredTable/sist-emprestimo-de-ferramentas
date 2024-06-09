@@ -47,6 +47,7 @@ public class DialogEmprestimo extends javax.swing.JDialog {
         this.modeloAmigo = new DefaultComboBoxModel<>();
         this.dateChooser = new JDateChooser();
         initComponents();
+        setLocationRelativeTo(parent);
     }
 
     public void carregaFerramenta() {

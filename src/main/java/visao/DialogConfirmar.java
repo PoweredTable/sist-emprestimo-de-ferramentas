@@ -1,30 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package visao;
 
 /**
  *
  * @author waldy
  */
-public class DialogConfirmarExclusao extends javax.swing.JDialog {
-    private boolean confirmarExclusao;
+public class DialogConfirmar extends javax.swing.JDialog {
+     private boolean confirmado = false;
+    
+     public boolean isConfirmado() {
+        return confirmado;
+    }
+     
+    public void setConfirmado(boolean confirmado) {
+        this.confirmado = confirmado;
+    }
+    
     /**
-     * Creates new form DialogConfirmarExclusao
+     * Creates new form DialogConfirmar
      */
-    public DialogConfirmarExclusao(java.awt.Frame parent, boolean modal) {
+    public DialogConfirmar(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+        
     }
 
-    public boolean getConfirmarExclusaoF() {
-        return confirmarExclusao;
-    }
-
-    public void setConfirmarExclusaoF(boolean confirmarExclusao) {
-        this.confirmarExclusao = confirmarExclusao;
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,45 +35,40 @@ public class DialogConfirmarExclusao extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabelTitleDialog3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabelTitleDialog4 = new javax.swing.JLabel();
-        jLabelTitleDialog5 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         jButtonCalcelar1 = new javax.swing.JButton();
-        jButtonExcluir1 = new javax.swing.JButton();
+        jButtonConfirmar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(64, 64, 64));
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setModal(true);
+        setMinimumSize(new java.awt.Dimension(500, 250));
         setPreferredSize(new java.awt.Dimension(500, 250));
-        setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(64, 64, 64));
+        jPanel2.setPreferredSize(new java.awt.Dimension(500, 250));
 
-        jLabelTitleDialog3.setBackground(new java.awt.Color(64, 64, 64));
-        jLabelTitleDialog3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabelTitleDialog3.setForeground(new java.awt.Color(255, 187, 0));
-        jLabelTitleDialog3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelTitleDialog3.setText("Você está prestes a efetuar uma exclusão!");
+        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(229, 164, 11));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Você está prestes a confirmar a devolução do item!");
 
         jLabelTitleDialog4.setBackground(new java.awt.Color(64, 64, 64));
         jLabelTitleDialog4.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabelTitleDialog4.setForeground(new java.awt.Color(255, 187, 0));
         jLabelTitleDialog4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitleDialog4.setText("Exclusão");
+        jLabelTitleDialog4.setText("Confirmar");
 
-        jLabelTitleDialog5.setBackground(new java.awt.Color(64, 64, 64));
-        jLabelTitleDialog5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabelTitleDialog5.setForeground(new java.awt.Color(255, 187, 0));
-        jLabelTitleDialog5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelTitleDialog5.setText("Tem certeza que deseja que deseja excluir esse item?");
-
-        jPanel4.setBackground(new java.awt.Color(64, 64, 64));
+        jPanel1.setBackground(new java.awt.Color(64, 64, 64));
 
         jPanel5.setBackground(new java.awt.Color(64, 64, 64));
         jPanel5.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
+
+        jPanel6.setBackground(new java.awt.Color(64, 64, 64));
+        jPanel6.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
 
         jButtonCalcelar1.setBackground(new java.awt.Color(156, 156, 156));
         jButtonCalcelar1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
@@ -84,53 +79,54 @@ public class DialogConfirmarExclusao extends javax.swing.JDialog {
                 jButtonCalcelar1ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonCalcelar1);
+        jPanel6.add(jButtonCalcelar1);
 
-        jButtonExcluir1.setBackground(new java.awt.Color(156, 156, 156));
-        jButtonExcluir1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jButtonExcluir1.setForeground(new java.awt.Color(64, 64, 64));
-        jButtonExcluir1.setText("Excluir");
-        jButtonExcluir1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonConfirmar.setBackground(new java.awt.Color(156, 156, 156));
+        jButtonConfirmar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jButtonConfirmar.setForeground(new java.awt.Color(64, 64, 64));
+        jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonExcluir1ActionPerformed(evt);
+                jButtonConfirmarActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonExcluir1);
+        jPanel6.add(jButtonConfirmar);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+        jPanel5.add(jPanel6);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(98, 98, 98)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(229, 164, 11));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Tem certeza que deseja devolver esse item?");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabelTitleDialog4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelTitleDialog4, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTitleDialog3)
-                    .addComponent(jLabelTitleDialog5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addGap(37, 37, 37))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,12 +134,12 @@ public class DialogConfirmarExclusao extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabelTitleDialog4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabelTitleDialog5)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelTitleDialog3)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,15 +158,15 @@ public class DialogConfirmarExclusao extends javax.swing.JDialog {
 
     private void jButtonCalcelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcelar1ActionPerformed
         // TODO add your handling code here:
-        setConfirmarExclusaoF(false);
+        setConfirmado(false);
         this.dispose();
     }//GEN-LAST:event_jButtonCalcelar1ActionPerformed
 
-    private void jButtonExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluir1ActionPerformed
+    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         // TODO add your handling code here:
-        setConfirmarExclusaoF(true);
+        setConfirmado(true);
         this.dispose();
-    }//GEN-LAST:event_jButtonExcluir1ActionPerformed
+    }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,20 +185,20 @@ public class DialogConfirmarExclusao extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogConfirmarExclusao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogConfirmar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogConfirmarExclusao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogConfirmar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogConfirmarExclusao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogConfirmar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogConfirmarExclusao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogConfirmar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogConfirmarExclusao dialog = new DialogConfirmarExclusao(new javax.swing.JFrame(), true);
+                DialogConfirmar dialog = new DialogConfirmar(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -216,12 +212,13 @@ public class DialogConfirmarExclusao extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCalcelar1;
-    private javax.swing.JButton jButtonExcluir1;
-    private javax.swing.JLabel jLabelTitleDialog3;
+    private javax.swing.JButton jButtonConfirmar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelTitleDialog4;
-    private javax.swing.JLabel jLabelTitleDialog5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
 }
