@@ -91,7 +91,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setBackground(java.awt.Color.white);
         setLocation(new java.awt.Point(0, 0));
         setMaximumSize(new java.awt.Dimension(1000, 800));
-        setMinimumSize(new java.awt.Dimension(1000, 800));
+        setMinimumSize(new java.awt.Dimension(1000, 900));
         setPreferredSize(new java.awt.Dimension(1280, 900));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
