@@ -8,11 +8,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.BorderFactory;
+import javax.swing.UIManager;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.awt.*;
 
+import visao.swingcomponents.PlaceholderTextField;
 import modelo.Amigo;
 import controle.AmigoControle;
 import dao.ExceptionDAO;
@@ -33,6 +37,7 @@ public class TelaAmigo extends javax.swing.JFrame {
     public TelaAmigo() {
         setLocationRelativeTo(null);
         initComponents();
+        initCustomComponents();
         this.dialog = new DialogAmigo(this, true);
         this.dialogEx = new DialogConfirmarExclusao(this, true);
 
@@ -73,7 +78,6 @@ public class TelaAmigo extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jTextFieldPesquisar = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jButtonPesquisar = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
@@ -114,16 +118,6 @@ public class TelaAmigo extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(64, 64, 64));
         jPanel3.setLayout(new java.awt.GridLayout(1, 2, 20, 0));
-
-        jTextFieldPesquisar.setBackground(new java.awt.Color(156, 156, 156));
-        jTextFieldPesquisar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextFieldPesquisar.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPesquisarActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jTextFieldPesquisar);
 
         jPanel4.setBackground(new java.awt.Color(64, 64, 64));
         jPanel4.setLayout(new java.awt.GridLayout(1, 0, 20, 0));
@@ -218,7 +212,7 @@ public class TelaAmigo extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(156, 156, 156));
 
-        jTable1Amigos.setBackground(new java.awt.Color(89, 89, 89));
+        jTable1Amigos.setBackground(new java.awt.Color(255, 255, 255));
         jTable1Amigos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -238,7 +232,8 @@ public class TelaAmigo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1Amigos.setSelectionForeground(new java.awt.Color(115, 115, 115));
+        jTable1Amigos.setSelectionBackground(new java.awt.Color(197, 131, 0));
+        jTable1Amigos.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jTable1Amigos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1AmigosMouseClicked(evt);
@@ -416,6 +411,23 @@ public class TelaAmigo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void initCustomComponents(){
+        jTextFieldPesquisar = new PlaceholderTextField("");
+        
+        jTextFieldPesquisar.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldPesquisar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldPesquisar.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPesquisarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jTextFieldPesquisar);
+        jTextFieldPesquisar.setPlaceholder("Pesquisar nome");
+        
+        
+    }
+    
     public void apresentaMaiorUtilizador() {
         try {
             Optional<Amigo> optionalAmigo = AmigoControle.buscarMaiorUtilizador();
@@ -424,6 +436,7 @@ public class TelaAmigo extends javax.swing.JFrame {
                 // Now you can use the amigo object
                 String nome = amigo.getNome();
                 jLabelMaiorUtiizador.setText(nome);
+                jLabelMaiorUtiizador.setToolTipText(nome);
             }
 
         } catch (Exception e) {
@@ -441,11 +454,10 @@ public class TelaAmigo extends javax.swing.JFrame {
         }
     }
 
-
-    private void jTextFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisarActionPerformed
+     private void jTextFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPesquisarActionPerformed
-
+    }   
+    
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         // TODO add your handling code here:
         //DialogAmigos dialog = new DialogAmigos(this, true);
@@ -649,6 +661,6 @@ public class TelaAmigo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1Amigos;
-    private javax.swing.JTextField jTextFieldPesquisar;
     // End of variables declaration//GEN-END:variables
+    private PlaceholderTextField jTextFieldPesquisar;
 }
