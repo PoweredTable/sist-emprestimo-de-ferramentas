@@ -549,6 +549,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 // Quando a tela de ferramentas for fechada, reative a tela principal
                 setEnabled(true);
                 toFront();
+                try {
+                    atualizaInformativos();
+                } catch (ExceptionDAO ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         ;
     });
