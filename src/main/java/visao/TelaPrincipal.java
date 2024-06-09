@@ -48,15 +48,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
     }
 
-    public void atualizaInformativos() throws ExceptionDAO {
-        carregaTabelaTodos();
-        carregaTabelaEmDia();
-        carregaTabelaAtrasados();
-        carregaTabelaAtivos();
-        atualizarLabelQuantidadeDeEmprestimos();
-        atualizarLabelQuantidadeDeFerramentas();
-        atualizarLabelQuantidadeDeAmigos();
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
