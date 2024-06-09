@@ -439,7 +439,7 @@ public class TelaAmigo extends javax.swing.JFrame {
                 jLabelMaiorUtiizador.setToolTipText(nome);
             }
 
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -449,7 +449,7 @@ public class TelaAmigo extends javax.swing.JFrame {
             String quantidade = String.valueOf(AmigoControle.quantidadeAmigos());
             jLabelQuantidadeAmigos.setText(quantidade);
 
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -529,11 +529,7 @@ public class TelaAmigo extends javax.swing.JFrame {
         if (jTextFieldPesquisar.getText().equals("")) {
             carregaTabelaAmigos();
         } else {
-            try {
-                carregaTabelaFiltrada();
-            } catch (Exception e) {
-
-            }
+            carregaTabelaFiltrada();
         }
 
     }//GEN-LAST:event_jButtonPesquisarActionPerformed

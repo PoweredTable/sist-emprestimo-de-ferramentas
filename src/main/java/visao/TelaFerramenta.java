@@ -443,7 +443,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
         try {
             String quantidadeFerramentas = String.valueOf(FerramentaControle.quantidadeFerramentas());
             jLabelQuantidadeFerramentas.setText(quantidadeFerramentas);
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -452,7 +452,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
         try {
             String precoTotal = String.valueOf(FerramentaControle.getCustoTotal());
             jLabelPrecoTotal.setText(precoTotal);
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -517,7 +517,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
             apresentaTotalFerramentas();
             apresentaPrecoTotal();
 
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
         dialogEx.setConfirmarExclusaoF(false);
@@ -569,11 +569,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
         if (jTextFieldPesquisar.getText().equals("")) {
             carregaTabelaFerramentas();
         } else {
-            try {
                 carregaTabelaFiltrada();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
         }
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
