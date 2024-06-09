@@ -1,3 +1,10 @@
+CREATE DATABASE IF NOT EXISTS sistema_de_emprestimo_de_ferramenta;
+USE sistema_de_emprestimo_de_ferramenta;
+
+drop table if exists ferramentas;
+drop table if exists amigos;
+drop table if exists emprestimos;
+
 CREATE TABLE ferramentas (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) not null,

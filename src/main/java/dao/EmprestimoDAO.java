@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ArrayList;
 
-import modelo.*;
+import modelo.Amigo;
+import modelo.Ferramenta;
+import modelo.Emprestimo;
 
 public class EmprestimoDAO implements DAO<Emprestimo> {
 

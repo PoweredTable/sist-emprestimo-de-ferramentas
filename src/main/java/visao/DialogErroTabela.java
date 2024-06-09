@@ -47,16 +47,16 @@ public class DialogErroTabela extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(71, 71, 71)
                 .addComponent(jLabel1)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel1)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

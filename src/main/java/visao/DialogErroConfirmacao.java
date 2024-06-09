@@ -33,7 +33,6 @@ public class DialogErroConfirmacao extends javax.swing.JFrame {
         setTitle("Erro de confirmação");
         setMaximumSize(new java.awt.Dimension(340, 100));
         setMinimumSize(new java.awt.Dimension(340, 100));
-        setPreferredSize(new java.awt.Dimension(340, 100));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(64, 64, 64));
@@ -51,16 +50,16 @@ public class DialogErroConfirmacao extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(4, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

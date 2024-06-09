@@ -47,12 +47,12 @@ public class DialogEmprestimo extends javax.swing.JDialog {
         this.modeloAmigo = new DefaultComboBoxModel<>();
         this.dateChooser = new JDateChooser();
         initComponents();
+        setLocationRelativeTo(parent);
     }
 
     public void carregaFerramenta() {
         try {
             ArrayList<Ferramenta> lista = FerramentaControle.buscarFerramentasDisponiveis();
-            System.out.println(lista);
             for (Ferramenta l : lista) {
                 CheckableModelItem<Ferramenta> checkable = new CheckableModelItem<>(l.getNome(), l);
                 modeloFerramenta.addElement(checkable);
@@ -65,7 +65,6 @@ public class DialogEmprestimo extends javax.swing.JDialog {
     public void carregaAmigo() {
         try {
             ArrayList<Amigo> lista = AmigoControle.buscarTudo();
-            System.out.println(lista);
             for (Amigo l : lista) {
                 ModelItem item = new ModelItem(l.getNome(), l);
                 modeloAmigo.addElement(item);
@@ -231,16 +230,17 @@ public class DialogEmprestimo extends javax.swing.JDialog {
         // TODO add your handling code here:
         ModelItem<Amigo> amigoModelItem = (ModelItem<Amigo>) modeloAmigo.getSelectedItem();
         Amigo amigo = amigoModelItem.getItem();
-        int resposta = JOptionPane.showConfirmDialog(null,"Amigo já possue um emprestimo ativo, deseja continuar");
         try {
-            if(AmigoControle.amigoPossuiEmprestimoAtivo(amigo) && resposta == JOptionPane.NO_OPTION){
-                return;
+            if(AmigoControle.amigoPossuiEmprestimoAtivo(amigo)){
+                int resposta = JOptionPane.showConfirmDialog(null,"Amigo já possui um emprestimo ativo, deseja continuar?", "Selecionar uma opção", JOptionPane.YES_NO_OPTION);
+                if(resposta == JOptionPane.NO_OPTION){
+                    return;
+                }
             }
-            AmigoControle.amigoPossuiEmprestimoAtivo(amigo);
         } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
+            return;
         }
-
 
         Date dataSelecionada = dateChooser.getDate();
         //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -256,7 +256,6 @@ public class DialogEmprestimo extends javax.swing.JDialog {
             // verifica se o item está selecionado
             if (item.isSelected()) {
                 Ferramenta ferramenta = item.getItem();
-                System.out.println(ferramenta.toString());
                 try {
                     EmprestimoControle.cadastrar(ferramenta.getId(),amigo.getId(),LocalDate.now(),localDate);
                     this.dispose();
@@ -266,12 +265,6 @@ public class DialogEmprestimo extends javax.swing.JDialog {
 
             }
         }
-
-
-        System.out.println(amigoModelItem.getItem());
-        System.out.println("Data selecionada: " + dataSelecionada);
-
-
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**

@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import modelo.Ferramenta;
 import controle.FerramentaControle;
 import dao.ExceptionDAO;
+import visao.swingcomponents.PlaceholderTextField;
 /**
  *
  * @author waldy
@@ -21,6 +22,7 @@ public class DialogFerramenta extends javax.swing.JDialog {
     public DialogFerramenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        initCustomComponents();
         setLocationRelativeTo(parent);
     }
     public void setTitleDialog(String texto){
@@ -76,9 +78,6 @@ public class DialogFerramenta extends javax.swing.JDialog {
         jLabelTitleDialog = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextFieldNome = new javax.swing.JTextField();
-        jTextFieldMarca = new javax.swing.JTextField();
-        jTextFieldPreco = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButtonCalcelar = new javax.swing.JButton();
         jButtonSalvar = new javax.swing.JButton();
@@ -103,25 +102,6 @@ public class DialogFerramenta extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(64, 64, 64));
         jPanel2.setLayout(new java.awt.GridLayout(3, 0, 0, 20));
-
-        jTextFieldNome.setBackground(new java.awt.Color(156, 156, 156));
-        jTextFieldNome.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextFieldNome.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldNome.setText("Nome");
-        jTextFieldNome.setToolTipText("");
-        jPanel2.add(jTextFieldNome);
-
-        jTextFieldMarca.setBackground(new java.awt.Color(156, 156, 156));
-        jTextFieldMarca.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextFieldMarca.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldMarca.setText("Marca");
-        jPanel2.add(jTextFieldMarca);
-
-        jTextFieldPreco.setBackground(new java.awt.Color(156, 156, 156));
-        jTextFieldPreco.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextFieldPreco.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldPreco.setText("Preço");
-        jPanel2.add(jTextFieldPreco);
 
         jPanel3.setBackground(new java.awt.Color(64, 64, 64));
         jPanel3.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
@@ -200,6 +180,31 @@ public class DialogFerramenta extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void initCustomComponents(){
+        jTextFieldNome = new PlaceholderTextField("");
+        jTextFieldMarca = new PlaceholderTextField("");
+        jTextFieldPreco = new PlaceholderTextField("");
+        
+        
+        jTextFieldNome.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldNome.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldNome.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldNome.setPlaceholder("Nome");
+        jPanel2.add(jTextFieldNome);
+
+        jTextFieldMarca.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldMarca.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldMarca.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldMarca.setPlaceholder("Marca");
+        jPanel2.add(jTextFieldMarca);
+
+        jTextFieldPreco.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldPreco.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldPreco.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldPreco.setPlaceholder("Preço");
+        jPanel2.add(jTextFieldPreco);
+    }
+    
     private void jButtonCalcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -226,7 +231,7 @@ public class DialogFerramenta extends javax.swing.JDialog {
             Double preco = Double.parseDouble(getPreco());
 
             FerramentaControle.cadastrar(nome, marca, preco);
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -240,7 +245,7 @@ public class DialogFerramenta extends javax.swing.JDialog {
             Ferramenta ferramenta = new Ferramenta(id, nome, marca, preco);
             FerramentaControle.alterar(ferramenta);
 
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -297,8 +302,8 @@ public class DialogFerramenta extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextFieldMarca;
-    private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldPreco;
     // End of variables declaration//GEN-END:variables
+    private PlaceholderTextField jTextFieldMarca;
+    private PlaceholderTextField jTextFieldNome;
+    private PlaceholderTextField jTextFieldPreco;
 }
