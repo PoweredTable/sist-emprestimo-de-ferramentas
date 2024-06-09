@@ -6,11 +6,12 @@ import modelo.Ferramenta;
 import controle.FerramentaControle;
 import dao.ExceptionDAO;
 
+/**
+ * Abre um modal de cadastro e edição de ferramentas.
+ */
 public class DialogFerramenta extends javax.swing.JDialog {
     private int id;
-    /**
-     * Cria um formulário de cadastro de ferramenta.
-     */
+
     public DialogFerramenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
