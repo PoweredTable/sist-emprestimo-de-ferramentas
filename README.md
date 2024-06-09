@@ -37,9 +37,13 @@ possuir o `Java 21` corretamente instalado.
 
 [Protótipos de tela](https://www.figma.com/design/AI7epj53DU4Sbz531tFbTA/Designing-Computing-Solutions?node-id=53-2&t=yIa2fJmS73qgp6hi-0)
 
-## Equipe do projeto
+## Integrantes
+[Lucas da Silveira](https://github.com/PoweredTable)
 
-<a href="https://github.com/PoweredTable/sist-emprestimo-de-ferramentas/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=PoweredTable/sist-emprestimo-de-ferramentas"/>
-</a>
+[Caetano Dartora Roque](https://github.com/caetanoRoque)
 
+[Waldyr Rodrigues da Costa](https://github.com/WRbosss)
+
+[Andrey Nazario](https://github.com/andreynaza)
+
+[Lucas Edson Laureno Peixer](https://github.com/LucasPeixer)
