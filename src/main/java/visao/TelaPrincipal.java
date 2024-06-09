@@ -804,11 +804,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (jTabbedDash.getSelectedIndex() == 0) { // Se "Todos" é a primeira guia
             // Desabilite o botão "Confirmar" quando a guia "Todos" estiver ativa
             jBConfirmar.setEnabled(false);
-            jBExcluir.setEnabled(false);
         } else {
             // Caso contrário, habilite o botão "Confirmar"
             jBConfirmar.setEnabled(true);
-            jBExcluir.setEnabled(true);
         }
     }//GEN-LAST:event_statusMudança
 
