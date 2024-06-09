@@ -107,6 +107,11 @@ public class TelaAmigo extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(64, 64, 64));
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
+        UIManager.put("ToolTip.background", new Color(0x565656)); // c8
+        UIManager.put("ToolTip.foreground", new Color(0xFFBB00)); // p1
+        UIManager.put("ToolTip.font", new Font("Arial Black", Font.BOLD, 14));
+        UIManager.put("ToolTip.border", BorderFactory.createLineBorder(new Color(0x565656), 2));
+
         jLabel1.setBackground(new java.awt.Color(46, 46, 46));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 187, 0));
