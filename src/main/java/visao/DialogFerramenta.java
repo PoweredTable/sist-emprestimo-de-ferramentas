@@ -231,7 +231,7 @@ public class DialogFerramenta extends javax.swing.JDialog {
             Double preco = Double.parseDouble(getPreco());
 
             FerramentaControle.cadastrar(nome, marca, preco);
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -245,7 +245,7 @@ public class DialogFerramenta extends javax.swing.JDialog {
             Ferramenta ferramenta = new Ferramenta(id, nome, marca, preco);
             FerramentaControle.alterar(ferramenta);
 
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }

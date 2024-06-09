@@ -246,7 +246,7 @@ public class DialogAmigo extends javax.swing.JDialog {
             String telefone = getTelefone();
 
             AmigoControle.cadastrar(nome, apelido, telefone);
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -260,7 +260,7 @@ public class DialogAmigo extends javax.swing.JDialog {
             Amigo amigo = new Amigo(id, nome, apelido, telefone);
             AmigoControle.alterar(amigo);
 
-        } catch (Exception e) {
+        } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
