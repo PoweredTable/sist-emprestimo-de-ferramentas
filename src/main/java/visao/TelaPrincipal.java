@@ -560,6 +560,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (selectedRow == -1) {
             DialogErroTabela SelecioneLinha = new DialogErroTabela();
             SelecioneLinha.setVisible(true);
+            return;
         }
 
         DialogExclucao dialog = new DialogExclucao();
@@ -603,6 +604,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (selectedRow == -1) {
             DialogErroTabela SelecioneLinha = new DialogErroTabela();
             SelecioneLinha.setVisible(true);
+            return;
         }
 
         DialogConfirmado dialog = new DialogConfirmado();
