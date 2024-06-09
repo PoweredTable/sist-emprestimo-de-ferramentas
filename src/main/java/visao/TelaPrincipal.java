@@ -814,6 +814,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         dialog.carregaFerramenta();
         dialog.carregaAmigo();
         dialog.setVisible(true);
+        
+        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                try {
+                    // Quando a dialog de emprestimos for fechada, atualiza as informações da tela principal
+                    atualizaInformativos();
+                } catch (ExceptionDAO ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        ;
+    });
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
