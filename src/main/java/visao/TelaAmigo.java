@@ -523,10 +523,6 @@ public class TelaAmigo extends javax.swing.JFrame {
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
         dialogEx.setVisible(true);
-        excluirAmigo();
-        carregaTabelaAmigos();
-        apresentaMaiorUtilizador();
-        apresentaQuantidadeAmigos();
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
