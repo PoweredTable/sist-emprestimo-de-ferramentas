@@ -91,7 +91,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setBackground(java.awt.Color.white);
         setLocation(new java.awt.Point(0, 0));
         setMaximumSize(new java.awt.Dimension(1000, 800));
-        setMinimumSize(new java.awt.Dimension(1000, 800));
+        setMinimumSize(new java.awt.Dimension(1280, 900));
         setPreferredSize(new java.awt.Dimension(1280, 900));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
@@ -132,7 +132,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(46, 46, 46));
         jButton1.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(229, 164, 11));
-        jButton1.setText("<html><center>"+"Adicionar"+"<br>"+"empréstimo"+"</center></html>");
+        jButton1.setText("Add Empréstimos");
         jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 115), 2, true));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,7 +362,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(229, 164, 11));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("N° Empréstimos");
+        jLabel1.setText("N° Emprestimos");
 
         javax.swing.GroupLayout jPEmprestimosLayout = new javax.swing.GroupLayout(jPEmprestimos);
         jPEmprestimos.setLayout(jPEmprestimosLayout);
