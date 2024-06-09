@@ -90,7 +90,59 @@ public class EmprestimoControle {
         excluir(emprestimo.getId());
     }
 
-    // Métodos para buscar empréstimos ativos, em dia, atrasados e confirmar devolução foram mantidos conforme o original...
+    /**
+     * Busca todos os empréstimos ativos.
+     */
+    public static ArrayList<Emprestimo> buscarAtivos() throws ExceptionDAO {
+        return Emprestimo.buscarAtivos();
+    }
+
+    /**
+     * Busca todos os empréstimos em dia.
+     */
+    public static ArrayList<Emprestimo> buscarEmDia() throws ExceptionDAO {
+        return Emprestimo.buscarEmDia();
+    }
+
+    /**
+     * Busca todos os empréstimos atrasados.
+     */
+    public static ArrayList<Emprestimo> buscarAtrasados() throws ExceptionDAO {
+        return Emprestimo.buscarAtrasados();
+    }
+
+    /**
+     * Confirma a devolução de um empréstimo na data fornecida.
+     */
+    public static void confirmarDevolucao(Integer id, LocalDate date) throws ExceptionDAO {
+        Objects.requireNonNull(id, erroMsgIdNulo);
+        Objects.requireNonNull(date, "A data de devolução não pode ser nula!");
+
+        Optional<Emprestimo> emprestimoOptional = buscar(id);
+        if (emprestimoOptional.isEmpty()) {
+            throw new ExceptionDAO("O empréstimo de Id '" + id + "' não foi encontrado!");
+        }
+        Emprestimo emprestimo = emprestimoOptional.get();
+        if (emprestimo.getDataDevolucao() != null) {
+            throw new ExceptionDAO("Não é possível confirmar a devolução de um empréstimo já devolvido!");
+        }
+        emprestimo.setDataDevolucao(date);
+        Emprestimo.alterar(emprestimo);
+    }
+
+    /**
+     * Confirma a devolução de um empréstimo na data atual.
+     */
+    public static void confirmarDevolucao(Integer id) throws ExceptionDAO {
+        confirmarDevolucao(id, LocalDate.now());
+    }
+
+    /**
+     * Confirma a devolução de um empréstimo.
+     */
+    public static void confirmarDevolucao(Emprestimo emprestimo) throws ExceptionDAO {
+        confirmarDevolucao(emprestimo.getId(), emprestimo.getDataDevolucao());
+    }
 
     /**
      * Obtém a quantidade total de empréstimos cadastrados.
