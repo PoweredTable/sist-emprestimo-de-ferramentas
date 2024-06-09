@@ -564,11 +564,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             int id = Integer.parseInt(idObjeto.toString());
                             try {
                                 EmprestimoControle.excluir(id);
-                                carregaTabelaTodos();
-                                carregaTabelaEmDia();
-                                carregaTabelaAtrasados();
-                                carregaTabelaAtivos();
-                                atualizarLabelQuantidadeDeEmprestimos();
+                                atualizaInformativos();
                                 
                                 jTabbedDash.revalidate();
                                 jTabbedDash.repaint();
@@ -605,6 +601,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTabbedDashStateChanged
 
+    private void atualizaInformativos() throws ExceptionDAO{
+         carregaTabelaTodos();
+         carregaTabelaEmDia();
+         carregaTabelaAtrasados();
+         carregaTabelaAtivos();
+         atualizarLabelQuantidadeDeEmprestimos();
+    }
     private void jBConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConfirmarActionPerformed
         if (tabelaAtiva != null) {
             int selectedRow = tabelaAtiva.getSelectedRow();
@@ -622,12 +625,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
                             try {
                                 EmprestimoControle.confirmarDevolucao(id);
-                                
-                                carregaTabelaTodos();
-                                carregaTabelaEmDia();
-                                carregaTabelaAtrasados();
-                                carregaTabelaAtivos();
-                                atualizarLabelQuantidadeDeEmprestimos();
+                                atualizaInformativos();
                                 
                                 jTabbedDash.revalidate();
                                 jTabbedDash.repaint();
