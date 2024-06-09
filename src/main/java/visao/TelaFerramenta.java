@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import modelo.Ferramenta;
 import controle.FerramentaControle;
 import dao.ExceptionDAO;
+import visao.swingcomponents.PlaceholderTextField;
 
 
 /**
@@ -33,6 +34,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
         this.dialog = new DialogFerramenta(this, true);
         this.dialogEx = new DialogConfirmarExclusao(this, true);
         initComponents();
+        initCustomComponents();
 
         //Espera a dialog fechar para atualizar a tabela de ferramentas
         dialog.addWindowListener(new WindowAdapter() {
@@ -68,7 +70,6 @@ public class TelaFerramenta extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jTextFieldPesquisar = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jButtonPesquisar = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
@@ -110,16 +111,6 @@ public class TelaFerramenta extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(64, 64, 64));
         jPanel3.setLayout(new java.awt.GridLayout(1, 2, 20, 0));
-
-        jTextFieldPesquisar.setBackground(new java.awt.Color(156, 156, 156));
-        jTextFieldPesquisar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jTextFieldPesquisar.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPesquisarActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jTextFieldPesquisar);
 
         jPanel4.setBackground(new java.awt.Color(64, 64, 64));
         jPanel4.setLayout(new java.awt.GridLayout(1, 0, 20, 0));
@@ -411,10 +402,25 @@ public class TelaFerramenta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisarActionPerformed
+    public void initCustomComponents(){
+        jTextFieldPesquisar = new PlaceholderTextField("");;
+        
+        jTextFieldPesquisar.setBackground(new java.awt.Color(156, 156, 156));
+        jTextFieldPesquisar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jTextFieldPesquisar.setForeground(new java.awt.Color(64, 64, 64));
+        jTextFieldPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPesquisarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jTextFieldPesquisar);
+        jTextFieldPesquisar.setPlaceholder("Pesquisar nome");
+    }    
+    
+     private void jTextFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPesquisarActionPerformed
-
+    }         
+    
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         // TODO add your handling code here:
         dialog.setTitleDialog("Cadastro");
@@ -632,6 +638,6 @@ public class TelaFerramenta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableFerramentas;
-    private javax.swing.JTextField jTextFieldPesquisar;
     // End of variables declaration//GEN-END:variables
+    private PlaceholderTextField jTextFieldPesquisar;
 }
