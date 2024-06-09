@@ -413,7 +413,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jTextFieldPesquisar);
-        jTextFieldPesquisar.setPlaceholder("Pesquisar Nome");
+        jTextFieldPesquisar.setPlaceholder("Pesquisar nome");
     }    
     
      private void jTextFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                    

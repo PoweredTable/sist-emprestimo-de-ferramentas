@@ -37,7 +37,7 @@ public class TelaAmigo extends javax.swing.JFrame {
     public TelaAmigo() {
         setLocationRelativeTo(null);
         initComponents();
-        initCustomComponent();
+        initCustomComponents();
         this.dialog = new DialogAmigo(this, true);
         this.dialogEx = new DialogConfirmarExclusao(this, true);
 
@@ -410,7 +410,7 @@ public class TelaAmigo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void initCustomComponent(){
+    public void initCustomComponents(){
         jTextFieldPesquisar = new PlaceholderTextField("");
         
         jTextFieldPesquisar.setBackground(new java.awt.Color(156, 156, 156));
@@ -422,7 +422,7 @@ public class TelaAmigo extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jTextFieldPesquisar);
-        jTextFieldPesquisar.setPlaceholder("Pesquisar Nome");
+        jTextFieldPesquisar.setPlaceholder("Pesquisar nome");
         
         
     }
