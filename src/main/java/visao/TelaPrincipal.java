@@ -553,12 +553,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (tabelaAtiva != null) {
             int selectedRow = tabelaAtiva.getSelectedRow();
             if (selectedRow != -1) {
-                DialogExclucao dialog = new DialogExclucao();
+                DialogConfirmarExclusao dialog = new DialogConfirmarExclusao(this, true);
                 DialogErroConfirmacao erro = new DialogErroConfirmacao();
                 dialog.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosed(WindowEvent e) {
-                        boolean exclusao = dialog.Exclusao();
+                        boolean exclusao = dialog.getConfirmarExclusaoF();
                         if (exclusao) {
                             Object idObjeto = tabelaAtiva.getValueAt(selectedRow, 0);
                             int id = Integer.parseInt(idObjeto.toString());
@@ -602,7 +602,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (tabelaAtiva != null) {
             int selectedRow = tabelaAtiva.getSelectedRow();
             if (selectedRow != -1) {
-                DialogConfirmado dialog = new DialogConfirmado();
+                DialogConfirmar dialog = new DialogConfirmar(this, true);
                 DialogErroConfirmacao erro = new DialogErroConfirmacao();
 
                 dialog.addWindowListener(new WindowAdapter() {
