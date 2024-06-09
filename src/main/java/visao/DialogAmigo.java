@@ -199,22 +199,18 @@ public class DialogAmigo extends javax.swing.JDialog {
         jTextFieldNome.setBackground(new java.awt.Color(156, 156, 156));
         jTextFieldNome.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextFieldNome.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldNome.setText("Nome");
-        jTextFieldNome.setToolTipText("");
         jTextFieldNome.setPlaceholder("Nome");
         jPanel2.add(jTextFieldNome);
         
         jTextFieldApelido.setBackground(new java.awt.Color(156, 156, 156));
         jTextFieldApelido.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextFieldApelido.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldApelido.setText("Apelido");
         jTextFieldApelido.setPlaceholder("Apelido");
         jPanel2.add(jTextFieldApelido);
         
         jTextFieldTelefone.setBackground(new java.awt.Color(156, 156, 156));
         jTextFieldTelefone.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextFieldTelefone.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldTelefone.setText("Telefone");
         jTextFieldTelefone.setPlaceholder("Telefone");
         jPanel2.add(jTextFieldTelefone);
         

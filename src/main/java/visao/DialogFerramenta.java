@@ -189,21 +189,18 @@ public class DialogFerramenta extends javax.swing.JDialog {
         jTextFieldNome.setBackground(new java.awt.Color(156, 156, 156));
         jTextFieldNome.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextFieldNome.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldNome.setText("Nome");
         jTextFieldNome.setPlaceholder("Nome");
         jPanel2.add(jTextFieldNome);
 
         jTextFieldMarca.setBackground(new java.awt.Color(156, 156, 156));
         jTextFieldMarca.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextFieldMarca.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldMarca.setText("Marca");
         jTextFieldMarca.setPlaceholder("Marca");
         jPanel2.add(jTextFieldMarca);
 
         jTextFieldPreco.setBackground(new java.awt.Color(156, 156, 156));
         jTextFieldPreco.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextFieldPreco.setForeground(new java.awt.Color(64, 64, 64));
-        jTextFieldPreco.setText("Preço");
         jTextFieldPreco.setPlaceholder("Preço");
         jPanel2.add(jTextFieldPreco);
     }
