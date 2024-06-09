@@ -31,9 +31,6 @@ public class AmigoControle {
         if (!TextUtil.isValidText(amigo.getNome())) {
             throw new ExceptionDAO("Nome do amigo inválido!");
         }
-        if (!TextUtil.isValidText(amigo.getApelido())) {
-            throw new ExceptionDAO("Apelido do amigo inválido!");
-        }
         if (!TextUtil.isValidText(amigo.getTelefone())) {
             throw new ExceptionDAO("Telefone do amigo inválido!");
         }
