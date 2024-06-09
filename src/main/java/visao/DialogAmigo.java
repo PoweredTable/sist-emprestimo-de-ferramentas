@@ -247,7 +247,7 @@ public class DialogAmigo extends javax.swing.JDialog {
 
             AmigoControle.cadastrar(nome, apelido, telefone);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Deu Ruim");
+            JOptionPane.showMessageDialog(null, e);
         }
     }
 
