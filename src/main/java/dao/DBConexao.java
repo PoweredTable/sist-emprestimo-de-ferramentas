@@ -5,30 +5,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConexao {
+    private final String URL = "jdbc:mysql://localhost:3306/sistema_de_emprestimo_de_ferramenta";
+    private final String USUARIO = "root";
+    private final String SENHA = "Senha1234.";
 
-    private static final String URL = System.getenv("URL");
-    private static final String USER = System.getenv("USER");
-    private static final String PASSWORD = System.getenv("PASSWORD");
+    public Connection getConexao() {
 
-    public DBConexao() {
+        Connection conn = null;
+
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    public Connection getConexao() throws SQLException {
-        if (URL == null || USER == null || PASSWORD == null) {
-            throw new SQLException("Configurações de conexão com o banco de dados indefinidas!");
-        }
-        Connection conn;
 
         try {
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            conn = DriverManager.getConnection(URL, USUARIO, SENHA);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw e;
         }
 
         return conn;

@@ -95,7 +95,7 @@ public class FerramentaDAO implements DAO<Ferramenta> {
             return pStatement.executeUpdate();
 
         } catch (SQLException e) {
-            if (e.getSQLState().equals("23503")) {
+            if (e.getSQLState().equals("23503")|| e.getSQLState().equals("23000")) {
                 throw new ExceptionDAO("Não é possível deletar ferramenta pois ela " +
                         "possui registros de empréstimo.");
             }
