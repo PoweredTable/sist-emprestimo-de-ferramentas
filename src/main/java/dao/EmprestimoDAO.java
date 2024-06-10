@@ -8,15 +8,26 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ArrayList;
 
-import modelo.*;
+import modelo.Amigo;
+import modelo.Ferramenta;
+import modelo.Emprestimo;
 
+/**
+ * Classe EmprestimoDAO
+ */
 public class EmprestimoDAO implements DAO<Emprestimo> {
 
     private static EmprestimoDAO instance;
 
+    /**
+     * Construtor privado para EmprestimoDAO.
+     */
     private EmprestimoDAO() {
     }
 
+    /**
+     * Retorna a instância singleton de EmprestimoDAO.
+     */
     public static EmprestimoDAO getInstance() {
         if (instance == null) {
             instance = new EmprestimoDAO();
@@ -35,6 +46,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         // testarExcluir();
     }
 
+    /**
+     * Busca um empréstimo pelo ID.
+     */
     public Optional<Emprestimo> buscar(Integer id) throws ExceptionDAO {
         String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, " +
                      "f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone " +
@@ -83,7 +97,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
     
-
+    /**
+     * Busca uma lista de empréstimos baseada em uma consulta SQL.
+     */
     private ArrayList<Emprestimo> buscarEmprestimos(String sql) throws ExceptionDAO {
         ArrayList<Emprestimo> emprestimos = new ArrayList<>();
 
@@ -127,6 +143,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         return emprestimos;
     }
 
+    /**
+     * Busca todos os empréstimos.
+     */
     public ArrayList<Emprestimo> buscarTudo() throws ExceptionDAO {
         String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone " +
                 "FROM emprestimos e " +
@@ -136,6 +155,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         return buscarEmprestimos(sql);
     }
 
+    /**
+     * Busca todos os empréstimos ativos.
+     */
     public ArrayList<Emprestimo> buscarAtivos() throws ExceptionDAO {
         String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone  " +
                 "FROM emprestimos e " +
@@ -145,6 +167,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         return buscarEmprestimos(sql);
     }
 
+    /**
+     * Busca todos os empréstimos em dia
+     */
     public ArrayList<Emprestimo> buscarEmDia() throws ExceptionDAO {
         String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone  " +
                 "FROM emprestimos e " +
@@ -155,6 +180,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         return buscarEmprestimos(sql);
     }
 
+    /**
+     * Busca todos os empréstimos atrasados.
+     */
     public ArrayList<Emprestimo> buscarAtrasados() throws ExceptionDAO {
         String sql = "SELECT e.id, e.id_ferramenta, e.id_amigo, e.data_inicial, e.data_prazo, e.data_devolucao, f.nome AS nome_ferramenta, f.marca, f.custo, a.nome AS nome_amigo, a.apelido, a.telefone  " +
                 "FROM emprestimos e " +
@@ -165,6 +193,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         return buscarEmprestimos(sql);
     }
 
+    /**
+     * Cadastra um novo empréstimo.
+     */
     public void cadastrar(Emprestimo emprestimo) throws ExceptionDAO {
         String sql = "INSERT INTO emprestimos (id_ferramenta, id_amigo, data_inicial, data_prazo) VALUES (?, ?, ?, ?);";
 
@@ -182,6 +213,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
 
+    /**
+     * Altera um empréstimo existente.
+     */
     public int alterar(Emprestimo emprestimo) throws ExceptionDAO {
         String sql = "UPDATE emprestimos SET data_devolucao=? WHERE id = ?;";
 
@@ -197,6 +231,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
 
+    /**
+     * Exclui um empréstimo pelo ID.
+     */
     public int excluir(Integer id) throws ExceptionDAO {
         String sql = "DELETE FROM emprestimos WHERE id = ?";
 
@@ -211,14 +248,23 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
 
+    /**
+     * Converte um LocalDate para java.sql.Date
+     */
     private java.sql.Date toSqlDate(LocalDate date) {
         return java.sql.Date.valueOf(date);
     }
 
+    /**
+     * Converte um java.sql.Date para LocalDate
+     */
     private LocalDate toLocalDate(java.sql.Date date) {
         return date != null ? date.toLocalDate() : null;
     }
 
+    /**
+     * Método de teste para buscar um empréstimo
+     */
     public static void testarBuscar() {
         try {
             EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
@@ -233,6 +279,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
 
+    /**
+     * Método de teste para buscar todos os empréstimos
+     */
     public static void testarBuscarTudo() {
         try {
             EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
@@ -250,6 +299,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
 
+    /**
+     * Método de teste para cadastrar um novo empréstimo
+     */
     public static void testarCadastrar() {
         try {
             EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
@@ -268,6 +320,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
 
+    /**
+     * Método de teste para alterar um empréstimo
+     */
     public static void testarAlterar() {
         try {
             EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
@@ -284,6 +339,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
 
+    /**
+     * Método de teste para excluir um empréstimo
+     */
     public static void testarExcluir() {
         try {
             EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
@@ -295,6 +353,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
 
+    /**
+     * Método de teste para buscar empréstimos vencidos
+     */
     public static void testarBuscarVencidos() {
         try {
             EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
@@ -312,6 +373,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
 
+    /**
+     * Método de teste para buscar empréstimos em dia
+     */
     public static void testarBuscarEmDia() {
         try {
             EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
@@ -329,6 +393,9 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
         }
     }
 
+    /**
+     * Consulta a quantidade total de empréstimos.
+     */
     public int quantidadeEmprestimos() throws ExceptionDAO {
         String sql = "SELECT COUNT(id) FROM emprestimos;";
         int quantidade = 0;
