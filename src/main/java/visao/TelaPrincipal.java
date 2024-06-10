@@ -90,6 +90,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setTitle("Relatório de Empréstimos");
         setBackground(java.awt.Color.white);
         setLocation(new java.awt.Point(0, 0));
+        setMinimumSize(new java.awt.Dimension(1000, 800));
         setMaximumSize(new java.awt.Dimension(1000, 800));
         setMinimumSize(new java.awt.Dimension(1000, 900));
         setPreferredSize(new java.awt.Dimension(1280, 900));
@@ -179,17 +180,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTableTodos.setBackground(new java.awt.Color(255, 255, 255));
         jTableTodos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Data Empréstimo", "Data Prazo", "Nome", "Ferramenta"
+                "ID", "Data Empréstimo", "Data Prazo", "Nome", "Ferramenta", "Devolução"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -663,7 +664,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     f.getDataPrazoFormatada(),
                     f.getAmigo().getNome(),
                     f.getFerramenta().getNome(),
-                    f.getDataDevolucao()
+                    f.getDataDevolucaoFormatada()
                 });
             }
         } catch (ExceptionDAO e) {
