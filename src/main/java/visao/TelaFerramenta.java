@@ -1,8 +1,9 @@
 package visao;
 
+import java.awt.*;
 import java.util.Collections;
 import java.util.Comparator;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -99,6 +100,11 @@ public class TelaFerramenta extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(64, 64, 64));
         jPanel3.setLayout(new java.awt.GridLayout(1, 2, 20, 0));
+
+        UIManager.put("ToolTip.background", new Color(0x565656)); // c8
+        UIManager.put("ToolTip.foreground", new Color(0xFFBB00)); // p1
+        UIManager.put("ToolTip.font", new Font("Arial Black", Font.BOLD, 14));
+        UIManager.put("ToolTip.border", BorderFactory.createLineBorder(new Color(0x565656), 2));
 
         jPanel4.setBackground(new java.awt.Color(64, 64, 64));
         jPanel4.setLayout(new java.awt.GridLayout(1, 0, 20, 0));
@@ -438,6 +444,7 @@ public class TelaFerramenta extends javax.swing.JFrame {
         try {
             String precoTotal = String.valueOf(FerramentaControle.getCustoTotal());
             jLabelPrecoTotal.setText(precoTotal);
+            jLabelPrecoTotal.setToolTipText(precoTotal);
         } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(null, e);
         }
